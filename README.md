@@ -22,12 +22,15 @@ administra o ambiente.
 
 ## Como sincronizar com a produção
 
-Este repositório **não é atualizado automaticamente** a cada mudança em produção —
-de propósito, para o ambiente de treino não mudar no meio de uma turma. Para atualizar
-manualmente, copie os arquivos do repositório principal (`unialfa-gestao-projetos`)
-para cá, mantendo o mecanismo de troca de backend por hostname (`IS_TREINO =
-location.href.indexOf('treino')>-1`) intacto — ele já está em cada um dos arquivos
-HTML e não precisa de nenhuma edição manual para continuar funcionando aqui.
+Este repositório é atualizado manualmente (não há workflow automático replicando
+commits de `unialfa-gestao-projetos` para cá) — mas, por regra do projeto, deve ser
+mantido em dia: sempre que um arquivo do site de produção muda, o mesmo arquivo é
+copiado para cá no mesmo commit (ou logo em seguida), para o ambiente de treino
+continuar refletindo a mesma versão do sistema. Basta copiar os arquivos alterados
+do repositório principal (`unialfa-gestao-projetos`) para cá, mantendo o mecanismo
+de troca de backend por hostname (`IS_TREINO = location.href.indexOf('treino')>-1`)
+intacto — ele já está em cada um dos arquivos HTML e não precisa de nenhuma edição
+manual para continuar funcionando aqui.
 
 Não copie o arquivo `CNAME` do repositório principal — este repositório usa o
 endereço padrão do GitHub Pages, sem domínio próprio.
