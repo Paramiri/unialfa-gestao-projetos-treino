@@ -1,0 +1,1184 @@
+<!-- Relatório de Entregas e Benefícios — FORALF12 / UNIALFA -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#B91D2E;--red-deep:#8E1322;--red-light:#FEF2F2;
+  --ink:#0F0F0F;--muted:#6B7280;--muted-2:#9CA3AF;
+  --paper:#FFFFFF;--surface:#F8F8F9;--surface-2:#F1F2F4;
+  --line:#E5E7EB;--line-strong:#D1D5DB;
+  --ok:#059669;--ok-soft:#D1FAE5;
+  --warn:#D97706;--warn-soft:#FEF3C7;
+  --bad:#DC2626;--bad-soft:#FEE2E2;
+  --blue:#2563EB;--blue-soft:#DBEAFE;
+  --radius:10px;--shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.06);
+  --font:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased;line-height:1.5;font-size:14px}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 72px}
+
+/* header */
+.page-head{background:var(--ink);color:#fff;border-radius:14px;padding:28px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:24px}
+.head-logo{font-weight:900;font-size:24px;letter-spacing:.04em;border-right:2px solid rgba(255,255,255,.2);padding-right:22px;flex:none}
+.head-logo small{display:block;font-weight:600;font-size:9.5px;letter-spacing:.22em;opacity:.6;margin-top:4px}
+.head-title{flex:1}
+.head-title h1{font-size:19px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;line-height:1.2}
+.head-title p{font-size:11.5px;font-weight:500;opacity:.6;margin-top:4px}
+.head-badge{background:var(--red);color:#fff;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;letter-spacing:.04em;white-space:nowrap;flex:none}
+
+/* view tabs */
+.view-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.vtab{appearance:none;border:1px solid var(--line);background:var(--paper);color:var(--muted);font-family:var(--font);font-weight:700;font-size:12px;padding:9px 16px;border-radius:999px;cursor:pointer;transition:all .15s}
+.vtab:hover{border-color:var(--line-strong);color:var(--ink)}
+.vtab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* section title */
+.sec-title{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:24px 0 12px;display:flex;align-items:center;gap:10px}
+.sec-title::after{content:'';flex:1;height:1px;background:var(--line)}
+
+/* ficha cards — painel */
+.ficha-prog{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px}
+.denied{padding:48px 24px;text-align:center}
+.denied h2{font-size:16px;margin:0 0 8px}
+.denied p{color:var(--muted);font-size:13px;margin:0}
+.ficha-prog-head{background:var(--ink);color:#fff;padding:20px 24px;display:flex;align-items:flex-start;gap:16px}
+.ficha-prog-head .left{flex:1}
+.ficha-prog-head h2{font-size:17px;font-weight:900;letter-spacing:.03em;line-height:1.2}
+.ficha-prog-head .sub{font-size:11px;opacity:.6;margin-top:4px;font-weight:500}
+.ficha-prog-head .code{background:var(--red);border-radius:6px;padding:6px 12px;font-size:11px;font-weight:800;letter-spacing:.06em;white-space:nowrap;flex:none;align-self:flex-start}
+.ficha-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.ficha-cell{padding:16px 20px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.ficha-cell:nth-child(2n){border-right:none}
+.ficha-cell.full{grid-column:1/-1;border-right:none}
+.ficha-cell:last-child,.ficha-cell:nth-last-child(2):not(.full){border-bottom:none}
+.ficha-label{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ficha-value{font-size:13px;font-weight:500;color:var(--ink);white-space:pre-wrap;word-break:break-word;line-height:1.55}
+.ficha-value.strong{font-weight:700}
+
+/* tabelas de fichas */
+.mini-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:4px}
+.mini-table th{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:7px 10px;background:var(--surface-2);border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.mini-table td{padding:8px 10px;border-bottom:1px solid var(--surface-2);vertical-align:top}
+.mini-table tbody tr:last-child td{border-bottom:none}
+.mini-table .num{text-align:right;font-weight:700}
+
+/* projeto fichas */
+.ficha-proj{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.ficha-proj-head{background:var(--red);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px}
+.ficha-proj-head h3{font-size:14px;font-weight:800;flex:1;line-height:1.3}
+.ficha-proj-head .code{background:rgba(0,0,0,.2);border-radius:5px;padding:4px 10px;font-size:10px;font-weight:800;letter-spacing:.06em;white-space:nowrap}
+.ficha-proj-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.proj-cell{padding:14px 18px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.proj-cell:nth-child(2n){border-right:none}
+.proj-cell.full{grid-column:1/-1;border-right:none}
+.proj-cell:last-child,.proj-cell:nth-last-child(2):not(.full){border-bottom:none}
+
+/* add project button */
+.add-proj-btn{display:flex;align-items:center;justify-content:center;gap:8px;border:2px dashed var(--line-strong);border-radius:var(--radius);padding:18px;cursor:pointer;font-size:13px;font-weight:700;color:var(--muted);background:var(--paper);transition:all .15s;width:100%;margin-bottom:14px}
+.add-proj-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-light)}
+
+/* editor */
+.edit-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px}
+.edit-card-head{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:10px}
+.edit-card-head h3{font-size:14px;font-weight:800;flex:1}
+.edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;padding:18px 20px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:700;letter-spacing:.02em;color:var(--ink)}
+input,select,textarea{font-family:var(--font);font-size:13px;color:var(--ink);border:1px solid var(--line-strong);border-radius:7px;padding:9px 11px;background:var(--paper);width:100%;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(185,29,46,.1)}
+textarea{resize:vertical;min-height:68px}
+
+/* dyn mini tables in editor */
+.dyn-mini{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:7px;overflow:hidden;font-size:12.5px;margin-top:4px}
+.dyn-mini th{font-size:9px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:8px 10px;background:var(--surface-2);border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+.dyn-mini td{padding:3px 5px;border-bottom:1px solid var(--surface-2)}
+.dyn-mini tbody tr:last-child td{border-bottom:none}
+.dyn-mini input{border:1px solid transparent;border-radius:5px;padding:7px;background:var(--surface-2);font-size:12px}
+.dyn-mini input:focus{background:#fff;border-color:var(--red);box-shadow:none;outline:none}
+.row-x{appearance:none;border:none;background:transparent;color:var(--muted);font-size:17px;cursor:pointer;width:26px;height:26px;border-radius:5px;line-height:1;display:flex;align-items:center;justify-content:center}
+.row-x:hover{background:var(--bad-soft);color:var(--bad)}
+.dyn-foot{margin-top:8px}
+
+/* actions */
+.action-bar{display:flex;gap:10px;align-items:center;padding:14px 20px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+.btn{appearance:none;font-family:var(--font);font-weight:700;font-size:12.5px;border-radius:8px;padding:10px 20px;cursor:pointer;border:1px solid transparent;transition:all .15s;display:inline-flex;align-items:center;gap:7px}
+.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--red-deep)}
+.btn-ghost{background:var(--paper);color:var(--ink);border-color:var(--line-strong)}.btn-ghost:hover{border-color:var(--ink)}
+.btn-danger{background:var(--paper);color:var(--bad);border-color:var(--bad-soft)}.btn-danger:hover{background:var(--bad-soft)}
+.btn-sm{padding:7px 13px;font-size:12px}
+.ml{margin-left:auto}
+
+/* empty */
+.empty-state{padding:48px 24px;text-align:center;color:var(--muted)}
+.empty-state h3{font-size:15px;color:var(--ink);font-weight:700;margin-bottom:6px}
+.empty-state p{font-size:13px}
+
+/* gate 2 — pactuação */
+.gate2-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:20px}
+.gate2-head{background:var(--ink);color:#fff;padding:16px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.gate2-head h3{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;flex:1}
+.gate2-badge{font-size:11px;font-weight:800;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.gate2-badge.pend{background:var(--warn-soft);color:var(--warn)}
+.gate2-badge.ok{background:var(--ok-soft);color:var(--ok)}
+.gate2-body{padding:14px 20px;font-size:12.5px;color:var(--ink)}
+.gate2-aviso{padding:0 20px 14px;font-size:11px;color:var(--muted)}
+.gate2-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 18px;padding:16px 20px}
+@media(max-width:720px){.gate2-grid{grid-template-columns:1fr}}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.2,.8,.2,1);z-index:50;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast .dot{width:7px;height:7px;border-radius:50%;background:#5BE49B;flex:none}
+
+@media(max-width:720px){.ficha-body,.ficha-proj-body,.edit-grid{grid-template-columns:1fr}.ficha-cell,.proj-cell{border-right:none!important}.ficha-cell:nth-last-child(2){border-bottom:1px solid var(--line)!important}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.head-help{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;text-decoration:none;border:1.5px solid rgba(255,255,255,.4)}
+.head-help:hover{background:rgba(255,255,255,.32)}
+</style>
+
+<!-- ==== AUTH GATE (HTML) ==== -->
+<div class="auth-gate" id="authGate" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:40px;display:block"><small>GRUPO JOSÉ ALVES</small></div>
+    <h2>Entrar</h2>
+    <p>Digite seu e-mail para receber um link de acesso — sem senha.</p>
+    <div id="authStep1">
+      <input type="email" id="authEmail" placeholder="seu.nome@email.com.br">
+      <button class="btn btn-primary" onclick="unialfaAuthUI.sendLink()">Enviar link de acesso</button>
+    </div>
+    <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="unialfaAuthUI.signInWithAzure()">Entrar com Microsoft - UNIALFA</button>
+    <div id="treinoLoginBloco" style="display:none">
+      <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+      <p style="font-size:11.5px;color:var(--muted,#6B7280);margin-bottom:8px">Ambiente de treinamento — use uma conta de teste:</p>
+      <input type="email" id="treinoEmail" placeholder="ex.: admin@treino.unialfa.local">
+      <input type="password" id="treinoSenha" placeholder="Senha" style="margin-top:8px">
+      <button class="btn btn-primary" style="margin-top:10px" onclick="unialfaAuthUI.signInTreino()">Entrar (treinamento)</button>
+    </div>
+    <script>if(location.href.indexOf('treino')>-1){var _tb=document.getElementById('treinoLoginBloco');if(_tb)_tb.style.display='block';}</script>
+    <div id="authStep2" style="display:none">
+      <p>✓ Link enviado para <b id="authEmailSent"></b>. Verifique seu e-mail e clique no link — esta página atualiza sozinha.</p>
+      <button class="btn btn-ghost btn-sm" onclick="unialfaAuthUI.reset()">Usar outro e-mail</button>
+    </div>
+    <div id="authMsg" class="auth-msg" style="display:none"></div>
+  </div>
+</div>
+
+<style>
+.auth-gate{position:fixed;inset:0;background:rgba(15,15,15,.92);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--paper,#fff);border-radius:14px;padding:32px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.auth-logo{font-weight:900;font-size:20px;letter-spacing:.04em;color:var(--red,#B91D2E);margin-bottom:18px}
+.auth-logo small{display:block;font-weight:600;font-size:9px;letter-spacing:.2em;color:var(--muted,#6B7280);margin-top:3px}
+.auth-card h2{font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink,#0F0F0F)}
+.auth-card p{font-size:12.5px;color:var(--muted,#6B7280);margin-bottom:16px;line-height:1.5}
+.auth-card input{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;margin-bottom:10px;color:var(--ink,#0F0F0F)}
+.auth-card input:focus{outline:none;border-color:var(--red,#B91D2E);box-shadow:0 0 0 3px rgba(185,29,46,.12)}
+.auth-card .btn{width:100%;justify-content:center}
+.auth-msg{margin-top:10px;font-size:12px;font-weight:600;padding:8px 10px;border-radius:7px}
+.auth-msg.err{background:#FEE2E2;color:#DC2626}
+.auth-msg.ok{background:#D1FAE5;color:#059669}
+.auth-topbar{position:fixed;top:0;left:0;right:0;background:var(--ink,#0F0F0F);color:#fff;font-size:11.5px;padding:8px 18px;display:flex;align-items:center;gap:10px;z-index:150;font-family:var(--font)}
+.auth-topbar b{font-weight:700}
+.auth-topbar .papel-tag{background:var(--red,#B91D2E);padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.auth-topbar .sair{margin-left:auto;background:none;border:none;color:#fff;opacity:.7;cursor:pointer;font-size:11px;text-decoration:underline;font-family:inherit}
+.auth-topbar .sair:hover{opacity:1}
+body.auth-ready{padding-top:34px}
+.hist-panel{background:var(--surface-2,#F1F2F4);border:1px solid var(--line,#E5E7EB);border-radius:8px;margin-top:8px;padding:12px 14px;font-size:12px;max-height:220px;overflow-y:auto}
+.hist-panel .hi{padding:6px 0;border-bottom:1px solid var(--line,#E5E7EB)}
+.hist-panel .hi:last-child{border-bottom:none}
+.hist-panel .hi b{color:var(--red,#B91D2E)}
+</style>
+
+<script>
+/* ---- Autenticacao (magic link) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var AUTH_BASE = SUPABASE_URL + '/auth/v1';
+  var REST_BASE = SUPABASE_URL + '/rest/v1';
+  var SESSION_KEY = 'unialfa_session';
+
+  function saveSession(s){ localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+  function getSession(){ try{ return JSON.parse(localStorage.getItem(SESSION_KEY)); }catch(e){ return null; } }
+  function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+  function captureRedirect(){
+    if (location.hash && location.hash.indexOf('access_token') > -1) {
+      var params = new URLSearchParams(location.hash.slice(1));
+      if (params.get('access_token')) {
+        saveSession({
+          access_token: params.get('access_token'),
+          refresh_token: params.get('refresh_token'),
+          expires_at: Date.now() + (parseInt(params.get('expires_in')||'3600',10)*1000),
+        });
+        if (params.get('provider_token')) { localStorage.setItem('unialfa_provider_token', params.get('provider_token')); }
+        history.replaceState(null, '', location.pathname + location.search);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async function sendMagicLink(email){
+    var r = await fetch(AUTH_BASE + '/otp', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, create_user: true }),
+    });
+    return r.ok;
+  }
+
+  async function fetchUser(){
+    var s = getSession();
+    if(!s || !s.access_token) return null;
+    if (s.expires_at && Date.now() > s.expires_at) { clearSession(); return null; }
+    var r = await fetch(AUTH_BASE + '/user', { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + s.access_token } });
+    if(!r.ok) { clearSession(); return null; }
+    return await r.json();
+  }
+
+  function authHeaders(extra){
+    var s = getSession();
+    var token = (s && s.access_token) ? s.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) for (var k in extra) h[k]=extra[k];
+    return h;
+  }
+
+  async function fetchProfile(userId){
+    var r = await fetch(REST_BASE + '/perfis?id=eq.' + userId + '&select=*', { headers: authHeaders() });
+    if(!r.ok) return null;
+    var rows = await r.json();
+    return rows[0] || null;
+  }
+
+  async function ensureProfile(user){
+    var p = await fetchProfile(user.id);
+    var meta = user.user_metadata || {};
+    var nome = meta.name || [meta.given_name, meta.family_name].filter(Boolean).join(' ') || null;
+    if(p){
+      if(nome && !p.nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + user.id, {
+          method: 'PATCH', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+          body: JSON.stringify({ nome: nome }),
+        });
+        p.nome = nome;
+      }
+      return p;
+    }
+    var pendente = null;
+    try{
+      var rPend = await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email) + '&select=*', { headers: authHeaders() });
+      if(rPend.ok){ var linhas = await rPend.json(); pendente = linhas[0] || null; }
+    }catch(e){}
+    await fetch(REST_BASE + '/perfis', {
+      method: 'POST', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({
+        id: user.id, email: user.email,
+        nome: (pendente && pendente.nome) || nome,
+        telefone: pendente ? pendente.telefone : null,
+        papel: (pendente && pendente.papel) || 'solicitante',
+      }),
+    });
+    if(pendente){
+      await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email), { method: 'DELETE', headers: authHeaders() });
+    }
+    return await fetchProfile(user.id);
+  }
+
+  var PAPEL_LABEL = {
+    solicitante: 'Solicitante', gerente_projetos: 'Gerente de Projetos', gestor_responsavel: 'Gestor Responsável',
+    dono_negocio: 'Dono do Negócio', alta_gestao: 'Alta Gestão', admin: 'PMO / Admin',
+  };
+
+  async function tentarNomeViaGraph(profile){
+    var token = localStorage.getItem('unialfa_provider_token');
+    if(!token) return profile;
+    localStorage.removeItem('unialfa_provider_token');
+    if(!profile || profile.nome) return profile;
+    try{
+      var r = await fetch('https://graph.microsoft.com/v1.0/me', { headers: { 'Authorization': 'Bearer ' + token } });
+      if(!r.ok) return profile;
+      var me = await r.json();
+      var nome = me.displayName || [me.givenName, me.surname].filter(Boolean).join(' ');
+      if(nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + profile.id, {
+          method:'PATCH', headers: authHeaders({'Prefer':'return=minimal'}),
+          body: JSON.stringify({ nome: nome })
+        });
+        profile.nome = nome;
+      }
+    }catch(e){ console.warn('Nao foi possivel buscar nome via Microsoft Graph', e); }
+    return profile;
+  }
+
+  window.unialfaAuth = {
+    ANON_KEY: SUPABASE_ANON_KEY,
+    REST_BASE: REST_BASE,
+    AUTH_BASE: AUTH_BASE,
+    getSession: getSession, clearSession: clearSession, captureRedirect: captureRedirect,
+    sendMagicLink: sendMagicLink, fetchUser: fetchUser, authHeaders: authHeaders,
+    fetchProfile: fetchProfile, ensureProfile: ensureProfile, tentarNomeViaGraph: tentarNomeViaGraph,
+    papelLabel: function(p){ return PAPEL_LABEL[p]||p; },
+    signOut: function(){ clearSession(); location.reload(); },
+  };
+})();
+
+/* ---- Projeto compartilhado + historico ---- */
+window.unialfaProjeto = {
+  async listarAprovados(){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?status=eq.Aprovado&select=id,nome,unidade,gerente,solicitacao_id&order=nome', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async buscar(id){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+id+'&select=*', { headers: unialfaAuth.authHeaders() });
+    var rows = r.ok ? await r.json() : [];
+    return rows[0] || null;
+  },
+  async historico(projetoId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_historico?projeto_id=eq.'+projetoId+'&select=*&order=criado_em.desc', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async mostrarHistorico(projetoId, hostEl){
+    var itens = await this.historico(projetoId);
+    var labels = {nome:'Nome do projeto', unidade:'Unidade', gerente:'Gerente de projeto', status:'Status'};
+    if(!itens.length){ hostEl.innerHTML = '<div class="hist-panel"><i>Nenhuma alteração registrada ainda.</i></div>'; hostEl.style.display='block'; return; }
+    var html = '<div class="hist-panel">';
+    itens.forEach(function(h){
+      var d = new Date(h.criado_em);
+      html += '<div class="hi"><b>'+(labels[h.campo]||h.campo)+'</b>: "'+(h.valor_anterior||'—')+'" → "'+(h.valor_novo||'—')+'"<br>'+
+        '<span style="color:var(--muted-2,#9CA3AF)">'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+(h.formulario_origem||'')+' · '+(h.alterado_por_email||'—')+'</span></div>';
+    });
+    html += '</div>';
+    hostEl.innerHTML = html; hostEl.style.display='block';
+  },
+};
+
+window.unialfaNotificar = {
+  async enviar(destinatarios, subject, html){
+    try{
+      var emails = Array.from(new Set((destinatarios||[]).filter(Boolean)));
+      if(!emails.length) return;
+      await fetch(unialfaAuth.REST_BASE.replace('/rest/v1','/functions/v1') + '/send-notification', {
+        method:'POST', headers: unialfaAuth.authHeaders(),
+        body: JSON.stringify({ to: emails, subject: subject, html: html }),
+      });
+    }catch(e){ console.warn('Notificação por e-mail não pôde ser enviada', e); }
+  },
+  async emailsAdmins(){
+    try{
+      var r = await fetch(unialfaAuth.REST_BASE + '/perfis?papel=eq.admin&select=email', { headers: unialfaAuth.authHeaders() });
+      if(!r.ok) return [];
+      var rows = await r.json();
+      return rows.map(function(p){return p.email;}).filter(Boolean);
+    }catch(e){ return []; }
+  },
+  async emailsEquipe(projetoId){
+    if(!projetoId) return [];
+    try{
+      var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&select=usuario_email', { headers: unialfaAuth.authHeaders() });
+      if(!r.ok) return [];
+      var rows = await r.json();
+      return rows.map(function(p){return p.usuario_email;}).filter(Boolean);
+    }catch(e){ return []; }
+  },
+};
+
+var unialfaAuthUI = {
+  sendLink: async function(){
+    var email = document.getElementById('authEmail').value.trim();
+    var msg = document.getElementById('authMsg');
+    if(!email || email.indexOf('@')<0){ msg.textContent='Digite um e-mail válido.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    var ok = await unialfaAuth.sendMagicLink(email);
+    if(ok){
+      document.getElementById('authStep1').style.display='none';
+      document.getElementById('authStep2').style.display='block';
+      document.getElementById('authEmailSent').textContent=email;
+    } else {
+      msg.textContent='Não foi possível enviar o link. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block';
+    }
+  },
+  signInWithAzure: function(){ location.href = unialfaAuth.AUTH_BASE + '/authorize?provider=azure&scopes=openid%20email%20profile%20User.Read'; },
+  reset: function(){
+    document.getElementById('authStep1').style.display='block';
+    document.getElementById('authStep2').style.display='none';
+    document.getElementById('authEmail').value='';
+  },
+  signInTreino: async function(){
+    var email = document.getElementById('treinoEmail').value.trim();
+    var senha = document.getElementById('treinoSenha').value;
+    var msg = document.getElementById('authMsg');
+    if(!email || !senha){ msg.textContent='Informe e-mail e senha de treinamento.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    try{
+      var r = await fetch(unialfaAuth.AUTH_BASE + '/token?grant_type=password', { method:'POST', headers:{'Content-Type':'application/json','apikey':unialfaAuth.ANON_KEY}, body: JSON.stringify({email:email, password:senha}) });
+      var data = await r.json();
+      if(!r.ok || !data.access_token){ msg.textContent='E-mail ou senha inválidos.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+      localStorage.setItem('unialfa_session', JSON.stringify({ access_token:data.access_token, refresh_token:data.refresh_token, expires_at: Date.now() + (parseInt(data.expires_in||'3600',10)*1000) }));
+      location.reload();
+    }catch(e){ msg.textContent='Não foi possível entrar. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block'; }
+  },
+};
+
+window.currentUser = null;
+window.currentProfile = null;
+
+function ensureAuthenticated(){
+  return new Promise(function(resolve){
+    async function trySetup(){
+      var user = await unialfaAuth.fetchUser();
+      if(!user) return null;
+      var profile = await unialfaAuth.ensureProfile(user);
+      profile = await unialfaAuth.tentarNomeViaGraph(profile);
+      window.currentUser = user; window.currentProfile = profile;
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='none';
+      document.body.classList.add('auth-ready');
+      if(!document.querySelector('.auth-topbar')){
+        var bar = document.createElement('div');
+        bar.className='auth-topbar';
+        bar.innerHTML = '<span>Conectado como <b>'+ (user.email||'') +'</b></span><span class="papel-tag">'+unialfaAuth.papelLabel(profile?profile.papel:'solicitante')+'</span><button class="sair" onclick="unialfaAuth.signOut()">Sair</button>';
+        document.body.prepend(bar);
+      }
+      return {user:user, profile:profile};
+    }
+    (async function(){
+      unialfaAuth.captureRedirect();
+      var result = await trySetup();
+      if(result){ resolve(result); return; }
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='flex';
+      var iv = setInterval(async function(){
+        var r = await trySetup();
+        if(r){ clearInterval(iv); resolve(r); }
+      }, 3000);
+    })();
+  });
+}
+</script>
+
+<div class="wrap">
+
+  <div class="page-head">
+    <div class="head-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:38px;display:block;background:#fff;border-radius:6px;padding:3px 8px"><small>GRUPO JOSÉ ALVES</small></div>
+    <div class="head-title">
+      <h1>Relatório de Entregas e Benefícios</h1>
+      <p>Ficha de programa e projetos vinculados · Escritório de Projetos</p>
+    </div>
+    <a class="head-help" href="15 - central-ajuda.html?v=11#relatorio-entregas" target="_blank" rel="noopener" title="Ajuda sobre este relatório">?</a>
+    <div class="head-badge">FORALF12</div>
+  </div>
+
+  <!-- Banner de versão histórica -->
+  <div id="hist-banner" style="display:none;background:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;padding:12px 18px;margin-bottom:16px;align-items:center;gap:12px;flex-wrap:wrap">
+    <span style="font-size:12px;font-weight:700;color:#92400E">🕓 <span id="hist-banner-label"></span></span>
+    <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="voltarVersaoAtual()">Voltar à versão atual</button>
+  </div>
+
+  <div id="deniedBox" style="display:none" class="ficha-prog"><div class="denied">
+    <h2>Acesso restrito</h2>
+    <p id="deniedMsg"></p>
+  </div></div>
+
+  <div id="conteudoRelatorio" style="display:none">
+  <div class="view-tabs">
+    <button class="vtab" aria-selected="true" onclick="showView('painel')">📋 Painel</button>
+    <button class="vtab" aria-selected="false" onclick="showView('editar')">✏️ Editar dados</button>
+  </div>
+
+  <!-- ===== PAINEL ===== -->
+  <div id="view-painel">
+    <div class="gate2-card">
+      <div class="gate2-head"><h3>Gate 2 — Pactuação</h3><span class="gate2-badge" id="gate2-painel-badge">—</span></div>
+      <div class="gate2-body" id="gate2-painel-body">—</div>
+    </div>
+    <div id="painel-content">
+      <div class="empty-state"><h3>Nenhum dado cadastrado</h3><p>Clique em <b>Editar dados</b> para preencher o programa e seus projetos.</p></div>
+    </div>
+    <div class="action-bar" style="margin-top:18px;border-radius:var(--radius);border:1px solid var(--line)">
+      <button class="btn btn-ghost" onclick="imprimirEntregas()">🖨 Imprimir</button>
+      <button class="btn btn-ghost" onclick="exportarEntregasWord()">⬇ Exportar Word</button>
+      <button class="btn btn-ghost" onclick="toggleHistVersoes()">🕓 Histórico de versões</button>
+      <div class="ml" style="font-size:11px;color:var(--muted)">FORALF12 · UNIALFA</div>
+    </div>
+    <div id="hist-versoes-panel" style="display:none;margin-top:10px"></div>
+  </div>
+
+  <!-- ===== EDITOR ===== -->
+  <div id="view-editar" style="display:none">
+
+    <!-- Gate 2 — Pactuação -->
+    <div class="gate2-card">
+      <div class="gate2-head"><h3>Gate 2 — Pactuação</h3></div>
+      <div class="gate2-grid">
+        <div class="field"><label>Status</label><select id="gate2-status" onchange="changeGate2Status()"><option value="Pendente de pactuação">Pendente de pactuação</option><option value="Pactuado">Pactuado</option></select></div>
+        <div class="field"><label>Data de pactuação</label><input id="gate2-data" type="date" onchange="saveGate2Fields()"></div>
+        <div class="field"><label>Aprovador (Dono do Negócio)</label><input id="gate2-aprovador" type="text" placeholder="Nome de quem pactuou" onchange="saveGate2Fields()"></div>
+      </div>
+      <div class="gate2-aviso" id="gate2-aviso" style="display:none">Apenas PMO/Admin pode pactuar este relatório (Gate 2). Enquanto pactuado, os demais campos ficam travados para edição.</div>
+    </div>
+
+    <div id="editable-content">
+
+    <!-- Ficha do Programa -->
+    <div class="edit-card">
+      <div class="edit-card-head"><h3>Ficha do Programa</h3></div>
+      <div class="edit-grid">
+        <div class="field"><label>Código do programa</label><input id="prog-cod" placeholder="Ex: PRG-001"></div>
+        <div class="field"><label>Nome do programa</label><input id="prog-nome" placeholder="Nome completo do programa"></div>
+        <div class="field"><label>Unidade responsável</label><select id="prog-unidade"><option value="">Selecione…</option><option>Superintendência Reitoria</option><option>Ouvidoria</option><option>CPA</option><option>Comitê da Qualidade</option><option>Diretoria Educação Executiva</option><option>Diretoria de Escola Business</option><option>Diretoria de Escola de Direito</option><option>Diretoria de Operações EAD</option><option>Diretoria de Marketing e Vendas</option><option>Coord. Curso Lato Sensu</option><option>Coord. Pós-Graduação Stricto Sensu</option><option>Coord. Curso Graduação, Técnico e Ensino Médio</option><option>Coord. Curso Graduação</option><option>Coord. Operações Acadêmicas EAD</option><option>Coord. Gestão de Polos</option><option>Corpo Docente</option><option>Corpo Docente (PJ)</option><option>Marketing</option><option>Vendas</option><option>Relacionamento</option><option>Planej. e Operações</option><option>RH</option><option>Secretaria Geral</option><option>Asseg. Qualidade</option><option>Segurança</option><option>ADM e Infraestrutura</option><option>GPTI</option><option>Controladoria</option><option>Gerência de Controladoria</option></select></div>
+        <div class="field"><label>Responsável pelo programa</label><input id="prog-resp" placeholder="Nome do responsável"></div>
+        <div class="field full"><label>Justificativa</label><textarea id="prog-just" placeholder="Por que este programa é necessário?"></textarea></div>
+        <div class="field full"><label>Objetivo</label><textarea id="prog-obj" placeholder="O que o programa busca alcançar?"></textarea></div>
+        <div class="field full"><label>Impacto / Resultado do programa</label><textarea id="prog-impacto" placeholder="Qual o resultado esperado para a organização?"></textarea></div>
+        <div class="field full"><label>Alinhamento estratégico</label><textarea id="prog-alinhamento" placeholder="Como o programa se alinha à estratégia institucional?"></textarea></div>
+        <div class="field full"><label>Prováveis parceiros na execução</label><textarea id="prog-parceiros" placeholder="Liste as áreas, unidades ou entidades parceiras"></textarea></div>
+        <div class="field full"><label>Restrições à implementação</label><textarea id="prog-restricoes" placeholder="Limitações conhecidas que podem impactar o programa"></textarea></div>
+      </div>
+
+      <!-- Indicadores do programa -->
+      <div style="padding:0 20px 8px">
+        <div class="sec-title" style="margin-top:4px">Indicadores associados ao programa</div>
+        <div id="dyn-ind-prog-wrap"><table class="dyn-mini" id="tbl-ind-prog"><thead><tr><th>Indicador</th><th>Valor atual</th><th>Meta</th><th style="width:36px"></th></tr></thead><tbody id="tbody-ind-prog"></tbody></table></div>
+        <div class="dyn-foot"><button type="button" class="btn btn-ghost btn-sm" onclick="addRow('ind-prog',['indicador','valor','meta'])">+ Indicador</button></div>
+      </div>
+
+      <!-- Valores estimados do programa -->
+      <div style="padding:0 20px 20px">
+        <div class="sec-title" style="margin-top:12px">Valores estimados — programa</div>
+        <div id="dyn-val-prog-wrap"><table class="dyn-mini" id="tbl-val-prog"><thead><tr><th>Tipo de despesa</th><th>2025</th><th>2026</th><th>2027</th><th style="width:36px"></th></tr></thead><tbody id="tbody-val-prog"></tbody></table></div>
+        <div class="dyn-foot"><button type="button" class="btn btn-ghost btn-sm" onclick="addRow('val-prog',['tipo','a1','a2','a3'])">+ Linha</button></div>
+      </div>
+    </div>
+
+    <!-- Projetos -->
+    <div class="sec-title">Projetos vinculados ao programa</div>
+    <div id="proj-editor-list"></div>
+    <button class="add-proj-btn" onclick="addProjeto()">＋ Adicionar projeto</button>
+
+    </div><!-- /editable-content -->
+
+    <div class="action-bar" style="border-radius:var(--radius);border:1px solid var(--line)">
+      <button class="btn btn-primary" id="btnSalvarPainel" onclick="saveAndPreview()">✓ Salvar e ver painel</button>
+      <button class="btn btn-ghost" onclick="showView('painel')">Cancelar</button>
+      <div class="ml" id="gate2-locked-msg" style="display:none;font-size:11px;color:var(--warn);font-weight:700">🔒 Relatório pactuado — reabra o Gate 2 acima para editar.</div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="dot"></span><span id="toast-msg"></span></div>
+
+<script>
+/* ---- Armazenamento persistente via Supabase (substitui window.storage) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var TABLE = 'kv_store';
+  var base = SUPABASE_URL + '/rest/v1/' + TABLE;
+  function headers(extra){
+    var session = null;
+    try{ session = JSON.parse(localStorage.getItem('unialfa_session')); }catch(e){}
+    var token = (session && session.access_token) ? session.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) { for (var k in extra) h[k] = extra[k]; }
+    return h;
+  }
+  window.storage = {
+    get: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key) + '&select=value', { headers: headers() });
+      if(!r.ok) return null;
+      var rows = await r.json();
+      return rows.length ? { value: rows[0].value } : null;
+    },
+    set: async function(key, value){
+      var r = await fetch(base + '?on_conflict=key', { method: 'POST', headers: headers({ 'Prefer': 'resolution=merge-duplicates' }), body: JSON.stringify({ key: key, value: value, updated_at: new Date().toISOString() }) });
+      return r.ok;
+    },
+    delete: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key), { method: 'DELETE', headers: headers() });
+      return r.ok;
+    },
+    list: async function(prefix){
+      var r = await fetch(base + '?key=like.' + encodeURIComponent(prefix) + '*&select=key', { headers: headers() });
+      if(!r.ok) return { keys: [] };
+      var rows = await r.json();
+      return { keys: rows.map(function(x){ return x.key; }) };
+    },
+  };
+})();
+</script>
+<script>
+const KEY='relent_data';
+function novoGate2(){return{status:'Pendente de pactuação',data:'',aprovador:''};}
+let data={prog:{cod:'',nome:'',unidade:'',resp:'',just:'',obj:'',impacto:'',alinhamento:'',parceiros:'',restricoes:'',indicadores:[],valores:[]},projetos:[],gate2:novoGate2()};
+
+let projetosAprovados=[];
+async function carregarProjetosAprovados(){ projetosAprovados = await unialfaProjeto.listarAprovados(); }
+function onProjRowProjetoSelect(i){
+  const id=document.getElementById('projVinc-'+i).value;
+  document.getElementById('histBtn-'+i).style.display=id?'inline-flex':'none';
+  document.getElementById('projRowHist-'+i).style.display='none';
+  const importBtn=document.getElementById('importTapBtn-'+i);
+  if(importBtn) importBtn.style.display=id?'inline-flex':'none';
+  if(id){
+    const pa=projetosAprovados.find(x=>x.id===id);
+    if(pa){
+      const nomeEl=document.getElementById('pr'+i+'-nome');
+      if(nomeEl && !nomeEl.value.trim()) nomeEl.value=pa.nome;
+    }
+  }
+}
+async function importarIndicadoresTAP(i){
+  const projetoId=document.getElementById('projVinc-'+i).value;
+  if(!projetoId){ toast('Selecione um Projeto vinculado (Gate 1) primeiro.',false); return; }
+  const res=await window.storage.list('tap:');
+  const keys=(res&&res.keys)?res.keys:[];
+  let indicadores=[];
+  for(const k of keys){
+    try{
+      const r=await window.storage.get(k);
+      if(r&&r.value){
+        const tap=JSON.parse(r.value);
+        if(tap.projetoId===projetoId&&Array.isArray(tap.indicadores)) indicadores=indicadores.concat(tap.indicadores);
+      }
+    }catch(e){}
+  }
+  if(!indicadores.length){ toast('Nenhum indicador de TAP encontrado para este projeto.',false); return; }
+  const tbody=document.getElementById('tbody-ind-pr-'+i);
+  const existentes=new Set(Array.from(tbody.querySelectorAll('input[data-k="indicador"]')).map(el=>el.value.trim().toLowerCase()).filter(Boolean));
+  let importados=0;
+  indicadores.forEach(ind=>{
+    const nome=(ind.indicador||'').trim();
+    if(!nome||existentes.has(nome.toLowerCase())) return;
+    addDynRow('tbody-ind-pr-'+i,['indicador','valor','meta']);
+    const inputs=tbody.lastElementChild.querySelectorAll('input');
+    inputs[0].value=nome; inputs[1].value=ind.vi||''; inputs[2].value=ind.vf||'';
+    existentes.add(nome.toLowerCase());
+    importados++;
+  });
+  toast(importados?`${importados} indicador(es) importado(s) do TAP`:'Todos os indicadores do TAP já estão na lista');
+}
+let projRowHistAberto={};
+async function toggleProjRowHistorico(i){
+  const id=document.getElementById('projVinc-'+i).value; if(!id) return;
+  const panel=document.getElementById('projRowHist-'+i);
+  projRowHistAberto[i]=!projRowHistAberto[i];
+  if(projRowHistAberto[i]) await unialfaProjeto.mostrarHistorico(id, panel);
+  else panel.style.display='none';
+}
+
+function toast(msg){const t=document.getElementById('toast');document.getElementById('toast-msg').textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3000);}
+function esc(s){return(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function nl(s){return esc(s).replace(/\n/g,'<br>')}
+
+/* ── storage ── */
+async function loadData(){try{const r=await window.storage.get(KEY);if(r&&r.value)data=JSON.parse(r.value);}catch(e){console.warn(e);}if(!data.gate2)data.gate2=novoGate2();}
+async function saveData(){try{await window.storage.set(KEY,JSON.stringify(data));}catch(e){toast('Erro ao salvar');}}
+
+/* ── histórico de versões ── */
+const HIST_PREFIX='relent_hist:';
+let __liveData=null;
+function fmtDataHoraBR(iso){const d=new Date(iso);return d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+async function saveSnapshot(){
+  try{
+    const ts=new Date().toISOString();
+    const user=window.currentUser;
+    const snap={savedAt:ts,savedBy:user?user.email:null,ref:(data.prog&&data.prog.nome)||'',data:JSON.parse(JSON.stringify(data))};
+    await window.storage.set(HIST_PREFIX+ts,JSON.stringify(snap));
+  }catch(e){console.warn('Não foi possível salvar o snapshot de histórico',e);}
+}
+async function listarVersoes(){
+  const res=await window.storage.list(HIST_PREFIX);
+  const keys=(res&&res.keys)?res.keys:[];
+  const snaps=[];
+  for(const k of keys){try{const r=await window.storage.get(k);if(r&&r.value)snaps.push(JSON.parse(r.value));}catch(e){}}
+  snaps.sort((a,b)=>new Date(b.savedAt)-new Date(a.savedAt));
+  return snaps;
+}
+let histVersoesAberto=false;
+async function toggleHistVersoes(){
+  const panel=document.getElementById('hist-versoes-panel');
+  histVersoesAberto=!histVersoesAberto;
+  if(!histVersoesAberto){panel.style.display='none';return;}
+  panel.innerHTML='<div style="padding:16px;text-align:center;color:var(--muted);font-size:12.5px">Carregando…</div>';
+  panel.style.display='block';
+  const snaps=await listarVersoes();
+  window.__histSnaps=snaps;
+  if(!snaps.length){panel.innerHTML='<div style="padding:24px;text-align:center;color:var(--muted);font-size:12.5px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius)">Nenhuma versão anterior salva ainda.</div>';return;}
+  let html='<div style="background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden"><table class="mini-table"><thead><tr><th>Salvo em</th><th>Programa</th><th>Salvo por</th><th></th></tr></thead><tbody>';
+  snaps.forEach((s,i)=>{
+    html+=`<tr><td>${fmtDataHoraBR(s.savedAt)}</td><td>${esc(s.ref||'—')}</td><td>${esc(s.savedBy||'—')}</td><td><button class="btn btn-sm btn-ghost" onclick="abrirVersaoHistorica(${i})">Visualizar</button></td></tr>`;
+  });
+  html+='</tbody></table></div>';
+  panel.innerHTML=html;
+}
+function abrirVersaoHistorica(i){
+  const snap=(window.__histSnaps||[])[i];
+  if(!snap)return;
+  if(!__liveData)__liveData=data;
+  data=snap.data;
+  document.getElementById('hist-banner').style.display='flex';
+  document.getElementById('hist-banner-label').textContent='Visualizando versão salva em '+fmtDataHoraBR(snap.savedAt)+(snap.savedBy?(' · por '+snap.savedBy):'')+' — somente leitura.';
+  document.getElementById('hist-versoes-panel').style.display='none';
+  histVersoesAberto=false;
+  showView('painel');
+}
+function voltarVersaoAtual(){
+  if(__liveData){data=__liveData;__liveData=null;}
+  document.getElementById('hist-banner').style.display='none';
+  showView('painel');
+}
+
+/* ── views ── */
+function showView(v){
+  if(__liveData && v!=='painel'){ toast('Volte à versão atual para editar (botão no aviso amarelo).',false); return; }
+  document.getElementById('view-painel').style.display=v==='painel'?'block':'none';
+  document.getElementById('view-editar').style.display=v==='editar'?'block':'none';
+  document.querySelectorAll('.vtab').forEach((b,i)=>b.setAttribute('aria-selected',['painel','editar'][i]===v));
+  if(v==='painel') renderPainel();
+  if(v==='editar') renderEditor();
+}
+
+/* ── PAINEL ── */
+function renderGate2Painel(){
+  const g=data.gate2||novoGate2();
+  const ok=g.status==='Pactuado';
+  const badge=document.getElementById('gate2-painel-badge');
+  badge.textContent=g.status;
+  badge.className='gate2-badge '+(ok?'ok':'pend');
+  const body=document.getElementById('gate2-painel-body');
+  body.textContent=ok
+    ? 'Pactuado em '+(g.data?fmtDataBR(g.data):'—')+' por '+(g.aprovador||'—')+'. O trabalho planejado está autorizado a avançar para a execução.'
+    : 'Ainda não pactuado com a Alta Gestão. Vá em Editar dados para registrar a pactuação (Gate 2) quando o programa estiver pronto.';
+}
+function fmtDataBR(iso){if(!iso)return'—';const[y,m,d]=iso.split('-');return d+'/'+m+'/'+y;}
+
+function renderPainel(){
+  renderGate2Painel();
+  const p=data.prog;
+  const projs=data.projetos||[];
+  if(!p.nome&&!projs.length){document.getElementById('painel-content').innerHTML='<div class="empty-state"><h3>Nenhum dado cadastrado</h3><p>Clique em <b>Editar dados</b> para preencher o programa e seus projetos.</p></div>';return;}
+  let html='';
+
+  /* Ficha do Programa */
+  const indHTML=indicadoresTable(p.indicadores||[]);
+  const valHTML=valoresTable(p.valores||[]);
+  html+=`<div class="ficha-prog">
+    <div class="ficha-prog-head">
+      <div class="left">
+        <div style="font-size:10px;font-weight:800;letter-spacing:.14em;opacity:.5;text-transform:uppercase;margin-bottom:6px">Ficha do Programa</div>
+        <h2>${esc(p.nome||'(Programa sem nome)')}</h2>
+        <div class="sub">${esc(p.unidade||'')}${p.resp?' · Responsável: '+p.resp:''}</div>
+      </div>
+      ${p.cod?`<div class="code">${esc(p.cod)}</div>`:''}
+    </div>
+    <div class="ficha-body">
+      ${cell('Justificativa',p.just,'full')}
+      ${cell('Objetivo',p.obj,'full')}
+      ${cell('Impacto / Resultado',p.impacto,'full')}
+      ${cell('Alinhamento estratégico',p.alinhamento)}
+      ${cell('Parceiros na execução',p.parceiros)}
+      ${cell('Restrições à implementação',p.restricoes,'full')}
+      ${p.indicadores&&p.indicadores.length?`<div class="ficha-cell full"><div class="ficha-label">Indicadores associados</div>${indHTML}</div>`:''}
+      ${p.valores&&p.valores.length?`<div class="ficha-cell full"><div class="ficha-label">Valores estimados</div>${valHTML}</div>`:''}
+    </div>
+  </div>`;
+
+  /* Fichas dos Projetos */
+  if(projs.length){
+    html+=`<div class="sec-title">Fichas dos projetos</div>`;
+    projs.forEach(pr=>{
+      const entHTML=entregasTable(pr.entregas||[]);
+      const indPrHTML=indicadoresTable(pr.indicadores||[]);
+      const valPrHTML=valoresTable(pr.valores||[]);
+      html+=`<div class="ficha-proj">
+        <div class="ficha-proj-head">
+          <h3>${esc(pr.nome||'(Projeto sem nome)')}</h3>
+          ${pr.codAcao?`<div class="code">${esc(pr.codAcao)}</div>`:''}
+        </div>
+        <div class="ficha-proj-body">
+          ${pcell('Unidade responsável',pr.unidade)}
+          ${pcell('Responsável pelo projeto',pr.resp)}
+          ${pcell('Objetivo',pr.obj,'full')}
+          ${pcell('Público-alvo',pr.publico)}
+          ${pcell('Riscos',pr.riscos)}
+          ${pcell('Impacto / Resultado do projeto',pr.impacto,'full')}
+          ${pr.entregas&&pr.entregas.length?`<div class="proj-cell full"><div class="ficha-label">Principais entregas</div>${entHTML}</div>`:''}
+          ${pr.indicadores&&pr.indicadores.length?`<div class="proj-cell full"><div class="ficha-label">Indicadores associados</div>${indPrHTML}</div>`:''}
+          ${pr.valores&&pr.valores.length?`<div class="proj-cell full"><div class="ficha-label">Valores estimados</div>${valPrHTML}</div>`:''}
+        </div>
+      </div>`;
+    });
+  }
+  document.getElementById('painel-content').innerHTML=html;
+}
+
+function cell(label,val,cls){return`<div class="ficha-cell ${cls||''}"><div class="ficha-label">${label}</div><div class="ficha-value">${val?nl(val):'<span style="color:var(--muted)">—</span>'}</div></div>`;}
+function pcell(label,val,cls){return`<div class="proj-cell ${cls||''}"><div class="ficha-label">${label}</div><div class="ficha-value">${val?nl(val):'<span style="color:var(--muted)">—</span>'}</div></div>`;}
+
+function indicadoresTable(rows){
+  if(!rows.length)return '<span style="color:var(--muted);font-size:12px">—</span>';
+  let h='<table class="mini-table"><thead><tr><th>Indicador</th><th>Valor atual</th><th>Meta</th></tr></thead><tbody>';
+  rows.forEach(r=>{h+=`<tr><td>${esc(r.indicador||'')}</td><td class="num">${esc(r.valor||'')}</td><td class="num">${esc(r.meta||'')}</td></tr>`;});
+  return h+'</tbody></table>';
+}
+function valoresTable(rows){
+  if(!rows.length)return '<span style="color:var(--muted);font-size:12px">—</span>';
+  let h='<table class="mini-table"><thead><tr><th>Tipo</th><th class="num">2025</th><th class="num">2026</th><th class="num">2027</th></tr></thead><tbody>';
+  rows.forEach(r=>{h+=`<tr><td>${esc(r.tipo||'')}</td><td class="num">${esc(r.a1||'')}</td><td class="num">${esc(r.a2||'')}</td><td class="num">${esc(r.a3||'')}</td></tr>`;});
+  return h+'</tbody></table>';
+}
+function entregasTable(rows){
+  if(!rows.length)return '<span style="color:var(--muted);font-size:12px">—</span>';
+  let h='<table class="mini-table"><thead><tr><th>Entrega</th><th>Qtde / %</th><th>Data limite</th></tr></thead><tbody>';
+  rows.forEach(r=>{h+=`<tr><td>${esc(r.entrega||'')}</td><td class="num">${esc(r.qtde||'')}</td><td>${esc(r.data||'')}</td></tr>`;});
+  return h+'</tbody></table>';
+}
+
+/* ── EDITOR ── */
+function renderEditor(){
+  const p=data.prog;
+  const fields={
+    'prog-cod':p.cod,'prog-nome':p.nome,'prog-unidade':p.unidade,'prog-resp':p.resp,
+    'prog-just':p.just,'prog-obj':p.obj,'prog-impacto':p.impacto,
+    'prog-alinhamento':p.alinhamento,'prog-parceiros':p.parceiros,'prog-restricoes':p.restricoes
+  };
+  Object.entries(fields).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.value=val||'';});
+  rebuildTable('ind-prog',['indicador','valor','meta'],p.indicadores||[]);
+  rebuildTable('val-prog',['tipo','a1','a2','a3'],p.valores||[]);
+  renderProjEditor();
+  renderGate2Editor();
+}
+
+/* ── GATE 2 — pactuação ── */
+function souAdmin(){return!!(window.currentProfile&&window.currentProfile.papel==='admin');}
+function renderGate2Editor(){
+  const g=data.gate2||novoGate2();
+  document.getElementById('gate2-status').value=g.status;
+  document.getElementById('gate2-data').value=g.data||'';
+  document.getElementById('gate2-aprovador').value=g.aprovador||'';
+  const admin=souAdmin();
+  document.getElementById('gate2-status').disabled=!admin;
+  document.getElementById('gate2-data').disabled=!admin;
+  document.getElementById('gate2-aprovador').disabled=!admin;
+  document.getElementById('gate2-aviso').style.display=admin?'none':'block';
+  applyGate2Lock();
+}
+function applyGate2Lock(){
+  const locked=data.gate2&&data.gate2.status==='Pactuado';
+  document.getElementById('editable-content').querySelectorAll('input,select,textarea,button').forEach(el=>{el.disabled=locked;});
+  document.getElementById('btnSalvarPainel').disabled=locked;
+  document.getElementById('gate2-locked-msg').style.display=locked?'inline':'none';
+}
+async function changeGate2Status(){
+  if(!souAdmin()){
+    document.getElementById('gate2-status').value=(data.gate2&&data.gate2.status)||'Pendente de pactuação';
+    toast('Apenas PMO/Admin pode pactuar este relatório (Gate 2).',false);
+    return;
+  }
+  if(!data.gate2)data.gate2=novoGate2();
+  const statusAntigo=data.gate2.status;
+  const novo=document.getElementById('gate2-status').value;
+  data.gate2.status=novo;
+  if(novo!==statusAntigo && novo==='Pactuado'){
+    const idsProjetos=Array.from(new Set((data.projetos||[]).map(p=>p.projetoId).filter(Boolean)));
+    Promise.all(idsProjetos.map(id=>unialfaNotificar.emailsEquipe(id))).then(listas=>{
+      const equipe=[].concat(...listas);
+      unialfaNotificar.emailsAdmins().then(admins=>{
+        unialfaNotificar.enviar(equipe.concat(admins),
+          'Relatório de Entregas pactuado (Gate 2) — '+((data.prog&&data.prog.nome)||'Programa'),
+          '<p>O Relatório de Entregas e Benefícios do programa <b>'+esc((data.prog&&data.prog.nome)||'')+'</b> foi <b>pactuado</b> (Gate 2) com a Alta Gestão.</p>');
+      });
+    });
+  }
+  if(novo==='Pactuado'){
+    if(!data.gate2.data)data.gate2.data=new Date().toISOString().slice(0,10);
+    if(!data.gate2.aprovador&&window.currentProfile)data.gate2.aprovador=window.currentProfile.nome||(window.currentUser&&window.currentUser.email)||'';
+  }
+  document.getElementById('gate2-data').value=data.gate2.data||'';
+  document.getElementById('gate2-aprovador').value=data.gate2.aprovador||'';
+  await saveData();
+  applyGate2Lock();
+  toast(novo==='Pactuado'?'Relatório pactuado (Gate 2)':'Pactuação revertida — relatório reaberto para edição');
+}
+async function saveGate2Fields(){
+  if(!souAdmin())return;
+  if(!data.gate2)data.gate2=novoGate2();
+  data.gate2.data=document.getElementById('gate2-data').value;
+  data.gate2.aprovador=document.getElementById('gate2-aprovador').value.trim();
+  await saveData();
+}
+
+function readProg(){
+  return{
+    cod:v('prog-cod'),nome:v('prog-nome'),unidade:v('prog-unidade'),resp:v('prog-resp'),
+    just:v('prog-just'),obj:v('prog-obj'),impacto:v('prog-impacto'),
+    alinhamento:v('prog-alinhamento'),parceiros:v('prog-parceiros'),restricoes:v('prog-restricoes'),
+    indicadores:readDynTable('tbody-ind-prog',['indicador','valor','meta']),
+    valores:readDynTable('tbody-val-prog',['tipo','a1','a2','a3']),
+  };
+}
+function v(id){const el=document.getElementById(id);return el?(el.value||'').trim():'';}
+
+/* dyn tables */
+function addRow(name,keys){
+  const tbody=document.getElementById('tbody-'+name);
+  const tr=document.createElement('tr');
+  tr.innerHTML=keys.map(k=>`<td><input data-k="${k}" placeholder="${k}"></td>`).join('')+`<td><button type="button" class="row-x" onclick="this.closest('tr').remove()">×</button></td>`;
+  tbody.appendChild(tr);
+}
+function rebuildTable(name,keys,rows){
+  const tbody=document.getElementById('tbody-'+name);
+  tbody.innerHTML='';
+  rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=keys.map(k=>`<td><input data-k="${k}" value="${esc(r[k]||'')}" placeholder="${k}"></td>`).join('')+`<td><button type="button" class="row-x" onclick="this.closest('tr').remove()">×</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+function readDynTable(tbodyId,keys){
+  const rows=[];
+  document.querySelectorAll(`#${tbodyId} tr`).forEach(tr=>{
+    const obj={};let any=false;
+    tr.querySelectorAll('input').forEach(inp=>{const val=(inp.value||'').trim();obj[inp.dataset.k]=val;if(val)any=true;});
+    if(any)rows.push(obj);
+  });
+  return rows;
+}
+
+/* projetos editor */
+function renderProjEditor(){
+  const list=document.getElementById('proj-editor-list');
+  list.innerHTML='';
+  (data.projetos||[]).forEach((pr,i)=>list.appendChild(buildProjEditor(pr,i)));
+}
+
+function buildProjEditor(pr,i){
+  const div=document.createElement('div');
+  div.className='edit-card';
+  div.innerHTML=`
+    <div class="edit-card-head">
+      <h3>Projeto ${i+1}: ${esc(pr.nome||'(sem nome)')}</h3>
+      <button class="btn btn-sm btn-danger" onclick="removeProj(${i})">Remover</button>
+    </div>
+    <div class="edit-grid">
+      <div class="field full">
+        <label>Projeto vinculado (Gate 1) <span style="font-weight:500;color:var(--muted)">— opcional</span></label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select id="projVinc-${i}" style="flex:1" onchange="onProjRowProjetoSelect(${i})">
+            <option value="">Nenhum — usar dados digitados abaixo</option>
+            ${projetosAprovados.map(pa=>`<option value="${pa.id}" ${pr.projetoId===pa.id?'selected':''}>${esc(pa.nome)}</option>`).join('')}
+          </select>
+          <button type="button" class="btn btn-sm btn-ghost" id="histBtn-${i}" style="display:${pr.projetoId?'inline-flex':'none'}" onclick="toggleProjRowHistorico(${i})">Ver histórico</button>
+        </div>
+        <div id="projRowHist-${i}" style="display:none"></div>
+      </div>
+      <div class="field"><label>Código da ação</label><input id="pr${i}-codAcao" value="${esc(pr.codAcao||'')}" placeholder="Ex: ACT-001"></div>
+      <div class="field full"><label>Nome do projeto</label><input id="pr${i}-nome" value="${esc(pr.nome||'')}" placeholder="Nome do projeto"></div>
+      <div class="field"><label>Unidade responsável</label><select id="pr${i}-unidade"><option value="">Selecione…</option>${['Superintendência Reitoria','Ouvidoria','CPA','Comitê da Qualidade','Diretoria Educação Executiva','Diretoria de Escola Business','Diretoria de Escola de Direito','Diretoria de Operações EAD','Diretoria de Marketing e Vendas','Coord. Curso Lato Sensu','Coord. Pós-Graduação Stricto Sensu','Coord. Curso Graduação, Técnico e Ensino Médio','Coord. Curso Graduação','Coord. Operações Acadêmicas EAD','Coord. Gestão de Polos','Corpo Docente','Corpo Docente (PJ)','Marketing','Vendas','Relacionamento','Planej. e Operações','RH','Secretaria Geral','Asseg. Qualidade','Segurança','ADM e Infraestrutura','GPTI','Controladoria','Gerência de Controladoria'].map(u=>`<option ${pr.unidade===u?'selected':''}>${u}</option>`).join('')}</select></div>
+      <div class="field"><label>Responsável pelo projeto</label><input id="pr${i}-resp" value="${esc(pr.resp||'')}" placeholder="Nome do GP"></div>
+      <div class="field full"><label>Objetivo</label><textarea id="pr${i}-obj" rows="2">${esc(pr.obj||'')}</textarea></div>
+      <div class="field"><label>Público-alvo</label><textarea id="pr${i}-publico" rows="2">${esc(pr.publico||'')}</textarea></div>
+      <div class="field"><label>Riscos</label><textarea id="pr${i}-riscos" rows="2">${esc(pr.riscos||'')}</textarea></div>
+      <div class="field full"><label>Impacto / Resultado do projeto</label><textarea id="pr${i}-impacto" rows="2">${esc(pr.impacto||'')}</textarea></div>
+    </div>
+    <div style="padding:0 20px 8px">
+      <div class="sec-title" style="margin-top:4px">Principais entregas</div>
+      <table class="dyn-mini" id="tbl-ent-${i}"><thead><tr><th>Entrega</th><th>Qtde / %</th><th>Data limite</th><th style="width:32px"></th></tr></thead><tbody id="tbody-ent-${i}"></tbody></table>
+      <div class="dyn-foot"><button type="button" class="btn btn-ghost btn-sm" onclick="addEntrega(${i})">+ Entrega</button></div>
+    </div>
+    <div style="padding:0 20px 8px">
+      <div class="sec-title" style="margin-top:8px">Indicadores do projeto</div>
+      <table class="dyn-mini" id="tbl-ind-pr-${i}"><thead><tr><th>Indicador</th><th>Valor atual</th><th>Meta</th><th style="width:32px"></th></tr></thead><tbody id="tbody-ind-pr-${i}"></tbody></table>
+      <div class="dyn-foot"><button type="button" class="btn btn-ghost btn-sm" onclick="addIndPr(${i})">+ Indicador</button> <button type="button" class="btn btn-ghost btn-sm" id="importTapBtn-${i}" style="display:${pr.projetoId?'inline-flex':'none'}" onclick="importarIndicadoresTAP(${i})">↓ Importar do TAP</button></div>
+    </div>
+    <div style="padding:0 20px 20px">
+      <div class="sec-title" style="margin-top:8px">Valores estimados do projeto</div>
+      <table class="dyn-mini" id="tbl-val-pr-${i}"><thead><tr><th>Tipo</th><th>2025</th><th>2026</th><th>2027</th><th style="width:32px"></th></tr></thead><tbody id="tbody-val-pr-${i}"></tbody></table>
+      <div class="dyn-foot"><button type="button" class="btn btn-ghost btn-sm" onclick="addValPr(${i})">+ Linha</button></div>
+    </div>`;
+  setTimeout(()=>{
+    rebuildTable(`ent-${i}`,['entrega','qtde','data'],pr.entregas||[{entrega:'',qtde:'',data:''}]);
+    rebuildTable(`ind-pr-${i}`,['indicador','valor','meta'],pr.indicadores||[]);
+    rebuildTable(`val-pr-${i}`,['tipo','a1','a2','a3'],pr.valores||[]);
+  },0);
+  return div;
+}
+
+function addProjeto(){
+  data.projetos.push({codAcao:'',nome:'',unidade:'',resp:'',obj:'',publico:'',riscos:'',impacto:'',entregas:[],indicadores:[],valores:[]});
+  renderProjEditor();
+  document.querySelector('.add-proj-btn').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function removeProj(i){data.projetos.splice(i,1);renderProjEditor();}
+function addEntrega(i){addDynRow(`tbody-ent-${i}`,['entrega','qtde','data']);}
+function addIndPr(i){addDynRow(`tbody-ind-pr-${i}`,['indicador','valor','meta']);}
+function addValPr(i){addDynRow(`tbody-val-pr-${i}`,['tipo','a1','a2','a3']);}
+function addDynRow(tbodyId,keys){
+  const tbody=document.getElementById(tbodyId);
+  const tr=document.createElement('tr');
+  tr.innerHTML=keys.map(k=>`<td><input data-k="${k}" placeholder="—"></td>`).join('')+`<td><button type="button" class="row-x" onclick="this.closest('tr').remove()">×</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function readProjetos(){
+  return(data.projetos||[]).map((_,i)=>({
+    projetoId:v(`projVinc-${i}`),
+    codAcao:v(`pr${i}-codAcao`),nome:v(`pr${i}-nome`),unidade:v(`pr${i}-unidade`),
+    resp:v(`pr${i}-resp`),obj:v(`pr${i}-obj`),publico:v(`pr${i}-publico`),
+    riscos:v(`pr${i}-riscos`),impacto:v(`pr${i}-impacto`),
+    entregas:readDynTable(`tbody-ent-${i}`,['entrega','qtde','data']),
+    indicadores:readDynTable(`tbody-ind-pr-${i}`,['indicador','valor','meta']),
+    valores:readDynTable(`tbody-val-pr-${i}`,['tipo','a1','a2','a3']),
+  }));
+}
+
+async function saveAndPreview(){
+  data.prog=readProg();
+  data.projetos=readProjetos();
+  await saveData();
+  await saveSnapshot();
+  toast('Dados salvos');
+  showView('painel');
+}
+
+const ATA_LOGO_DATAURI='data:image/png;base64,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';
+
+/* ---------- Impressao / exportacao no formato de dossie do sistema (FORALF12) ---------- */
+function docTableRowsEnt(cols,rows,mapper){
+  const ths=cols.map(c=>'<th>'+esc(c)+'</th>').join('');
+  const body=(rows||[]).map(r=>'<tr>'+mapper(r).map(v=>'<td>'+(esc(v)||'&nbsp;')+'</td>').join('')+'</tr>').join('');
+  if(!body) return '<p style="margin:0;color:#6A6A70">Nenhum registro.</p>';
+  return '<table class="doc-t"><thead><tr>'+ths+'</tr></thead><tbody>'+body+'</tbody></table>';
+}
+function buildEntregasDocumentoHtml(){
+  const hoje=new Date().toLocaleDateString('pt-BR');
+  const p=data.prog||{};
+  const projs=data.projetos||[];
+  const g=data.gate2||novoGate2();
+  const style=[
+    'body{font-family:Calibri,Arial,sans-serif;color:#1A1A1A;margin:24px;font-size:12px}',
+    '.doc-head{display:flex;border:1px solid #1A1A1A;margin-bottom:14px}',
+    '.doc-logo{width:150px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px;border-right:1px solid #1A1A1A}',
+    '.doc-logo img{max-width:130px;display:block}',
+    '.doc-headinfo{flex:1}',
+    '.doc-headinfo .ttl{text-align:center;font-weight:700;padding:6px;border-bottom:1px solid #1A1A1A;background:#F6F6F7}',
+    '.doc-headinfo table{width:100%;border-collapse:collapse}',
+    '.doc-headinfo td{border-top:1px solid #1A1A1A;padding:4px 8px;font-size:10px;text-align:center}',
+    '.doc-headinfo td b{display:block;font-size:11px}',
+    '.doc-stage{background:#1A1A1A;color:#fff;font-weight:700;font-size:11px;letter-spacing:.04em;padding:6px 8px;text-transform:uppercase;margin:16px 0 8px}',
+    '.doc-box{border:1px solid #1A1A1A;margin-bottom:10px}',
+    '.doc-box .lbl{background:#F6F6F7;color:#1A1A1A;font-weight:700;font-size:10px;letter-spacing:.05em;padding:5px 8px;text-transform:uppercase;border-bottom:1px solid #1A1A1A}',
+    '.doc-box .val{padding:8px;min-height:16px;white-space:pre-wrap}',
+    '.doc-row{display:flex}',
+    '.doc-row .doc-box{flex:1;margin-bottom:0}',
+    '.doc-t{width:100%;border-collapse:collapse;font-size:11px}',
+    '.doc-t th,.doc-t td{border:1px solid #1A1A1A;padding:5px 8px;text-align:left}',
+    '.doc-t th{background:#F6F6F7;font-size:10px;text-transform:uppercase;letter-spacing:.03em}',
+    '.doc-foot{text-align:center;color:#6A6A70;font-size:10px;margin-top:18px;border-top:1px solid #E4E4E7;padding-top:8px}',
+    '.doc-gen{text-align:center;color:#9CA3AF;font-size:9px;margin-top:4px}',
+    '.pgbreak{page-break-before:always}',
+    '@page{margin:14mm}'
+  ].join('\n');
+  const indProgRows=docTableRowsEnt(['Indicador','Valor atual','Meta'],p.indicadores||[],r=>[r.indicador,r.valor,r.meta]);
+  const valProgRows=docTableRowsEnt(['Tipo','2025','2026','2027'],p.valores||[],r=>[r.tipo,r.a1,r.a2,r.a3]);
+  let projsHtml='';
+  projs.forEach((pr,i)=>{
+    projsHtml+=(i>0?'<div class="pgbreak"></div>':'')+'<div class="doc-stage">Projeto '+(i+1)+(pr.nome?' — '+esc(pr.nome):'')+(pr.codAcao?' ('+esc(pr.codAcao)+')':'')+'</div>'
+      +'<div class="doc-row">'
+      +'<div class="doc-box"><div class="lbl">Unidade responsavel</div><div class="val">'+(esc(pr.unidade)||'&nbsp;')+'</div></div>'
+      +'<div class="doc-box"><div class="lbl">Responsavel pelo projeto</div><div class="val">'+(esc(pr.resp)||'&nbsp;')+'</div></div>'
+      +'</div>'
+      +'<div class="doc-box"><div class="lbl">Objetivo</div><div class="val">'+(esc(pr.obj)||'&nbsp;')+'</div></div>'
+      +'<div class="doc-row">'
+      +'<div class="doc-box"><div class="lbl">Publico-alvo</div><div class="val">'+(esc(pr.publico)||'&nbsp;')+'</div></div>'
+      +'<div class="doc-box"><div class="lbl">Riscos</div><div class="val">'+(esc(pr.riscos)||'&nbsp;')+'</div></div>'
+      +'</div>'
+      +'<div class="doc-box"><div class="lbl">Impacto / resultado do projeto</div><div class="val">'+(esc(pr.impacto)||'&nbsp;')+'</div></div>'
+      +'<div class="doc-box"><div class="lbl">Principais entregas</div><div class="val">'+docTableRowsEnt(['Entrega','Qtde / %','Data limite'],pr.entregas||[],e=>[e.entrega,e.qtde,e.data])+'</div></div>'
+      +'<div class="doc-box"><div class="lbl">Indicadores associados</div><div class="val">'+docTableRowsEnt(['Indicador','Valor atual','Meta'],pr.indicadores||[],r=>[r.indicador,r.valor,r.meta])+'</div></div>'
+      +'<div class="doc-box"><div class="lbl">Valores estimados</div><div class="val">'+docTableRowsEnt(['Tipo','2025','2026','2027'],pr.valores||[],r=>[r.tipo,r.a1,r.a2,r.a3])+'</div></div>';
+  });
+  return '<!doctype html><html><head><meta charset="utf-8"><title>Relatorio de Entregas - '+esc(p.cod)+'</title><style>'+style+'</style></head><body>'
+    +'<div class="doc-head">'
+    +'<div class="doc-logo"><img src="'+ATA_LOGO_DATAURI+'" alt="ALFA"></div>'
+    +'<div class="doc-headinfo">'
+    +'<div class="ttl">FORALF12 &mdash; CADERNO DE ENTREGAS E BENEFICIOS</div>'
+    +'<table><tr>'
+    +'<td><b>'+esc(p.cod||'—')+'</b>Codigo</td>'
+    +'<td><b>'+esc(g.status)+'</b>Gate 2</td>'
+    +'<td><b>'+(g.data?esc(fmtDataBR(g.data)):'—')+'</b>Pactuado em</td>'
+    +'</tr></table>'
+    +'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Nome do programa</div><div class="val">'+(esc(p.nome)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-row">'
+    +'<div class="doc-box"><div class="lbl">Unidade</div><div class="val">'+(esc(p.unidade)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Responsavel</div><div class="val">'+(esc(p.resp)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Aprovador (Gate 2)</div><div class="val">'+(esc(g.aprovador)||'&nbsp;')+'</div></div>'
+    +'</div>'
+    +'<div class="doc-box"><div class="lbl">Justificativa</div><div class="val">'+(esc(p.just)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Objetivo</div><div class="val">'+(esc(p.obj)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Impacto / resultado</div><div class="val">'+(esc(p.impacto)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-row">'
+    +'<div class="doc-box"><div class="lbl">Alinhamento estrategico</div><div class="val">'+(esc(p.alinhamento)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Parceiros na execucao</div><div class="val">'+(esc(p.parceiros)||'&nbsp;')+'</div></div>'
+    +'</div>'
+    +'<div class="doc-box"><div class="lbl">Restricoes a implementacao</div><div class="val">'+(esc(p.restricoes)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Indicadores do programa</div><div class="val">'+indProgRows+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Valores estimados do programa</div><div class="val">'+valProgRows+'</div></div>'
+    +projsHtml
+    +'<div class="doc-foot">GRUPO JOSE ALVES</div>'
+    +'<div class="doc-gen">Documento gerado pelo Sistema de Gestao de Projetos UNIALFA em '+hoje+'</div>'
+    +'</body></html>';
+}
+function imprimirEntregas(){
+  const html=buildEntregasDocumentoHtml();
+  const iframe=document.createElement('iframe');
+  iframe.style.position='fixed'; iframe.style.right='0'; iframe.style.bottom='0';
+  iframe.style.width='0'; iframe.style.height='0'; iframe.style.border='0';
+  document.body.appendChild(iframe);
+  iframe.contentDocument.open(); iframe.contentDocument.write(html); iframe.contentDocument.close();
+  iframe.onload=function(){
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    setTimeout(function(){document.body.removeChild(iframe);},1000);
+  };
+}
+function exportarEntregasWord(){
+  const html=buildEntregasDocumentoHtml();
+  const wordHtml=html.replace('<!doctype html><html>',"<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>");
+  const blob=new Blob([wordHtml],{type:'application/msword'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='Relatorio de Entregas - '+(data.prog&&data.prog.cod?data.prog.cod:new Date().toISOString().slice(0,10))+'.doc'; a.click(); URL.revokeObjectURL(url);
+  toast('Relatório exportado em Word');
+}
+
+async function papelPermitido(chave){
+  if(window.currentProfile && window.currentProfile.papel==='admin') return true;
+  try{
+    const r = await fetch(unialfaAuth.REST_BASE+'/configuracoes?chave=eq.'+chave+'&select=valor', { headers: unialfaAuth.authHeaders() });
+    const rows = r.ok ? await r.json() : [];
+    const permitidos = (rows[0] && Array.isArray(rows[0].valor)) ? rows[0].valor : [];
+    return window.currentProfile ? permitidos.includes(window.currentProfile.papel) : false;
+  }catch(e){ return false; }
+}
+
+(async()=>{
+  await ensureAuthenticated();
+  if(!(await papelPermitido('papeis_relatorio_entregas'))){
+    document.getElementById('deniedMsg').textContent = 'Esta página não está liberada para o seu papel atual ("'+unialfaAuth.papelLabel(window.currentProfile?window.currentProfile.papel:'solicitante')+'"). Solicite a um administrador para ajustar quem pode ver esta página em Administração > Configurações.';
+    document.getElementById('deniedBox').style.display = 'block';
+    return;
+  }
+  document.getElementById('conteudoRelatorio').style.display = 'block';
+  await loadData(); await carregarProjetosAprovados(); renderPainel();
+})();
+</script>

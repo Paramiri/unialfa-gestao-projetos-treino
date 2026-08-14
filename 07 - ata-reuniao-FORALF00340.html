@@ -1,0 +1,1502 @@
+<!-- Ata de Reunião — FORALF00340 / UNIALFA — com importação de transcrição por IA (Claude) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#B91D2E;--red-deep:#8E1322;--ink:#1A1A1A;--muted:#6A6A70;
+  --paper:#FFFFFF;--surface:#F6F6F7;--surface-2:#FAFAFB;
+  --line:#E4E4E7;--line-strong:#D4D4D8;
+  --ok:#1B7F4B;--ok-soft:#E6F4EC;--warn:#B45309;--warn-soft:#FBF1E3;--bad:#9F1239;--bad-soft:#FBE7EC;
+  --ai:#6D28D9;--ai-soft:#EDE9FE;
+  --radius:10px;--shadow:0 1px 2px rgba(20,20,20,.04),0 8px 28px rgba(20,20,20,.06);
+  --font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:28px 20px 64px}
+.doc-head{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.doc-band{background:var(--red);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.doc-logo{font-weight:800;font-size:22px;letter-spacing:.04em;line-height:1;padding-right:18px;border-right:2px solid rgba(255,255,255,.35)}
+.doc-logo small{display:block;font-weight:600;font-size:10px;letter-spacing:.22em;margin-top:5px;opacity:.85}
+.doc-title h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.doc-title p{margin:3px 0 0;font-size:12px;font-weight:500;opacity:.9}
+.doc-meta{display:flex;gap:0;border-top:1px solid var(--line);background:var(--surface-2);font-size:11px;flex-wrap:wrap}
+.doc-meta div{padding:9px 24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:1px}
+.doc-meta div:last-child{border-right:none}
+.doc-meta span{color:var(--muted);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:9.5px}
+.doc-meta b{font-weight:700;font-size:12px}
+.tabs{display:flex;gap:8px;margin:22px 0 16px}
+.tab{appearance:none;border:1px solid var(--line);background:var(--paper);color:var(--muted);font-family:var(--font);font-weight:600;font-size:13px;padding:10px 18px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .15s}
+.tab:hover{border-color:var(--line-strong);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .count{background:var(--red);color:#fff;font-size:11px;font-weight:700;min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center}
+.tab[aria-selected="true"] .count{background:#fff;color:var(--ink)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:18px}
+#list-body{overflow-x:auto}
+.section-h{display:flex;align-items:center;gap:12px;padding:16px 24px 13px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.section-h .n{padding:0 9px;height:26px;min-width:26px;border-radius:7px;background:var(--red);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none}
+.section-h .n.ai{background:var(--ai)}
+.section-h h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.section-h p{margin:0 0 0 auto;font-size:11px;color:var(--muted);font-weight:500}
+.grid{padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+label{font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--ink)}
+label .req{color:var(--red);margin-left:2px}
+.hint{font-size:11px;color:var(--muted);font-weight:500;margin-top:-2px}
+input,select,textarea{font-family:var(--font);font-size:13.5px;color:var(--ink);border:1px solid var(--line-strong);border-radius:8px;padding:10px 12px;background:var(--paper);width:100%;transition:border-color .15s,box-shadow .15s}
+input::placeholder,textarea::placeholder{color:#A8A8AE}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(185,29,46,.12)}
+textarea{resize:vertical;min-height:90px}
+.field.error input,.field.error select,.field.error textarea{border-color:var(--bad);box-shadow:0 0 0 3px rgba(159,18,57,.10)}
+.err-msg{font-size:11px;color:var(--bad);font-weight:600;display:none}
+.field.error .err-msg{display:block}
+/* AI panel */
+.ai-panel{padding:18px 24px;background:var(--ai-soft);border-bottom:1px solid #DDD6FE}
+.ai-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap}
+.ai-row .field{flex:1;min-width:240px}
+.ai-row .field input:focus{border-color:var(--ai);box-shadow:0 0 0 3px rgba(109,40,217,.12)}
+.btn-ai{background:var(--ai);color:#fff;appearance:none;font-family:var(--font);font-weight:700;font-size:13px;border-radius:8px;padding:11px 20px;cursor:pointer;border:none;display:inline-flex;align-items:center;gap:8px;transition:background .15s;white-space:nowrap}
+.btn-ai:hover{background:#5B21B6}
+.btn-ai:disabled{opacity:.5;cursor:not-allowed}
+.ai-status{margin-top:10px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px}
+.ai-status.loading{color:var(--ai)}
+.ai-status.ok{color:var(--ok)}
+.ai-status.err{color:var(--bad)}
+.spinner{width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;flex:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-filled{background:#F5F3FF;border:1px solid #C4B5FD;border-radius:7px;padding:10px 14px;font-size:12px;color:var(--ai);font-weight:600;margin-top:8px;display:none}
+.ai-filled.show{display:block}
+/* unidades */
+.unid-grid{padding:16px 24px;display:flex;flex-wrap:wrap;gap:10px;border-bottom:1px solid var(--line)}
+.unid-opt{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1.5px solid var(--line);border-radius:8px;padding:9px 14px;cursor:pointer;transition:all .15s;font-size:12px;font-weight:600;user-select:none}
+.unid-opt:hover{border-color:var(--line-strong)}
+.unid-opt input{width:15px;height:15px;accent-color:var(--red);cursor:pointer;flex:none;margin:0}
+.unid-opt.checked{background:#FEF2F2;border-color:var(--red);color:var(--red)}
+/* dynamic tables */
+.dyn{padding:16px 24px 20px}
+.dyn-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table.dyn-t{width:100%;border-collapse:collapse;min-width:480px}
+table.dyn-t th{font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:9px 10px;background:var(--surface-2);border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+table.dyn-t td{padding:4px 6px;border-bottom:1px solid var(--surface)}
+table.dyn-t tbody tr:last-child td{border-bottom:none}
+table.dyn-t input{border:1px solid transparent;border-radius:6px;padding:8px;font-size:12.5px;background:var(--surface-2);min-width:100px}
+table.dyn-t input:focus{background:#fff;border-color:var(--red);box-shadow:none;outline:none}
+.row-x{appearance:none;border:none;background:transparent;color:var(--muted);font-size:18px;cursor:pointer;width:28px;height:28px;border-radius:6px;line-height:1;display:flex;align-items:center;justify-content:center}
+.row-x:hover{background:var(--bad-soft);color:var(--bad)}
+.dyn-foot{margin-top:10px}
+.actions{display:flex;align-items:center;gap:12px;padding:18px 24px;border-top:1px solid var(--line);background:var(--surface-2)}
+.btn{appearance:none;font-family:var(--font);font-weight:700;font-size:13px;border-radius:8px;padding:11px 22px;cursor:pointer;border:1px solid transparent;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--red-deep)}
+.btn-ghost{background:var(--paper);color:var(--ink);border-color:var(--line-strong)}.btn-ghost:hover{border-color:var(--ink)}
+.btn-sm{padding:8px 14px;font-size:12px}
+.btn-danger{background:var(--paper);color:var(--bad);border-color:var(--bad-soft)}.btn-danger:hover{background:var(--bad-soft)}
+.actions .spacer{margin-left:auto;font-size:11px;color:var(--muted);font-weight:500}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:13px 20px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.2,.8,.2,1);z-index:50;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast .dot{width:8px;height:8px;border-radius:50%;background:#fff;flex:none}
+.toast.ok .dot{background:#5BE49B}
+.list-head{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+.list-head input[type=search]{max-width:300px}
+.list-head .ttl{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.list-head .ml{margin-left:auto;display:flex;gap:8px}
+table.list{width:100%;border-collapse:collapse;font-size:13px}
+table.list thead th{text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:12px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.list tbody td{padding:13px 16px;border-bottom:1px solid var(--surface);vertical-align:top}
+table.list tbody tr{cursor:pointer;transition:background .12s}
+table.list tbody tr:hover{background:var(--surface-2)}
+.proto{font-weight:700;font-size:12px;white-space:nowrap}
+.proto small{display:block;color:var(--muted);font-weight:500;font-size:10.5px;margin-top:2px}
+.proj{font-weight:600}
+.proj small{display:block;color:var(--muted);font-weight:500;font-size:11.5px;margin-top:2px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-pend{background:var(--warn-soft);color:var(--warn)}
+.b-apr{background:var(--ok-soft);color:var(--ok)}
+.b-ai{background:var(--ai-soft);color:var(--ai)}
+.empty{padding:56px 24px;text-align:center;color:var(--muted)}
+.empty h3{margin:0 0 4px;font-size:15px;color:var(--ink);font-weight:700}
+.empty p{margin:0;font-size:13px}
+.overlay{position:fixed;inset:0;background:rgba(20,20,22,.45);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(600px,96vw);background:var(--paper);box-shadow:-16px 0 50px rgba(0,0,0,.18);transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);z-index:45;display:flex;flex-direction:column}
+.drawer.show{transform:translateX(0)}
+.drawer-top{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:12px}
+.drawer-top h2{margin:0;font-size:16px;font-weight:700}
+.drawer-top .proto-lg{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px}
+.xbtn{margin-left:auto;appearance:none;border:1px solid var(--line);background:var(--paper);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;color:var(--muted);flex:none}
+.xbtn:hover{border-color:var(--ink);color:var(--ink)}
+.drawer-body{padding:8px 24px 24px;overflow-y:auto;flex:1}
+.dl .grp{margin:18px 0 6px;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.dl .row{padding:12px 0;border-bottom:1px solid var(--surface)}
+.dl dt{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.dl dd{margin:0;font-size:13.5px;white-space:pre-wrap;word-break:break-word}
+.ro-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:7px;margin-top:4px}
+table.ro-t{width:100%;border-collapse:collapse;font-size:12px;min-width:360px}
+table.ro-t th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:7px 9px;background:var(--surface-2);border-bottom:1px solid var(--line);white-space:nowrap}
+table.ro-t td{padding:7px 9px;border-bottom:1px solid var(--surface)}
+table.ro-t tbody tr:last-child td{border-bottom:none}
+.drawer-foot{padding:16px 24px;border-top:1px solid var(--line);background:var(--surface-2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.status-row{display:flex;align-items:center;gap:8px;margin-right:auto}
+.status-row label{font-size:11px;color:var(--muted)}
+.status-row select{width:auto;padding:8px 12px;font-size:12px;font-weight:600}
+@media(max-width:680px){.grid{grid-template-columns:1fr}.doc-meta{flex-wrap:wrap}.doc-meta div{flex:1 1 40%}.hide-sm{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.doc-help{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;text-decoration:none;border:1.5px solid rgba(255,255,255,.4)}
+.doc-help:hover{background:rgba(255,255,255,.32)}
+</style>
+
+<!-- ==== AUTH GATE (HTML) ==== -->
+<div class="auth-gate" id="authGate" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:40px;display:block"><small>GRUPO JOSÉ ALVES</small></div>
+    <h2>Entrar</h2>
+    <p>Digite seu e-mail para receber um link de acesso — sem senha.</p>
+    <div id="authStep1">
+      <input type="email" id="authEmail" placeholder="seu.nome@email.com.br">
+      <button class="btn btn-primary" onclick="unialfaAuthUI.sendLink()">Enviar link de acesso</button>
+    </div>
+    <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="unialfaAuthUI.signInWithAzure()">Entrar com Microsoft - UNIALFA</button>
+    <div id="treinoLoginBloco" style="display:none">
+      <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+      <p style="font-size:11.5px;color:var(--muted,#6B7280);margin-bottom:8px">Ambiente de treinamento — use uma conta de teste:</p>
+      <input type="email" id="treinoEmail" placeholder="ex.: admin@treino.unialfa.local">
+      <input type="password" id="treinoSenha" placeholder="Senha" style="margin-top:8px">
+      <button class="btn btn-primary" style="margin-top:10px" onclick="unialfaAuthUI.signInTreino()">Entrar (treinamento)</button>
+    </div>
+    <script>if(location.href.indexOf('treino')>-1){var _tb=document.getElementById('treinoLoginBloco');if(_tb)_tb.style.display='block';}</script>
+    <div id="authStep2" style="display:none">
+      <p>✓ Link enviado para <b id="authEmailSent"></b>. Verifique seu e-mail e clique no link — esta página atualiza sozinha.</p>
+      <button class="btn btn-ghost btn-sm" onclick="unialfaAuthUI.reset()">Usar outro e-mail</button>
+    </div>
+    <div id="authMsg" class="auth-msg" style="display:none"></div>
+
+    <div id="semLoginBloco" style="display:none">
+      <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+      <div id="semLoginStep1">
+        <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="unialfaAuthUI.mostrarSemLogin()">Continuar sem login</button>
+      </div>
+      <div id="semLoginStep2" style="display:none">
+        <p style="font-size:12.5px;color:var(--muted,#6B7280);margin-bottom:10px">Informe seu nome e e-mail para registro da ata:</p>
+        <input type="text" id="semLoginNome" placeholder="Seu nome completo">
+        <input type="email" id="semLoginEmail" placeholder="seu.email@..." style="margin-top:8px">
+        <button class="btn btn-primary" style="margin-top:10px" onclick="unialfaAuthUI.enviarSemLogin()">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.auth-gate{position:fixed;inset:0;background:rgba(15,15,15,.92);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--paper,#fff);border-radius:14px;padding:32px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.auth-logo{font-weight:900;font-size:20px;letter-spacing:.04em;color:var(--red,#B91D2E);margin-bottom:18px}
+.auth-logo small{display:block;font-weight:600;font-size:9px;letter-spacing:.2em;color:var(--muted,#6B7280);margin-top:3px}
+.auth-card h2{font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink,#0F0F0F)}
+.auth-card p{font-size:12.5px;color:var(--muted,#6B7280);margin-bottom:16px;line-height:1.5}
+.auth-card input{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;margin-bottom:10px;color:var(--ink,#0F0F0F)}
+.auth-card input:focus{outline:none;border-color:var(--red,#B91D2E);box-shadow:0 0 0 3px rgba(185,29,46,.12)}
+.auth-card .btn{width:100%;justify-content:center}
+.auth-msg{margin-top:10px;font-size:12px;font-weight:600;padding:8px 10px;border-radius:7px}
+.auth-msg.err{background:#FEE2E2;color:#DC2626}
+.auth-msg.ok{background:#D1FAE5;color:#059669}
+.auth-topbar{position:fixed;top:0;left:0;right:0;background:var(--ink,#0F0F0F);color:#fff;font-size:11.5px;padding:8px 18px;display:flex;align-items:center;gap:10px;z-index:150;font-family:var(--font)}
+.auth-topbar b{font-weight:700}
+.auth-topbar .papel-tag{background:var(--red,#B91D2E);padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.auth-topbar .sair{margin-left:auto;background:none;border:none;color:#fff;opacity:.7;cursor:pointer;font-size:11px;text-decoration:underline;font-family:inherit}
+.auth-topbar .sair:hover{opacity:1}
+body.auth-ready{padding-top:34px}
+
+/* projeto vinculado */
+.proj-link-card{background:var(--paper,#fff);border:1px solid var(--line,#E5E7EB);border-radius:var(--radius,10px);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:18px}
+.proj-link-card .plc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.proj-link-card .plc-head h3{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6B7280);flex:1}
+.proj-link-card .plc-hist{font-size:11px;font-weight:700;color:var(--red,#B91D2E);background:none;border:none;cursor:pointer;text-decoration:underline}
+.proj-link-card select{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;color:var(--ink,#0F0F0F)}
+.proj-link-card .plc-info{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px}
+.proj-link-card .plc-info span{color:var(--muted,#6B7280)}
+.proj-link-card .plc-info b{color:var(--ink,#0F0F0F);margin-left:4px}
+.hist-panel{background:var(--surface-2,#F1F2F4);border:1px solid var(--line,#E5E7EB);border-radius:8px;margin-top:12px;padding:12px 14px;font-size:12px;max-height:220px;overflow-y:auto}
+.hist-panel .hi{padding:6px 0;border-bottom:1px solid var(--line,#E5E7EB)}
+.hist-panel .hi:last-child{border-bottom:none}
+.hist-panel .hi b{color:var(--red,#B91D2E)}
+</style>
+
+<script>
+/* ---- Autenticacao (magic link) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var AUTH_BASE = SUPABASE_URL + '/auth/v1';
+  var REST_BASE = SUPABASE_URL + '/rest/v1';
+  var SESSION_KEY = 'unialfa_session';
+
+  function saveSession(s){ localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+  function getSession(){ try{ return JSON.parse(localStorage.getItem(SESSION_KEY)); }catch(e){ return null; } }
+  function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+  function captureRedirect(){
+    if (location.hash && location.hash.indexOf('access_token') > -1) {
+      var params = new URLSearchParams(location.hash.slice(1));
+      if (params.get('access_token')) {
+        saveSession({
+          access_token: params.get('access_token'),
+          refresh_token: params.get('refresh_token'),
+          expires_at: Date.now() + (parseInt(params.get('expires_in')||'3600',10)*1000),
+        });
+        if (params.get('provider_token')) { localStorage.setItem('unialfa_provider_token', params.get('provider_token')); }
+        history.replaceState(null, '', location.pathname + location.search);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async function sendMagicLink(email){
+    var r = await fetch(AUTH_BASE + '/otp', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, create_user: true }),
+    });
+    return r.ok;
+  }
+
+  async function signInAnonymously(){
+    var r = await fetch(AUTH_BASE + '/signup', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({}),
+    });
+    if(!r.ok) return null;
+    var data = await r.json();
+    saveSession({
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
+      expires_at: Date.now() + (parseInt(data.expires_in||'3600',10)*1000),
+    });
+    return data.user;
+  }
+
+  async function fetchUser(){
+    var s = getSession();
+    if(!s || !s.access_token) return null;
+    if (s.expires_at && Date.now() > s.expires_at) { clearSession(); return null; }
+    var r = await fetch(AUTH_BASE + '/user', { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + s.access_token } });
+    if(!r.ok) { clearSession(); return null; }
+    return await r.json();
+  }
+
+  function authHeaders(extra){
+    var s = getSession();
+    var token = (s && s.access_token) ? s.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) for (var k in extra) h[k]=extra[k];
+    return h;
+  }
+
+  async function fetchProfile(userId){
+    var r = await fetch(REST_BASE + '/perfis?id=eq.' + userId + '&select=*', { headers: authHeaders() });
+    if(!r.ok) return null;
+    var rows = await r.json();
+    return rows[0] || null;
+  }
+
+  async function ensureProfile(user){
+    var p = await fetchProfile(user.id);
+    var meta = user.user_metadata || {};
+    var nome = meta.name || [meta.given_name, meta.family_name].filter(Boolean).join(' ') || null;
+    if(p){
+      if(nome && !p.nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + user.id, {
+          method: 'PATCH', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+          body: JSON.stringify({ nome: nome }),
+        });
+        p.nome = nome;
+      }
+      return p;
+    }
+    var pendente = null;
+    try{
+      var rPend = await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email) + '&select=*', { headers: authHeaders() });
+      if(rPend.ok){ var linhas = await rPend.json(); pendente = linhas[0] || null; }
+    }catch(e){}
+    await fetch(REST_BASE + '/perfis', {
+      method: 'POST', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({
+        id: user.id, email: user.email,
+        nome: (pendente && pendente.nome) || nome,
+        telefone: pendente ? pendente.telefone : null,
+        papel: (pendente && pendente.papel) || 'solicitante',
+      }),
+    });
+    if(pendente){
+      await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email), { method: 'DELETE', headers: authHeaders() });
+    }
+    return await fetchProfile(user.id);
+  }
+
+  var PAPEL_LABEL = {
+    solicitante: 'Solicitante', gerente_projetos: 'Gerente de Projetos', gestor_responsavel: 'Gestor Responsável',
+    dono_negocio: 'Dono do Negócio', alta_gestao: 'Alta Gestão', admin: 'PMO / Admin',
+  };
+
+  async function tentarNomeViaGraph(profile){
+    var token = localStorage.getItem('unialfa_provider_token');
+    if(!token) return profile;
+    localStorage.removeItem('unialfa_provider_token');
+    if(!profile || profile.nome) return profile;
+    try{
+      var r = await fetch('https://graph.microsoft.com/v1.0/me', { headers: { 'Authorization': 'Bearer ' + token } });
+      if(!r.ok) return profile;
+      var me = await r.json();
+      var nome = me.displayName || [me.givenName, me.surname].filter(Boolean).join(' ');
+      if(nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + profile.id, {
+          method:'PATCH', headers: authHeaders({'Prefer':'return=minimal'}),
+          body: JSON.stringify({ nome: nome })
+        });
+        profile.nome = nome;
+      }
+    }catch(e){ console.warn('Nao foi possivel buscar nome via Microsoft Graph', e); }
+    return profile;
+  }
+
+  window.unialfaAuth = {
+    ANON_KEY: SUPABASE_ANON_KEY,
+    REST_BASE: REST_BASE,
+    AUTH_BASE: AUTH_BASE,
+    getSession: getSession, clearSession: clearSession, captureRedirect: captureRedirect,
+    sendMagicLink: sendMagicLink, signInAnonymously: signInAnonymously, fetchUser: fetchUser, authHeaders: authHeaders,
+    fetchProfile: fetchProfile, ensureProfile: ensureProfile, tentarNomeViaGraph: tentarNomeViaGraph,
+    papelLabel: function(p){ return PAPEL_LABEL[p]||p; },
+    signOut: function(){ clearSession(); localStorage.removeItem('unialfa_guest_info'); location.reload(); },
+  };
+})();
+
+var unialfaAuthUI = {
+  sendLink: async function(){
+    var email = document.getElementById('authEmail').value.trim();
+    var msg = document.getElementById('authMsg');
+    if(!email || email.indexOf('@')<0){ msg.textContent='Digite um e-mail válido.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    var ok = await unialfaAuth.sendMagicLink(email);
+    if(ok){
+      document.getElementById('authStep1').style.display='none';
+      document.getElementById('authStep2').style.display='block';
+      document.getElementById('authEmailSent').textContent=email;
+    } else {
+      msg.textContent='Não foi possível enviar o link. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block';
+    }
+  },
+  signInWithAzure: function(){ location.href = unialfaAuth.AUTH_BASE + '/authorize?provider=azure&scopes=openid%20email%20profile%20User.Read'; },
+  reset: function(){
+    document.getElementById('authStep1').style.display='block';
+    document.getElementById('authStep2').style.display='none';
+    document.getElementById('authEmail').value='';
+  },
+  signInTreino: async function(){
+    var email = document.getElementById('treinoEmail').value.trim();
+    var senha = document.getElementById('treinoSenha').value;
+    var msg = document.getElementById('authMsg');
+    if(!email || !senha){ msg.textContent='Informe e-mail e senha de treinamento.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    try{
+      var r = await fetch(unialfaAuth.AUTH_BASE + '/token?grant_type=password', { method:'POST', headers:{'Content-Type':'application/json','apikey':unialfaAuth.ANON_KEY}, body: JSON.stringify({email:email, password:senha}) });
+      var data = await r.json();
+      if(!r.ok || !data.access_token){ msg.textContent='E-mail ou senha inválidos.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+      localStorage.setItem('unialfa_session', JSON.stringify({ access_token:data.access_token, refresh_token:data.refresh_token, expires_at: Date.now() + (parseInt(data.expires_in||'3600',10)*1000) }));
+      location.reload();
+    }catch(e){ msg.textContent='Não foi possível entrar. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block'; }
+  },
+  mostrarSemLogin: function(){
+    document.getElementById('semLoginStep1').style.display='none';
+    document.getElementById('semLoginStep2').style.display='block';
+  },
+  enviarSemLogin: async function(){
+    var nome = document.getElementById('semLoginNome').value.trim();
+    var email = document.getElementById('semLoginEmail').value.trim();
+    var msg = document.getElementById('authMsg');
+    if(!nome || !email || email.indexOf('@')<0){ msg.textContent='Preencha nome e e-mail válidos.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    var user = await unialfaAuth.signInAnonymously();
+    if(!user){ msg.textContent='Não foi possível continuar sem login. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    localStorage.setItem('unialfa_guest_info', JSON.stringify({ nome: nome, email: email }));
+    location.reload();
+  },
+};
+
+async function verificarConfigSemLogin(){
+  try{
+    var r = await fetch(unialfaAuth.REST_BASE + '/configuracoes?chave=eq.permitir_ata_sem_login&select=valor', { headers: { 'apikey': 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ' } });
+    if(!r.ok) return;
+    var rows = await r.json();
+    if(rows[0] && rows[0].valor === true){
+      var bloco = document.getElementById('semLoginBloco');
+      if(bloco) bloco.style.display='block';
+    }
+  }catch(e){}
+}
+
+window.currentUser = null;
+window.currentProfile = null;
+
+function ensureAuthenticated(){
+  return new Promise(function(resolve){
+    async function trySetup(){
+      var user = await unialfaAuth.fetchUser();
+      if(!user) return null;
+      var profile = await unialfaAuth.ensureProfile(user);
+      profile = await unialfaAuth.tentarNomeViaGraph(profile);
+      window.currentUser = user; window.currentProfile = profile;
+      window.guestInfo = null;
+      if(user.is_anonymous){
+        try{ window.guestInfo = JSON.parse(localStorage.getItem('unialfa_guest_info')); }catch(e){}
+      }
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='none';
+      document.body.classList.add('auth-ready');
+      if(!document.querySelector('.auth-topbar')){
+        var bar = document.createElement('div');
+        bar.className='auth-topbar';
+        var label = (user.is_anonymous && window.guestInfo) ? ('Sem login — '+window.guestInfo.nome) : (user.email||'');
+        bar.innerHTML = '<span>Conectado como <b>'+ label +'</b></span><span class="papel-tag">'+unialfaAuth.papelLabel(profile?profile.papel:'solicitante')+'</span><button class="sair" onclick="unialfaAuth.signOut()">Sair</button>';
+        document.body.prepend(bar);
+      }
+      return {user:user, profile:profile};
+    }
+    (async function(){
+      unialfaAuth.captureRedirect();
+      var result = await trySetup();
+      if(result){ resolve(result); return; }
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='flex';
+      var iv = setInterval(async function(){
+        var r = await trySetup();
+        if(r){ clearInterval(iv); resolve(r); }
+      }, 3000);
+    })();
+  });
+}
+
+/* ---- Projeto compartilhado + historico ---- */
+window.unialfaProjeto = {
+  async listarAprovados(){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?status=eq.Aprovado&select=id,nome,unidade,gerente,solicitacao_id&order=nome', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async buscar(id){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+id+'&select=*', { headers: unialfaAuth.authHeaders() });
+    var rows = r.ok ? await r.json() : [];
+    return rows[0] || null;
+  },
+  async criar(dados){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=representation'}), body: JSON.stringify(dados)
+    });
+    var rows = r.ok ? await r.json() : [];
+    return rows[0] || null;
+  },
+  async atualizarCampo(projetoId, campo, valorNovo, valorAnterior, formularioOrigem){
+    var patch = {}; patch[campo] = valorNovo; patch.atualizado_em = new Date().toISOString();
+    await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+projetoId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify(patch)
+    });
+    var user = window.currentUser;
+    await fetch(unialfaAuth.REST_BASE + '/projeto_historico', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ projeto_id: projetoId, campo: campo, valor_anterior: valorAnterior, valor_novo: valorNovo, formulario_origem: formularioOrigem, alterado_por: user?user.id:null, alterado_por_email: user?user.email:null })
+    });
+  },
+  async marcarStatus(projetoId, status){
+    await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+projetoId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify({status:status, atualizado_em: new Date().toISOString()})
+    });
+  },
+  async historico(projetoId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_historico?projeto_id=eq.'+projetoId+'&select=*&order=criado_em.desc', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async sincronizarSeMudou(projetoId, formularioOrigem, camposAntigos, camposNovos){
+    if(!projetoId) return;
+    var labels = {nome:'Nome do projeto', unidade:'Unidade', gerente:'Gerente de projeto'};
+    for(var campo in camposNovos){
+      var novo = (camposNovos[campo]||'').trim();
+      var antigo = (camposAntigos[campo]||'').trim();
+      if(novo && novo !== antigo){
+        var ok = confirm('O campo "'+(labels[campo]||campo)+'" mudou de "'+(antigo||'—')+'" para "'+novo+'".\n\nAtualizar no projeto compartilhado? (isso reflete em todos os formulários vinculados a este projeto)');
+        if(ok){ await this.atualizarCampo(projetoId, campo, novo, antigo, formularioOrigem); }
+      }
+    }
+  },
+  async mostrarHistorico(projetoId, hostEl){
+    var itens = await this.historico(projetoId);
+    var labels = {nome:'Nome do projeto', unidade:'Unidade', gerente:'Gerente de projeto', status:'Status'};
+    if(!itens.length){ hostEl.innerHTML = '<div class="hist-panel"><i>Nenhuma alteração registrada ainda.</i></div>'; hostEl.style.display='block'; return; }
+    var html = '<div class="hist-panel">';
+    itens.forEach(function(h){
+      var d = new Date(h.criado_em);
+      html += '<div class="hi"><b>'+(labels[h.campo]||h.campo)+'</b>: "'+(h.valor_anterior||'—')+'" → "'+(h.valor_novo||'—')+'"<br>'+
+        '<span style="color:var(--muted-2,#9CA3AF)">'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+(h.formulario_origem||'')+' · '+(h.alterado_por_email||'—')+'</span></div>';
+    });
+    html += '</div>';
+    hostEl.innerHTML = html; hostEl.style.display='block';
+  },
+};
+
+/* ---- Historico de alteracoes por registro (conteudo do proprio documento) ---- */
+window.unialfaHistorico = {
+  async registrar(registroKey, formulario, camposAntigos, camposNovos){
+    var user = window.currentUser;
+    var entries = [];
+    for(var campo in camposNovos){
+      var novo = (camposNovos[campo]==null?'':String(camposNovos[campo])).trim();
+      var antigo = (camposAntigos[campo]==null?'':String(camposAntigos[campo])).trim();
+      if(novo !== antigo){
+        entries.push({ registro_key: registroKey, formulario: formulario, campo: campo, valor_anterior: antigo, valor_novo: novo, alterado_por: user?user.id:null, alterado_por_email: user?user.email:null });
+      }
+    }
+    if(!entries.length) return;
+    await fetch(unialfaAuth.REST_BASE + '/registro_historico', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify(entries)
+    });
+  },
+  async listar(registroKey){
+    var r = await fetch(unialfaAuth.REST_BASE + '/registro_historico?registro_key=eq.'+encodeURIComponent(registroKey)+'&select=*&order=criado_em.desc', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async mostrar(registroKey, hostEl, labels){
+    var itens = await this.listar(registroKey);
+    if(!itens.length){ hostEl.innerHTML = '<div class="hist-panel"><i>Nenhuma alteração registrada ainda.</i></div>'; hostEl.style.display='block'; return; }
+    var html = '<div class="hist-panel">';
+    itens.forEach(function(h){
+      var d = new Date(h.criado_em);
+      var lbl = (labels && labels[h.campo]) || h.campo;
+      html += '<div class="hi"><b>'+lbl+'</b>: "'+(h.valor_anterior||'—')+'" → "'+(h.valor_novo||'—')+'"<br>'+
+        '<span style="color:var(--muted-2,#9CA3AF)">'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+(h.alterado_por_email||'—')+'</span></div>';
+    });
+    html += '</div>';
+    hostEl.innerHTML = html; hostEl.style.display='block';
+  },
+};
+</script>
+
+<div class="wrap">
+  <div class="doc-head">
+    <div class="doc-band">
+      <div class="doc-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:38px;display:block;background:#fff;border-radius:6px;padding:3px 8px"><small>GRUPO JOSÉ ALVES</small></div>
+      <div class="doc-title">
+        <h1>Ata de Reunião para Projetos</h1>
+        <p>Registro de reuniões · Escritório de Projetos</p>
+      </div>
+      <a class="doc-help" href="15 - central-ajuda.html?v=11#passo-6" target="_blank" rel="noopener" title="Ajuda sobre este formulário">?</a>
+    </div>
+    <div class="doc-meta">
+      <div><span>Código</span><b>FORALF00340</b></div>
+      <div><span>Revisão</span><b>00</b></div>
+      <div><span>Homologação</span><b>07/05/2026</b></div>
+      <div class="hide-sm"><span>IA</span><b>Análise de transcrição</b></div>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" id="tab-new" onclick="showView('new')">＋ Nova ata</button>
+    <button class="tab" role="tab" aria-selected="false" id="tab-list" onclick="showView('list')">
+      Atas cadastradas <span class="count" id="count">0</span>
+    </button>
+  </div>
+
+  <div id="view-new">
+
+    <div class="proj-link-card">
+      <div class="plc-head"><h3>Projeto vinculado (opcional)</h3><button type="button" class="plc-hist" id="btnHistorico" onclick="toggleHistorico()" style="display:none">Ver histórico</button></div>
+      <select id="projetoSelect" onchange="onProjetoSelect()">
+        <option value="">Selecione um projeto aprovado (Gate 1) para preencher o campo "Programa/Projeto"…</option>
+      </select>
+      <div id="historicoPanel" style="display:none"></div>
+    </div>
+
+    <!-- AI panel -->
+    <div class="card" id="cardImportarIA" style="display:none">
+      <div class="section-h"><div class="n ai">✦</div><h2>Importar transcrição da reunião</h2><p>Analisa o texto e preenche a ata automaticamente</p></div>
+      <div class="ai-panel">
+        <div class="field">
+          <label>Cole aqui a transcrição da reunião</label>
+          <div class="hint">A IA identifica pauta, data/horário (se mencionados), participantes, um resumo dos pontos discutidos, encaminhamentos e entraves — sempre para você revisar e completar antes de salvar.</div>
+          <div style="display:flex; align-items:center; gap:10px; margin:8px 0 10px">
+            <label class="btn btn-ghost btn-sm" style="cursor:pointer; margin:0">
+              📎 Anexar arquivo (.txt, .docx, .pdf)
+              <input type="file" id="transcricaoArquivo" accept=".txt,.docx,.pdf" style="display:none" onchange="lerArquivoTranscricao(this.files[0])">
+            </label>
+            <span id="transcricaoArquivoStatus" style="font-size:12px; color:var(--muted)"></span>
+          </div>
+          <div id="blocoAudioIA" style="display:none; margin:0 0 12px; padding-top:10px; border-top:1px dashed var(--line-strong,#D1D5DB)">
+            <div style="display:flex; align-items:center; gap:10px">
+              <label class="btn btn-ghost btn-sm" style="cursor:pointer; margin:0">
+                🎤 Anexar áudio (.mp3, .m4a, .aac, .wav, .ogg…)
+                <input type="file" id="audioArquivo" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg,.webm,.flac" style="display:none" onchange="lerAudioTranscricao(this.files[0])">
+              </label>
+              <span id="audioArquivoStatus" style="font-size:12px; color:var(--muted)"></span>
+            </div>
+            <div class="hint" style="margin-top:6px">A gravação é dividida automaticamente em pedaços de ~8 minutos e transcrita por IA — reuniões longas podem levar alguns minutos para processar. O texto transcrito aparece na caixa abaixo para revisão, junto com o resto da transcrição.</div>
+            <div id="audioProgressoLista" style="margin-top:8px; font-size:12px"></div>
+          </div>
+          <textarea id="transcricaoInput" rows="8" placeholder="Cole o texto completo da transcrição aqui, ou anexe um arquivo/áudio acima…" style="width:100%;font-family:var(--font);font-size:13px;padding:10px 12px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;resize:vertical"></textarea>
+        </div>
+        <div class="ai-row" style="margin-top:10px;justify-content:flex-end">
+          <button class="btn-ai" id="btnAnalisarIA" onclick="analisarTranscricao()">✦ Analisar e preencher</button>
+        </div>
+        <div class="ai-status" id="aiStatus" style="display:none"></div>
+        <div class="ai-filled" id="aiFilled"></div>
+      </div>
+    </div>
+
+    <!-- Unidade -->
+    <div class="card">
+      <div class="section-h"><div class="n">★</div><h2>Unidade</h2></div>
+      <div class="unid-grid" id="unid-grid">
+        <label class="unid-opt" onclick="toggleUnid(this)"><input type="checkbox" value="UNIALFA MUTIRÃO">UNIALFA MUTIRÃO</label>
+        <label class="unid-opt" onclick="toggleUnid(this)"><input type="checkbox" value="UNIALFA T-1">UNIALFA T-1</label>
+        <label class="unid-opt" onclick="toggleUnid(this)"><input type="checkbox" value="UNIALFA PERIMETRAL">UNIALFA PERIMETRAL</label>
+        <label class="unid-opt" onclick="toggleUnid(this)"><input type="checkbox" value="COLÉGIO ALFA PERIMETRAL">COLÉGIO ALFA PERIMETRAL</label>
+        <label class="unid-opt" onclick="toggleUnid(this)"><input type="checkbox" value="COLÉGIO ALFA MUTIRÃO">COLÉGIO ALFA MUTIRÃO</label>
+        <label class="unid-opt" onclick="toggleUnid(this)"><input type="checkbox" value="UNIAFLATEC">UNIAFLATEC</label>
+        <label class="unid-opt" onclick="toggleUnid(this)"><input type="checkbox" value="Outra">Outra</label>
+      </div>
+    </div>
+
+    <!-- Cabeçalho -->
+    <div class="card">
+      <div class="section-h"><div class="n">1</div><h2>Cabeçalho da reunião</h2></div>
+      <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="field full" data-for="pauta">
+          <label>Pauta da reunião<span class="req">*</span></label>
+          <input id="pauta" type="text" placeholder="Assunto principal da reunião">
+          <div class="err-msg">Informe a pauta.</div>
+        </div>
+        <div class="field full" data-for="projeto">
+          <label>Programa/Projeto<span class="req">*</span></label>
+          <input id="projeto" type="text" placeholder="Nome do projeto relacionado">
+          <div class="err-msg">Informe o projeto.</div>
+        </div>
+        <div class="field">
+          <label>Local da reunião</label>
+          <input id="local" type="text" placeholder="Ex: Teams / Sala 2">
+        </div>
+        <div class="field" data-for="data">
+          <label>Data<span class="req">*</span></label>
+          <input id="data" type="date">
+          <div class="err-msg">Informe a data.</div>
+        </div>
+        <div class="field">
+          <label>Horário de início</label>
+          <input id="horaIni" type="time">
+        </div>
+        <div class="field">
+          <label>Horário de encerramento</label>
+          <input id="horaFim" type="time">
+        </div>
+      </div>
+    </div>
+
+    <!-- Participantes -->
+    <div class="card">
+      <div class="section-h"><div class="n">2</div><h2>Lista de participantes</h2></div>
+      <div class="dyn" id="dyn-part"></div>
+    </div>
+
+    <!-- Descrição -->
+    <div class="card">
+      <div class="section-h"><div class="n">3</div><h2>Descrição da reunião</h2></div>
+      <div class="grid">
+        <div class="field full">
+          <label>Resumo / relato da reunião</label>
+          <textarea id="descricao" rows="5" placeholder="Registre os principais pontos discutidos"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Encaminhamentos -->
+    <div class="card">
+      <div class="section-h"><div class="n">4</div><h2>Saídas — encaminhamentos</h2></div>
+      <div class="dyn" id="dyn-saidas"></div>
+    </div>
+
+    <!-- Entraves -->
+    <div class="card">
+      <div class="section-h"><div class="n">5</div><h2>Entraves</h2></div>
+      <div class="dyn" id="dyn-entraves"></div>
+      <div class="actions">
+        <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">Registrar ata</button>
+        <button class="btn btn-ghost" onclick="clearForm()">Limpar campos</button>
+        <span class="spacer">Campos com <b style="color:var(--red)">*</b> são obrigatórios</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST VIEW -->
+  <div id="view-list" style="display:none">
+    <div class="card">
+      <div class="list-head">
+        <span class="ttl">Atas cadastradas</span>
+        <input type="search" id="search" placeholder="Buscar por pauta, projeto…" oninput="renderList()">
+        <div class="ml">
+          <span style="font-size:12px; color:var(--muted)">Clique numa ata para imprimir ou exportar em Word</span>
+        </div>
+      </div>
+      <div id="list-body"></div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-top">
+    <div><h2 id="d-pauta">—</h2><div class="proto-lg" id="d-proto">—</div></div>
+    <button class="xbtn" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body">
+    <dl class="dl" id="d-body"></dl>
+    <button type="button" id="btnRegHistorico" onclick="toggleRegistroHistorico()" style="margin-bottom:10px;font-size:11px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit;padding:0">Ver histórico de alterações</button>
+    <div id="regHistoricoPanel" style="display:none"></div>
+  </div>
+  <div class="drawer-foot">
+    <div class="status-row">
+      <label for="d-status">Status</label>
+      <select id="d-status" onchange="changeStatus()">
+        <option value="Rascunho">Rascunho</option>
+        <option value="Preenchida por IA">Preenchida por IA</option>
+        <option value="Publicada">Publicada</option>
+        <option value="Aprovada">Aprovada</option>
+      </select>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="imprimirAta()">🖨️ Imprimir</button>
+    <button class="btn btn-ghost btn-sm" onclick="exportarAtaWord()">⬇ Exportar Word</button>
+    <button class="btn btn-ghost btn-sm" id="btnEditarDados" onclick="editCurrent()">Editar dados</button>
+    <button class="btn btn-danger btn-sm" id="btnExcluir" onclick="deleteCurrent()">Excluir</button>
+  </div>
+</aside>
+<div class="toast" id="toast"><span class="dot"></span><span id="toast-msg"></span></div>
+
+<script>
+/* ---- Armazenamento persistente via Supabase (substitui window.storage) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var TABLE = 'kv_store';
+  var base = SUPABASE_URL + '/rest/v1/' + TABLE;
+  function headers(extra){
+    var session = null;
+    try{ session = JSON.parse(localStorage.getItem('unialfa_session')); }catch(e){}
+    var token = (session && session.access_token) ? session.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) { for (var k in extra) h[k] = extra[k]; }
+    return h;
+  }
+  window.storage = {
+    get: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key) + '&select=value', { headers: headers() });
+      if(!r.ok) return null;
+      var rows = await r.json();
+      return rows.length ? { value: rows[0].value } : null;
+    },
+    set: async function(key, value){
+      var r = await fetch(base + '?on_conflict=key', { method: 'POST', headers: headers({ 'Prefer': 'resolution=merge-duplicates' }), body: JSON.stringify({ key: key, value: value, updated_at: new Date().toISOString() }) });
+      return r.ok;
+    },
+    delete: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key), { method: 'DELETE', headers: headers() });
+      return r.ok;
+    },
+    list: async function(prefix){
+      var r = await fetch(base + '?key=like.' + encodeURIComponent(prefix) + '*&select=key', { headers: headers() });
+      if(!r.ok) return { keys: [] };
+      var rows = await r.json();
+      return { keys: rows.map(function(x){ return x.key; }) };
+    },
+  };
+})();
+</script>
+<script>
+const KEY_PREFIX='ata:';
+let cache=[], currentId=null, editId=null;
+const REQUIRED=['pauta','projeto','data'];
+
+const TABLES={
+  part:{cols:[{key:'nome',label:'Nome por extenso',type:'text'},{key:'depto',label:'Departamento / Empresa',type:'text'}],seed:5},
+  saidas:{cols:[{key:'seq',label:'SEQ',type:'text'},{key:'encam',label:'Encaminhamento',type:'text'},{key:'resp',label:'Responsável',type:'text'},{key:'prazo',label:'Prazo',type:'date'}],seed:3},
+  entraves:{cols:[{key:'seq',label:'SEQ',type:'text'},{key:'entrave',label:'Entrave',type:'text'}],seed:2},
+};
+const ATA_LOGO_DATAURI='data:image/png;base64,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';
+
+/* ---------- helpers ---------- */
+let projetosAprovados=[]; let historicoAberto=false; let projetoSelecionadoId='';
+async function carregarProjetosAprovados(selecionarId){
+  projetosAprovados = await unialfaProjeto.listarAprovados();
+  const sel=document.getElementById('projetoSelect');
+  sel.innerHTML='<option value="">Selecione um projeto aprovado (Gate 1) para preencher o campo "Programa/Projeto"…</option>' +
+    projetosAprovados.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join('');
+  if(selecionarId){ sel.value=selecionarId; onProjetoSelect(false); }
+}
+function onProjetoSelect(preencherCampo=true){
+  const id=document.getElementById('projetoSelect').value;
+  projetoSelecionadoId=id;
+  document.getElementById('btnHistorico').style.display = id ? 'inline' : 'none';
+  document.getElementById('historicoPanel').style.display='none'; historicoAberto=false;
+  const p=projetosAprovados.find(x=>x.id===id);
+  if(!p) return;
+  if(preencherCampo){
+    document.getElementById('projeto').value=p.nome||'';
+    const f=document.querySelector('.field[data-for="projeto"]'); if(f) f.classList.remove('error');
+  }
+}
+async function toggleHistorico(){
+  const id=document.getElementById('projetoSelect').value; if(!id) return;
+  const panel=document.getElementById('historicoPanel');
+  historicoAberto=!historicoAberto;
+  if(historicoAberto) await unialfaProjeto.mostrarHistorico(id, panel);
+  else panel.style.display='none';
+}
+
+function toast(msg,ok=true){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.toggle('ok',ok);t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+function fmtDate(iso){if(!iso)return '—';const p=iso.split('-');return `${p[2]}/${p[1]}/${p[0]}`;}
+function fmtStamp(ms){const dt=new Date(ms);return dt.toLocaleDateString('pt-BR')+' '+dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+function badgeClass(s){return s==='Aprovada'||s==='Publicada'?'b-apr':s==='Preenchida por IA'?'b-ai':'b-pend';}
+function esc(s){return(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function setAIStatus(type,msg){
+  const el=document.getElementById('aiStatus');
+  el.style.display='flex'; el.className='ai-status '+type;
+  el.innerHTML=(type==='loading'?'<span class="spinner"></span>':'')+`<span>${msg}</span>`;
+}
+function toggleUnid(lbl){const cb=lbl.querySelector('input'); setTimeout(()=>lbl.classList.toggle('checked',cb.checked),0);}
+
+/* ---------- tables ---------- */
+function mountTable(name){
+  const cfg=TABLES[name]; const host=document.getElementById('dyn-'+name);
+  const wrap=document.createElement('div');
+  wrap.innerHTML=`<div class="dyn-table-wrap"><table class="dyn-t" id="tbl-${name}">
+    <thead><tr>${cfg.cols.map(c=>`<th>${c.label}</th>`).join('')}<th style="width:36px"></th></tr></thead><tbody></tbody>
+  </table></div><div class="dyn-foot"><button type="button" class="btn btn-ghost btn-sm" onclick="addRow('${name}')">+ Adicionar linha</button></div>`;
+  host.appendChild(wrap);
+  for(let i=0;i<cfg.seed;i++) addRow(name);
+}
+function addRow(name,vals){
+  const cfg=TABLES[name];
+  const tb=document.querySelector(`#tbl-${name} tbody`);
+  const tr=document.createElement('tr');
+  let cells=cfg.cols.map(c=>{
+    const v=vals?(vals[c.key]||''):'';
+    const inp=c.type==='date'?`<input data-k="${c.key}" type="date" value="${esc(v)}">`:`<input data-k="${c.key}" type="text" value="${esc(v)}">`;
+    return `<td>${inp}</td>`;
+  }).join('');
+  cells+=`<td><button type="button" class="row-x" onclick="this.closest('tr').remove()">×</button></td>`;
+  tr.innerHTML=cells; tb.appendChild(tr);
+}
+function clearTable(name){document.querySelector(`#tbl-${name} tbody`).innerHTML=''; for(let i=0;i<TABLES[name].seed;i++) addRow(name);}
+function fillTable(name,rows){
+  document.querySelector(`#tbl-${name} tbody`).innerHTML='';
+  rows.forEach(r=>addRow(name,r));
+  if(!rows.length) for(let i=0;i<TABLES[name].seed;i++) addRow(name);
+}
+function readTable(name){
+  const rows=[];
+  document.querySelectorAll(`#tbl-${name} tbody tr`).forEach(tr=>{
+    const obj={}; let any=false;
+    tr.querySelectorAll('input').forEach(inp=>{const v=(inp.value||'').trim(); obj[inp.dataset.k]=v; if(v)any=true;});
+    if(any) rows.push(obj);
+  });
+  return rows;
+}
+function roTable(name,rows){
+  const cfg=TABLES[name]; if(!rows||!rows.length) return '<dd>—</dd>';
+  let h='<dd><div class="ro-wrap"><table class="ro-t"><thead><tr>'+cfg.cols.map(c=>`<th>${c.label}</th>`).join('')+'</tr></thead><tbody>';
+  rows.forEach(r=>{h+='<tr>'+cfg.cols.map(c=>{let v=r[c.key]||''; if(c.type==='date'&&v)v=fmtDate(v); return `<td>${esc(v||'—')}</td>`;}).join('')+'</tr>';});
+  h+='</tbody></table></div></dd>'; return h;
+}
+
+/* ---------- Importação de transcrição por IA ---------- */
+function carregarScript(src, nomeGlobal){
+  return new Promise((resolve, reject)=>{
+    if(window[nomeGlobal]){ resolve(); return; }
+    const s=document.createElement('script');
+    s.src=src;
+    s.onload=()=>resolve();
+    s.onerror=()=>reject(new Error('Falha ao carregar '+src));
+    document.head.appendChild(s);
+  });
+}
+
+async function lerArquivoTranscricao(file){
+  if(!file) return;
+  const statusEl=document.getElementById('transcricaoArquivoStatus');
+  if(file.size > 15*1024*1024){
+    statusEl.textContent='⚠ Arquivo muito grande (máximo 15 MB)';
+    document.getElementById('transcricaoArquivo').value='';
+    return;
+  }
+  const ext=(file.name.split('.').pop()||'').toLowerCase();
+  statusEl.textContent='Lendo '+file.name+'…';
+  try{
+    let texto='';
+    if(ext==='txt'){
+      texto=await file.text();
+    }else if(ext==='docx'){
+      await carregarScript('https://cdn.jsdelivr.net/npm/mammoth@1/mammoth.browser.min.js', 'mammoth');
+      const buf=await file.arrayBuffer();
+      const resultado=await mammoth.extractRawText({ arrayBuffer: buf });
+      texto=resultado.value;
+    }else if(ext==='pdf'){
+      await carregarScript('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js', 'pdfjsLib');
+      pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      const buf=await file.arrayBuffer();
+      const pdf=await pdfjsLib.getDocument({ data: buf }).promise;
+      const partes=[];
+      for(let i=1;i<=pdf.numPages;i++){
+        const page=await pdf.getPage(i);
+        const conteudo=await page.getTextContent();
+        partes.push(conteudo.items.map(it=>it.str).join(' '));
+      }
+      texto=partes.join('\n\n');
+    }else{
+      statusEl.textContent='⚠ Formato não suportado. Use .txt, .docx ou .pdf';
+      document.getElementById('transcricaoArquivo').value='';
+      return;
+    }
+    texto=texto.trim();
+    if(!texto){
+      statusEl.textContent='⚠ Não foi possível extrair texto deste arquivo (PDF escaneado sem texto real não é suportado)';
+      return;
+    }
+    document.getElementById('transcricaoInput').value=texto;
+    statusEl.textContent='✓ '+file.name+' — '+texto.length+' caracteres extraídos. Revise abaixo antes de analisar.';
+  }catch(e){
+    console.error(e);
+    statusEl.textContent='⚠ Não foi possível ler este arquivo';
+  }
+}
+
+/* ---------- Importação de áudio (transcrição por IA) ---------- */
+async function audioImportPermitida(){
+  try{
+    const r = await fetch(unialfaAuth.REST_BASE+'/configuracoes?chave=in.(permitir_importar_audio_ata,papeis_importar_audio_ata)&select=chave,valor', { headers: unialfaAuth.authHeaders() });
+    const rows = r.ok ? await r.json() : [];
+    const habilitado = rows.find(x=>x.chave==='permitir_importar_audio_ata')?.valor===true;
+    if(!habilitado) return false;
+    if(window.currentProfile && window.currentProfile.papel==='admin') return true;
+    const papeis = rows.find(x=>x.chave==='papeis_importar_audio_ata')?.valor;
+    return window.currentProfile ? (Array.isArray(papeis) && papeis.includes(window.currentProfile.papel)) : false;
+  }catch(e){ return false; }
+}
+
+function audioBufferParaWav(buffer){
+  const numChannels=1, sampleRate=buffer.sampleRate;
+  const samples=buffer.getChannelData(0);
+  const bytesPerSample=2, blockAlign=numChannels*bytesPerSample;
+  const dataSize=samples.length*bytesPerSample;
+  const arrBuf=new ArrayBuffer(44+dataSize);
+  const view=new DataView(arrBuf);
+  function str(offset,s){ for(let i=0;i<s.length;i++) view.setUint8(offset+i, s.charCodeAt(i)); }
+  str(0,'RIFF'); view.setUint32(4,36+dataSize,true); str(8,'WAVE');
+  str(12,'fmt '); view.setUint32(16,16,true); view.setUint16(20,1,true);
+  view.setUint16(22,numChannels,true); view.setUint32(24,sampleRate,true);
+  view.setUint32(28,sampleRate*blockAlign,true); view.setUint16(32,blockAlign,true);
+  view.setUint16(34,bytesPerSample*8,true); str(36,'data'); view.setUint32(40,dataSize,true);
+  let offset=44;
+  for(let i=0;i<samples.length;i++){
+    let s=Math.max(-1,Math.min(1,samples[i]));
+    view.setInt16(offset, s<0?s*0x8000:s*0x7FFF, true);
+    offset+=2;
+  }
+  return new Blob([arrBuf], { type:'audio/wav' });
+}
+
+async function dividirAudioEmPartes(file){
+  const arrayBuffer = await file.arrayBuffer();
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  const ctxTemp = new AudioCtx();
+  let decoded;
+  try{ decoded = await ctxTemp.decodeAudioData(arrayBuffer); }
+  finally{ ctxTemp.close(); }
+
+  const SAMPLE_RATE=16000, CHUNK_SEG=8*60;
+  const duracaoTotal=decoded.duration;
+  const numPartes=Math.max(1, Math.ceil(duracaoTotal/CHUNK_SEG));
+  const partes=[];
+  for(let i=0;i<numPartes;i++){
+    const inicio=i*CHUNK_SEG;
+    const duracaoParte=Math.min(CHUNK_SEG, duracaoTotal-inicio);
+    const numSamplesOut=Math.ceil(duracaoParte*SAMPLE_RATE);
+    const offlineCtx=new OfflineAudioContext(1, numSamplesOut, SAMPLE_RATE);
+    const src=offlineCtx.createBufferSource();
+    src.buffer=decoded;
+    src.connect(offlineCtx.destination);
+    src.start(0, inicio, duracaoParte);
+    const rendered=await offlineCtx.startRendering();
+    partes.push(audioBufferParaWav(rendered));
+  }
+  return partes;
+}
+
+async function enviarPedacoAudio(blob, indice, total){
+  const form=new FormData();
+  form.append('audio', blob, 'parte_'+(indice+1)+'.wav');
+  const headers=unialfaAuth.authHeaders();
+  delete headers['Content-Type']; // deixa o navegador definir o boundary do multipart
+  const resp=await fetch(unialfaAuth.REST_BASE.replace('/rest/v1','/functions/v1') + '/transcrever-audio-ata', {
+    method:'POST', headers, body: form
+  });
+  const data=await resp.json();
+  if(!resp.ok || data.error) throw new Error(data.error||'Falha ao transcrever a parte '+(indice+1));
+  return data.texto||'';
+}
+
+function renderAudioProgresso(partes, resultados, erroIndice){
+  const lista=document.getElementById('audioProgressoLista');
+  lista.innerHTML=partes.map((_,i)=>{
+    let icone='○', texto='aguardando';
+    if(resultados[i]!=null){ icone='✓'; texto='concluída'; }
+    else if(i===erroIndice){ icone='⚠'; texto='falhou'; }
+    else if(resultados.slice(0,i).every(r=>r!=null) && erroIndice===null){ icone='…'; texto='transcrevendo…'; }
+    return `<div>${icone} Parte ${i+1} de ${partes.length} — ${texto}</div>`;
+  }).join('');
+  if(erroIndice!=null){
+    lista.innerHTML += `<button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="retomarTranscricaoAudio()">Tentar novamente a parte ${erroIndice+1}</button>`;
+  }
+}
+
+let audioPartesAtuais=null, audioResultadosAtuais=null;
+
+async function processarPartesAudio(){
+  const statusEl=document.getElementById('audioArquivoStatus');
+  for(let i=0;i<audioPartesAtuais.length;i++){
+    if(audioResultadosAtuais[i]!=null) continue;
+    renderAudioProgresso(audioPartesAtuais, audioResultadosAtuais, null);
+    try{
+      audioResultadosAtuais[i]=await enviarPedacoAudio(audioPartesAtuais[i], i, audioPartesAtuais.length);
+    }catch(e){
+      console.error(e);
+      renderAudioProgresso(audioPartesAtuais, audioResultadosAtuais, i);
+      statusEl.textContent='⚠ Falha ao transcrever a parte '+(i+1)+' de '+audioPartesAtuais.length;
+      document.getElementById('audioArquivo').disabled=false;
+      return;
+    }
+  }
+  renderAudioProgresso(audioPartesAtuais, audioResultadosAtuais, null);
+  const textoCompleto=audioResultadosAtuais.join('\n\n').trim();
+  const campo=document.getElementById('transcricaoInput');
+  campo.value=(campo.value?campo.value+'\n\n':'')+textoCompleto;
+  statusEl.textContent='✓ Áudio transcrito ('+audioPartesAtuais.length+' parte'+(audioPartesAtuais.length!==1?'s':'')+') — revise o texto abaixo antes de analisar.';
+  document.getElementById('audioArquivo').disabled=false;
+  audioPartesAtuais=null; audioResultadosAtuais=null;
+}
+
+async function retomarTranscricaoAudio(){
+  if(!audioPartesAtuais) return;
+  document.getElementById('audioArquivo').disabled=true;
+  document.getElementById('audioArquivoStatus').textContent='Retomando transcrição…';
+  await processarPartesAudio();
+}
+
+async function lerAudioTranscricao(file){
+  if(!file) return;
+  const statusEl=document.getElementById('audioArquivoStatus');
+  if(file.size > 300*1024*1024){
+    statusEl.textContent='⚠ Arquivo muito grande (máximo 300 MB)';
+    document.getElementById('audioArquivo').value='';
+    return;
+  }
+  document.getElementById('audioArquivo').disabled=true;
+  statusEl.textContent='Processando áudio (decodificando e dividindo em partes)…';
+  document.getElementById('audioProgressoLista').innerHTML='';
+  try{
+    const partes=await dividirAudioEmPartes(file);
+    audioPartesAtuais=partes;
+    audioResultadosAtuais=new Array(partes.length).fill(null);
+    statusEl.textContent='Transcrevendo '+partes.length+' parte'+(partes.length!==1?'s':'')+'…';
+    await processarPartesAudio();
+  }catch(e){
+    console.error(e);
+    statusEl.textContent='⚠ Não foi possível processar este arquivo de áudio (formato não suportado pelo navegador?)';
+    document.getElementById('audioArquivo').disabled=false;
+  }
+}
+
+async function transcricaoImportPermitida(){
+  try{
+    const r = await fetch(unialfaAuth.REST_BASE+'/configuracoes?chave=in.(permitir_importar_transcricao_ata,papeis_importar_transcricao_ata)&select=chave,valor', { headers: unialfaAuth.authHeaders() });
+    const rows = r.ok ? await r.json() : [];
+    const habilitado = rows.find(x=>x.chave==='permitir_importar_transcricao_ata')?.valor===true;
+    if(!habilitado) return false;
+    if(window.currentProfile && window.currentProfile.papel==='admin') return true;
+    const papeis = rows.find(x=>x.chave==='papeis_importar_transcricao_ata')?.valor;
+    return window.currentProfile ? (Array.isArray(papeis) && papeis.includes(window.currentProfile.papel)) : false;
+  }catch(e){ return false; }
+}
+
+async function analisarTranscricao(){
+  const transcricao=(document.getElementById('transcricaoInput').value||'').trim();
+  if(!transcricao){toast('Cole o texto da transcrição antes de analisar',false);return;}
+  const btn=document.getElementById('btnAnalisarIA');
+  btn.disabled=true;
+  setAIStatus('loading','Analisando a transcrição…');
+  document.getElementById('aiFilled').classList.remove('show');
+
+  try{
+    const resp=await fetch(unialfaAuth.REST_BASE.replace('/rest/v1','/functions/v1') + '/analisar-transcricao-ata', {
+      method:'POST', headers: unialfaAuth.authHeaders(),
+      body: JSON.stringify({ transcricao })
+    });
+    const data=await resp.json();
+    if(!resp.ok || data.error){
+      setAIStatus('err','⚠ '+(data.error||'Não foi possível analisar a transcrição'));
+      btn.disabled=false; return;
+    }
+
+    const parsed=data.dados||{};
+    if(parsed.pauta) document.getElementById('pauta').value=parsed.pauta;
+    if(parsed.data) document.getElementById('data').value=parsed.data;
+    if(parsed.horaIni) document.getElementById('horaIni').value=parsed.horaIni;
+    if(parsed.horaFim) document.getElementById('horaFim').value=parsed.horaFim;
+    if(parsed.descricao) document.getElementById('descricao').value=parsed.descricao;
+    if(parsed.participantes?.length) fillTable('part', parsed.participantes);
+    if(parsed.encaminhamentos?.length) fillTable('saidas', parsed.encaminhamentos);
+    if(parsed.entraves?.length) fillTable('entraves', parsed.entraves);
+
+    const parts=(parsed.participantes||[]).length;
+    const enc=(parsed.encaminhamentos||[]).length;
+    const entr=(parsed.entraves||[]).length;
+    const msg=`✓ Ata preenchida — ${parts} participante${parts!==1?'s':''}, ${enc} encaminhamento${enc!==1?'s':''}, ${entr} entrave${entr!==1?'s':''}. Revise e ajuste antes de registrar.`;
+    setAIStatus('ok', msg);
+    const filled=document.getElementById('aiFilled');
+    filled.textContent='Campos preenchidos automaticamente a partir da transcrição. Revise todos os dados antes de salvar — a IA pode cometer erros.';
+    filled.classList.add('show');
+    toast('Ata preenchida a partir da transcrição',true);
+  }catch(e){
+    console.error(e);
+    setAIStatus('err','Falha ao conectar com o serviço de análise. Tente novamente.');
+  }
+  btn.disabled=false;
+}
+
+/* ---------- validation / submit ---------- */
+function clearError(id){const f=document.querySelector(`.field[data-for="${id}"]`);if(f)f.classList.remove('error');}
+REQUIRED.forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',()=>clearError(id));});
+function validate(){
+  let firstBad=null;
+  REQUIRED.forEach(id=>{
+    const el=document.getElementById(id);const f=document.querySelector(`.field[data-for="${id}"]`);
+    if(!el.value.trim()){f.classList.add('error');if(!firstBad)firstBad=f;}else f.classList.remove('error');
+  });
+  if(firstBad)firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+  return !firstBad;
+}
+function getUnidades(){const c=[];document.querySelectorAll('#unid-grid input:checked').forEach(cb=>c.push(cb.value));return c.join(', ');}
+
+const HIST_LABELS = { unidades:'Unidades', pauta:'Pauta da reunião', projeto:'Programa/Projeto', local:'Local da reunião', data:'Data', horaIni:'Horário de início', horaFim:'Horário de encerramento', descricao:'Resumo / relato da reunião' };
+
+async function submitForm(){
+  if(editId && window.guestInfo){ toast('Sem login, você só pode enviar novas atas — não é possível editar registros existentes.', false); return; }
+  if(!validate()){toast('Revise os campos obrigatórios',false);return;}
+  const aiUsed=document.getElementById('aiFilled').classList.contains('show');
+  let rec, registroAntigo=null;
+  if(editId){
+    rec = Object.assign({}, cache.find(x=>x.id===editId));
+    registroAntigo = Object.assign({}, rec);
+  } else {
+    const year=new Date().getFullYear(); const seq=String(cache.length+1).padStart(3,'0');
+    rec={ id:'a_'+Date.now()+'_'+Math.random().toString(36).slice(2,7), protocolo:`FORALF00340-${year}-${seq}`, status:'Rascunho', createdAt:Date.now(), criadoPorEmail: window.currentUser?window.currentUser.email:null };
+  }
+  rec.unidades=getUnidades();
+  rec.pauta=document.getElementById('pauta').value.trim();
+  rec.projeto=document.getElementById('projeto').value.trim();
+  rec.local=document.getElementById('local').value.trim();
+  rec.data=document.getElementById('data').value;
+  rec.horaIni=document.getElementById('horaIni').value;
+  rec.horaFim=document.getElementById('horaFim').value;
+  rec.descricao=document.getElementById('descricao').value.trim();
+  rec.participantes=readTable('part');
+  rec.saidas=readTable('saidas');
+  rec.entraves=readTable('entraves');
+  rec.projetoId=projetoSelecionadoId||rec.projetoId||'';
+  if(aiUsed) rec.status='Preenchida por IA';
+  if(window.guestInfo){
+    rec.guestNome=window.guestInfo.nome;
+    rec.guestEmail=window.guestInfo.email;
+    rec.semLogin=true;
+  } else {
+    rec.semLogin=false;
+  }
+  try{
+    if(registroAntigo){
+      const camposSimplesAntigos={}, camposSimplesNovos={};
+      Object.keys(HIST_LABELS).forEach(k=>{ camposSimplesAntigos[k]=registroAntigo[k]; camposSimplesNovos[k]=rec[k]; });
+      await unialfaHistorico.registrar(KEY_PREFIX+rec.id, 'Ata de Reunião para Projetos (FORALF00340)', camposSimplesAntigos, camposSimplesNovos);
+    }
+    const r=await window.storage.set(KEY_PREFIX+rec.id,JSON.stringify(rec));
+    if(!r) throw new Error();
+    if(editId){
+      const idx=cache.findIndex(x=>x.id===rec.id);
+      if(idx>-1) cache[idx]=rec; else cache.unshift(rec);
+      toast('Ata '+rec.protocolo+' atualizada');
+    } else {
+      cache.unshift(rec);
+      toast('Ata '+rec.protocolo+' registrada');
+    }
+    document.getElementById('count').textContent=cache.length;
+    editId=null;
+    clearForm(); showView('list');
+  }catch(e){toast('Não foi possível salvar.',false);}
+}
+function setUnidades(str){
+  const vals=(str||'').split(',').map(s=>s.trim()).filter(Boolean);
+  document.querySelectorAll('#unid-grid input').forEach(cb=>{
+    const checked=vals.includes(cb.value);
+    cb.checked=checked;
+    cb.closest('.unid-opt').classList.toggle('checked', checked);
+  });
+}
+async function editCurrent(){
+  if(window.guestInfo){ toast('Sem login, você só pode enviar novas atas — não é possível editar registros existentes.', false); return; }
+  const r=cache.find(x=>x.id===currentId); if(!r) return;
+  editId=r.id;
+  document.getElementById('pauta').value=r.pauta||'';
+  document.getElementById('projeto').value=r.projeto||'';
+  document.getElementById('local').value=r.local||'';
+  document.getElementById('data').value=r.data||'';
+  document.getElementById('horaIni').value=r.horaIni||'';
+  document.getElementById('horaFim').value=r.horaFim||'';
+  document.getElementById('descricao').value=r.descricao||'';
+  setUnidades(r.unidades);
+  fillTable('part', r.participantes||[]);
+  fillTable('saidas', r.saidas||[]);
+  fillTable('entraves', r.entraves||[]);
+  document.querySelectorAll('.field.error').forEach(f=>f.classList.remove('error'));
+  closeDrawer();
+  showView('new');
+  updateEditBanner();
+  if(r.projetoId) await carregarProjetosAprovados(r.projetoId);
+  else { document.getElementById('projetoSelect').value=''; projetoSelecionadoId=''; document.getElementById('btnHistorico').style.display='none'; }
+}
+function updateEditBanner(){
+  document.getElementById('submitBtn').textContent = editId ? 'Salvar alterações' : 'Registrar ata';
+}
+
+function clearForm(){
+  ['pauta','projeto','local','data','horaIni','horaFim','descricao'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.querySelectorAll('#unid-grid input').forEach(cb=>{cb.checked=false;cb.closest('.unid-opt').classList.remove('checked');});
+  ['part','saidas','entraves'].forEach(clearTable);
+  document.querySelectorAll('.field.error').forEach(f=>f.classList.remove('error'));
+  const transcInput=document.getElementById('transcricaoInput'); if(transcInput) transcInput.value='';
+  const transcArquivo=document.getElementById('transcricaoArquivo'); if(transcArquivo) transcArquivo.value='';
+  const transcArquivoStatus=document.getElementById('transcricaoArquivoStatus'); if(transcArquivoStatus) transcArquivoStatus.textContent='';
+  const audioArquivo=document.getElementById('audioArquivo'); if(audioArquivo){ audioArquivo.value=''; audioArquivo.disabled=false; }
+  const audioArquivoStatus=document.getElementById('audioArquivoStatus'); if(audioArquivoStatus) audioArquivoStatus.textContent='';
+  const audioProgressoLista=document.getElementById('audioProgressoLista'); if(audioProgressoLista) audioProgressoLista.innerHTML='';
+  audioPartesAtuais=null; audioResultadosAtuais=null;
+  document.getElementById('aiStatus').style.display='none';
+  document.getElementById('aiFilled').classList.remove('show');
+  document.getElementById('projetoSelect').value=''; projetoSelecionadoId='';
+  document.getElementById('btnHistorico').style.display='none';
+  document.getElementById('historicoPanel').style.display='none';
+  editId=null;
+  updateEditBanner();
+}
+
+/* ---------- storage / list ---------- */
+async function loadAll(){
+  cache=[];
+  try{
+    const res=await window.storage.list(KEY_PREFIX);
+    const keys=(res&&res.keys)?res.keys:[];
+    for(const k of keys){try{const r=await window.storage.get(k);if(r&&r.value)cache.push(JSON.parse(r.value));}catch(e){}}
+  }catch(e){console.warn(e);}
+  cache.sort((a,b)=>b.createdAt-a.createdAt);
+  document.getElementById('count').textContent=cache.length;
+}
+function showView(v){
+  document.getElementById('view-new').style.display=v==='new'?'block':'none';
+  document.getElementById('view-list').style.display=v==='list'?'block':'none';
+  document.getElementById('tab-new').setAttribute('aria-selected',v==='new');
+  document.getElementById('tab-list').setAttribute('aria-selected',v==='list');
+  if(v==='list')renderList();
+}
+function renderList(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  const rows=cache.filter(r=>!q||((r.pauta+r.projeto+r.protocolo).toLowerCase().includes(q)));
+  const body=document.getElementById('list-body');
+  if(!cache.length){body.innerHTML='<div class="empty"><h3>Nenhuma ata cadastrada</h3><p>As atas de reunião registradas aparecem aqui.</p></div>';return;}
+  if(!rows.length){body.innerHTML='<div class="empty"><h3>Nenhum resultado</h3><p>Ajuste a busca.</p></div>';return;}
+  let html='<table class="list"><thead><tr><th>Protocolo</th><th>Pauta</th><th class="hide-sm">Projeto</th><th class="hide-sm">Data</th><th>Status</th></tr></thead><tbody>';
+  for(const r of rows){
+    const parts=(r.participantes||[]).filter(p=>p.nome).length;
+    html+=`<tr onclick="openDrawer('${r.id}')">
+      <td><div class="proto">${esc(r.protocolo)}<small>${fmtStamp(r.createdAt)}</small></div></td>
+      <td><div class="proj">${esc(r.pauta)}${r.semLogin?' <span class="badge" style="background:var(--warn-soft);color:var(--warn)">Sem login</span>':''}<small>${parts} participante${parts!==1?'s':''}</small></div></td>
+      <td class="hide-sm">${esc(r.projeto||'—')}</td>
+      <td class="hide-sm">${fmtDate(r.data)}</td>
+      <td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td>
+    </tr>`;
+  }
+  html+='</tbody></table>'; body.innerHTML=html;
+}
+function openDrawer(id){
+  const r=cache.find(x=>x.id===id);if(!r)return;currentId=id;
+  document.getElementById('d-pauta').textContent=r.pauta;
+  document.getElementById('d-proto').textContent=r.protocolo+' · '+fmtDate(r.data);
+  document.getElementById('d-status').value=r.status;
+  const semLoginAtivo = !!window.guestInfo;
+  document.getElementById('btnEditarDados').style.display = semLoginAtivo ? 'none' : 'inline-flex';
+  document.getElementById('btnExcluir').style.display = semLoginAtivo ? 'none' : 'inline-flex';
+  document.getElementById('d-status').disabled = semLoginAtivo;
+  let html='';
+  html+=`<div class="grp">Identificação</div>`;
+  html+=`<div class="row"><dt>Unidades</dt><dd>${esc(r.unidades||'—')}</dd></div>`;
+  html+=`<div class="row"><dt>Projeto</dt><dd>${esc(r.projeto||'—')}</dd></div>`;
+  html+=`<div class="row"><dt>Local</dt><dd>${esc(r.local||'—')}</dd></div>`;
+  html+=`<div class="row"><dt>Data / Horário</dt><dd>${fmtDate(r.data)} · ${r.horaIni||'—'} → ${r.horaFim||'—'}</dd></div>`;
+  if(r.semLogin) html+=`<div class="row"><dt>Enviado sem login</dt><dd>${esc(r.guestNome||'—')} · ${esc(r.guestEmail||'—')}</dd></div>`;
+  html+=`<div class="grp">Participantes</div><div class="row"><dt>Lista de presença</dt>${roTable('part',r.participantes)}</div>`;
+  html+=`<div class="grp">Descrição</div><div class="row"><dt>Resumo</dt><dd>${esc(r.descricao||'—')}</dd></div>`;
+  html+=`<div class="grp">Encaminhamentos</div><div class="row"><dt>Ações</dt>${roTable('saidas',r.saidas)}</div>`;
+  html+=`<div class="grp">Entraves</div><div class="row"><dt>Impedimentos</dt>${roTable('entraves',r.entraves)}</div>`;
+  document.getElementById('d-body').innerHTML=html;
+  document.getElementById('regHistoricoPanel').style.display='none';
+  regHistoricoAberto=false;
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('drawer').classList.add('show');
+}
+function closeDrawer(){document.getElementById('overlay').classList.remove('show');document.getElementById('drawer').classList.remove('show');currentId=null;}
+let regHistoricoAberto=false;
+async function toggleRegistroHistorico(){
+  if(!currentId) return;
+  const panel=document.getElementById('regHistoricoPanel');
+  regHistoricoAberto=!regHistoricoAberto;
+  if(regHistoricoAberto) await unialfaHistorico.mostrar(KEY_PREFIX+currentId, panel, HIST_LABELS);
+  else panel.style.display='none';
+}
+async function changeStatus(){
+  const r=cache.find(x=>x.id===currentId);if(!r)return;
+  if(window.guestInfo){ document.getElementById('d-status').value=r.status; toast('Sem login, você só pode enviar novas atas — não é possível alterar registros existentes.', false); return; }
+  r.status=document.getElementById('d-status').value;
+  try{await window.storage.set(KEY_PREFIX+r.id,JSON.stringify(r));renderList();toast('Status atualizado para "'+r.status+'"');}
+  catch(e){toast('Erro ao atualizar',false);}
+}
+async function deleteCurrent(){
+  if(window.guestInfo){ toast('Sem login, você só pode enviar novas atas — não é possível excluir registros existentes.', false); return; }
+  const r=cache.find(x=>x.id===currentId);if(!r)return;
+  if(!confirm('Excluir a ata '+r.protocolo+'?'))return;
+  try{await window.storage.delete(KEY_PREFIX+r.id);cache=cache.filter(x=>x.id!==currentId);document.getElementById('count').textContent=cache.length;closeDrawer();renderList();toast('Ata excluída');}
+  catch(e){toast('Erro ao excluir',false);}
+}
+/* ---------- Impressao / exportacao no formato homologado (FORALF00340) ---------- */
+function docTableRows(name,rows,withAssinatura){
+  const cfg=TABLES[name];
+  const cols=cfg.cols.map(c=>'<th>'+esc(c.label)+'</th>').join('') + (withAssinatura?'<th>Assinatura/Rubrica</th>':'');
+  const preenchidas=(rows||[]).filter(r=>Object.values(r).some(v=>v));
+  const body=preenchidas.map(r=>{
+    const tds=cfg.cols.map(c=>{let v=r[c.key]||''; if(c.type==='date'&&v)v=fmtDate(v); return '<td>'+(esc(v)||'&nbsp;')+'</td>';}).join('');
+    return '<tr>'+tds+(withAssinatura?'<td>&nbsp;</td>':'')+'</tr>';
+  }).join('');
+  const linhasVazias=Math.max(0,(name==='part'?5:3)-preenchidas.length);
+  const vazias=Array.from({length:linhasVazias}).map(()=>'<tr>'+cfg.cols.map(()=>'<td>&nbsp;</td>').join('')+(withAssinatura?'<td>&nbsp;</td>':'')+'</tr>').join('');
+  return '<table class="doc-t"><thead><tr>'+cols+'</tr></thead><tbody>'+body+vazias+'</tbody></table>';
+}
+function buildAtaDocumentoHtml(r){
+  const hoje=new Date().toLocaleDateString('pt-BR');
+  const style=[
+    'body{font-family:Calibri,Arial,sans-serif;color:#1A1A1A;margin:24px;font-size:12px}',
+    '.doc-head{display:flex;border:1px solid #1A1A1A;margin-bottom:14px}',
+    '.doc-logo{width:150px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px;border-right:1px solid #1A1A1A}',
+    '.doc-logo img{max-width:130px;display:block}',
+    '.doc-headinfo{flex:1}',
+    '.doc-headinfo .ttl{text-align:center;font-weight:700;padding:6px;border-bottom:1px solid #1A1A1A;background:#F6F6F7}',
+    '.doc-headinfo table{width:100%;border-collapse:collapse}',
+    '.doc-headinfo td{border-top:1px solid #1A1A1A;padding:4px 8px;font-size:10px;text-align:center}',
+    '.doc-headinfo td b{display:block;font-size:11px}',
+    '.doc-box{border:1px solid #1A1A1A;margin-bottom:10px}',
+    '.doc-box .lbl{background:#1A1A1A;color:#fff;font-weight:700;font-size:10px;letter-spacing:.05em;padding:5px 8px;text-transform:uppercase}',
+    '.doc-box .val{padding:8px;min-height:16px}',
+    '.doc-row{display:flex}',
+    '.doc-row .doc-box{flex:1;margin-bottom:0}',
+    '.doc-t{width:100%;border-collapse:collapse;font-size:11px}',
+    '.doc-t th,.doc-t td{border:1px solid #1A1A1A;padding:5px 8px;text-align:left}',
+    '.doc-t th{background:#F6F6F7;font-size:10px;text-transform:uppercase;letter-spacing:.03em}',
+    '.doc-foot{text-align:center;color:#6A6A70;font-size:10px;margin-top:18px;border-top:1px solid #E4E4E7;padding-top:8px}',
+    '.doc-gen{text-align:center;color:#9CA3AF;font-size:9px;margin-top:4px}',
+    '.pgbreak{page-break-before:always}',
+    '@page{margin:14mm}'
+  ].join('\n');
+  const descricaoHtml=(esc(r.descricao)||'&nbsp;').replace(/\n/g,'<br>');
+  return '<!doctype html><html><head><meta charset="utf-8"><title>Ata de Reuniao - '+esc(r.protocolo)+'</title><style>'+style+'</style></head><body>'
+    +'<div class="doc-head">'
+    +'<div class="doc-logo"><img src="'+ATA_LOGO_DATAURI+'" alt="ALFA"></div>'
+    +'<div class="doc-headinfo">'
+    +'<div class="ttl">FORALF00340 &mdash; ATA DE REUNIAO PARA PROJETOS</div>'
+    +'<table><tr>'
+    +'<td><b>00</b>Revisao</td>'
+    +'<td><b>07/05/2026</b>Homologacao</td>'
+    +'<td><b>'+esc(r.protocolo)+'</b>Protocolo</td>'
+    +'</tr></table>'
+    +'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Unidade(s)</div><div class="val">'+(esc(r.unidades)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Local da reuniao</div><div class="val">'+(esc(r.local)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Pauta da reuniao</div><div class="val">'+(esc(r.pauta)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-row">'
+    +'<div class="doc-box"><div class="lbl">Data</div><div class="val">'+fmtDate(r.data)+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Horario de inicio</div><div class="val">'+(esc(r.horaIni)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Horario de encerramento</div><div class="val">'+(esc(r.horaFim)||'&nbsp;')+'</div></div>'
+    +'</div>'
+    +'<div class="doc-box"><div class="lbl">Programa/Projeto</div><div class="val">'+(esc(r.projeto)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Lista de participantes</div><div class="val">'+docTableRows('part',r.participantes,true)+'</div></div>'
+    +'<div class="pgbreak"></div>'
+    +'<div class="doc-box"><div class="lbl">Descricao da reuniao</div><div class="val">'+descricaoHtml+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Saidas &mdash; encaminhamentos</div><div class="val">'+docTableRows('saidas',r.saidas,false)+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Entraves</div><div class="val">'+docTableRows('entraves',r.entraves,false)+'</div></div>'
+    +'<div class="doc-foot">GRUPO JOSE ALVES</div>'
+    +'<div class="doc-gen">Documento gerado pelo Sistema de Gestao de Projetos UNIALFA em '+hoje+' &mdash; Status: '+esc(r.status)+'</div>'
+    +'</body></html>';
+}
+function imprimirAta(){
+  const r=cache.find(x=>x.id===currentId); if(!r){toast('Selecione uma ata para imprimir',false);return;}
+  const html=buildAtaDocumentoHtml(r);
+  const iframe=document.createElement('iframe');
+  iframe.style.position='fixed'; iframe.style.right='0'; iframe.style.bottom='0';
+  iframe.style.width='0'; iframe.style.height='0'; iframe.style.border='0';
+  document.body.appendChild(iframe);
+  iframe.contentDocument.open(); iframe.contentDocument.write(html); iframe.contentDocument.close();
+  iframe.onload=function(){
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    setTimeout(function(){document.body.removeChild(iframe);},1000);
+  };
+}
+function exportarAtaWord(){
+  const r=cache.find(x=>x.id===currentId); if(!r){toast('Selecione uma ata para exportar',false);return;}
+  const html=buildAtaDocumentoHtml(r);
+  const wordHtml=html.replace('<!doctype html><html>',"<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>");
+  const blob=new Blob([wordHtml],{type:'application/msword'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='Ata de Reuniao - '+r.protocolo+'.doc'; a.click(); URL.revokeObjectURL(url);
+  toast('Ata exportada em Word');
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+mountTable('part'); mountTable('saidas'); mountTable('entraves');
+(async()=>{
+  await verificarConfigSemLogin();
+  await ensureAuthenticated();
+  if(await transcricaoImportPermitida()){
+    document.getElementById('cardImportarIA').style.display='block';
+    if(await audioImportPermitida()) document.getElementById('blocoAudioIA').style.display='block';
+  }
+  await loadAll(); renderList(); await carregarProjetosAprovados();
+})();
+</script>

@@ -1,0 +1,1196 @@
+<!-- EAP — Estrutura Analítica de Projeto / UNIALFA -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --red:#B91D2E; --red-deep:#8E1322; --ink:#1A1A1A; --muted:#6A6A70;
+  --paper:#FFFFFF; --surface:#F6F6F7; --surface-2:#FAFAFB;
+  --line:#E4E4E7; --line-strong:#D4D4D8;
+  --ok:#1B7F4B; --ok-soft:#E6F4EC; --warn:#B45309; --warn-soft:#FBF1E3; --bad:#9F1239; --bad-soft:#FBE7EC;
+  --n1:#B91D2E; --n2:#1D4ED8; --n3:#0F766E;
+  --radius:10px; --shadow:0 1px 2px rgba(20,20,20,.04), 0 8px 28px rgba(20,20,20,.06);
+  --font:'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0; font-family:var(--font); color:var(--ink); background:var(--surface); -webkit-font-smoothing:antialiased; line-height:1.5;}
+.wrap{max-width:1020px; margin:0 auto; padding:28px 20px 64px}
+.doc-head{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+.doc-band{background:var(--red); color:#fff; padding:18px 24px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+.doc-logo{font-weight:800; font-size:22px; letter-spacing:.04em; line-height:1; padding-right:18px; border-right:2px solid rgba(255,255,255,.35);}
+.doc-logo small{display:block; font-weight:600; font-size:10px; letter-spacing:.22em; margin-top:5px; opacity:.85}
+.doc-title h1{margin:0; font-size:17px; font-weight:700; letter-spacing:.05em; text-transform:uppercase}
+.doc-title p{margin:3px 0 0; font-size:12px; font-weight:500; opacity:.9}
+.doc-meta{display:flex; gap:0; border-top:1px solid var(--line); background:var(--surface-2); font-size:11px; flex-wrap:wrap;}
+.doc-meta div{padding:9px 24px; border-right:1px solid var(--line); display:flex; flex-direction:column; gap:1px;}
+.doc-meta div:last-child{border-right:none}
+.doc-meta span{color:var(--muted); font-weight:600; letter-spacing:.12em; text-transform:uppercase; font-size:9.5px}
+.doc-meta b{font-weight:700; font-size:12px}
+.tabs{display:flex; gap:8px; margin:22px 0 16px}
+.tab{appearance:none; border:1px solid var(--line); background:var(--paper); color:var(--muted); font-family:var(--font); font-weight:600; font-size:13px; padding:10px 18px; border-radius:999px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:all .15s;}
+.tab:hover{border-color:var(--line-strong); color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink); border-color:var(--ink); color:#fff}
+.tab .count{background:var(--red); color:#fff; font-size:11px; font-weight:700; min-width:20px; height:20px; padding:0 6px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center;}
+.tab[aria-selected="true"] .count{background:#fff; color:var(--ink)}
+.card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; margin-top:18px;}
+#list-body{overflow-x:auto}
+.section-h{display:flex; align-items:center; gap:12px; padding:16px 24px 13px; border-bottom:1px solid var(--line); background:var(--surface-2);}
+.section-h .n{padding:0 9px; height:26px; min-width:26px; border-radius:7px; background:var(--red); color:#fff; font-weight:800; font-size:11px; display:flex; align-items:center; justify-content:center; flex:none;}
+.section-h h2{margin:0; font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase}
+.section-h p{margin:0 0 0 auto; font-size:11px; color:var(--muted); font-weight:500}
+.legend{display:flex; gap:16px; padding:12px 24px; border-bottom:1px solid var(--line); flex-wrap:wrap;}
+.leg{display:flex; align-items:center; gap:7px; font-size:12px; font-weight:600}
+.leg .dot{width:12px; height:12px; border-radius:3px; flex:none}
+.l1{background:var(--n1)} .l2{background:var(--n2)} .l3{background:var(--n3)}
+.proj-row{padding:20px 24px; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap;}
+.proj-row .field{flex:1; min-width:200px; display:flex; flex-direction:column; gap:6px;}
+label{font-size:12px; font-weight:700; letter-spacing:.02em}
+label .req{color:var(--red); margin-left:2px}
+input, select{font-family:var(--font); font-size:13.5px; color:var(--ink); border:1px solid var(--line-strong); border-radius:8px; padding:10px 12px; background:var(--paper); width:100%; transition:border-color .15s, box-shadow .15s;}
+input::placeholder{color:#A8A8AE}
+input:focus, select:focus{outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(185,29,46,.12);}
+.field.error input{border-color:var(--bad); box-shadow:0 0 0 3px rgba(159,18,57,.10);}
+.err-msg{font-size:11px; color:var(--bad); font-weight:600; display:none}
+.field.error .err-msg{display:block}
+.builder{padding:20px 24px;}
+.n1-block{margin-bottom:20px; border:1.5px solid #FCA5A530; border-radius:10px; overflow:hidden;}
+.n1-head{display:flex; align-items:center; gap:10px; padding:10px 14px; background:#FEF2F2;}
+.n1-badge{background:var(--n1); color:#fff; font-size:10px; font-weight:800; letter-spacing:.08em; padding:3px 9px; border-radius:5px; white-space:nowrap; flex:none}
+.n1-head input{flex:1; background:transparent; border:1px solid transparent; font-size:14px; font-weight:700; color:var(--ink); padding:5px 7px; border-radius:6px; width:auto;}
+.n1-head input:focus{background:#fff; border-color:var(--n1); outline:none;}
+.n1-del{appearance:none; border:none; background:transparent; color:#DC2626; font-size:20px; cursor:pointer; width:30px; height:30px; border-radius:6px; flex:none; display:flex; align-items:center; justify-content:center; font-weight:700; line-height:1}
+.n1-del:hover{background:var(--bad-soft)}
+.n1-body{padding:10px 14px 14px; background:#FFF8F8;}
+.n2-block{margin:8px 0; border:1.5px solid #BFDBFE; border-radius:8px; overflow:hidden;}
+.n2-head{display:flex; align-items:center; gap:8px; padding:8px 12px; background:#EFF6FF;}
+.n2-badge{background:var(--n2); color:#fff; font-size:9.5px; font-weight:800; letter-spacing:.06em; padding:2px 8px; border-radius:4px; white-space:nowrap; flex:none}
+.n2-head input{flex:1; background:transparent; border:1px solid transparent; font-size:13px; font-weight:600; color:var(--ink); padding:4px 6px; border-radius:5px; width:auto;}
+.n2-head input:focus{background:#fff; border-color:var(--n2); outline:none;}
+.n2-del{appearance:none; border:none; background:transparent; color:var(--n2); font-size:17px; cursor:pointer; width:26px; height:26px; border-radius:5px; flex:none; display:flex; align-items:center; justify-content:center; font-weight:700}
+.n2-del:hover{background:#DBEAFE}
+.n2-body{padding:8px 12px 10px; background:#F0F7FF;}
+.n3-row{display:flex; align-items:center; gap:8px; padding:4px 0;}
+.n3-badge{background:var(--n3); color:#fff; font-size:9px; font-weight:800; letter-spacing:.04em; padding:2px 7px; border-radius:4px; white-space:nowrap; flex:none}
+.n3-row input{flex:1; background:transparent; border:1px solid transparent; font-size:12.5px; color:var(--ink); padding:5px 7px; border-radius:5px; width:auto;}
+.n3-row input:focus{background:#fff; border-color:var(--n3); outline:none;}
+.n3-prio{flex:none; width:auto; font-size:10.5px; font-weight:700; padding:4px 6px; border-radius:5px; border:1px solid var(--line-strong); background:#fff; color:var(--muted); cursor:pointer}
+.n3-prio:focus{outline:none; border-color:var(--n3)}
+.n3-prio[data-p="P0"]{color:var(--bad); border-color:var(--bad); background:var(--bad-soft)}
+.n3-prio[data-p="P1"]{color:var(--warn); border-color:var(--warn); background:var(--warn-soft)}
+.n3-prio[data-p="P2"]{color:var(--ok); border-color:var(--ok); background:var(--ok-soft)}
+.n3-del{appearance:none; border:none; background:transparent; color:var(--n3); font-size:15px; cursor:pointer; width:24px; height:24px; border-radius:4px; flex:none; display:flex; align-items:center; justify-content:center;}
+.n3-del:hover{background:#CCFBF1}
+.prio-tag{display:inline-block; font-size:8.5px; font-weight:800; letter-spacing:.03em; padding:1px 6px; border-radius:4px; margin-left:6px; vertical-align:middle; white-space:nowrap}
+.prio-tag.P0{color:var(--bad); background:var(--bad-soft)}
+.prio-tag.P1{color:var(--warn); background:var(--warn-soft)}
+.prio-tag.P2{color:var(--ok); background:var(--ok-soft)}
+.add-btn{appearance:none; border:1.5px dashed; border-radius:7px; background:transparent; font-family:var(--font); font-weight:600; font-size:12px; cursor:pointer; padding:7px 14px; transition:all .15s; margin-top:6px; display:inline-flex; align-items:center; gap:6px;}
+.add-n2{border-color:#93C5FD; color:var(--n2)} .add-n2:hover{background:#EFF6FF}
+.add-n3{border-color:#5EEAD4; color:var(--n3)} .add-n3:hover{background:#F0FDFA}
+.add-n1{border-color:#FCA5A5; color:var(--n1)} .add-n1:hover{background:#FEF2F2}
+.add-n1-wrap{margin-top:4px}
+.actions{display:flex; align-items:center; gap:12px; padding:18px 24px; border-top:1px solid var(--line); background:var(--surface-2);}
+.btn{appearance:none; font-family:var(--font); font-weight:700; font-size:13px; border-radius:8px; padding:11px 22px; cursor:pointer; border:1px solid transparent; transition:all .15s; display:inline-flex; align-items:center; gap:8px;}
+.btn-primary{background:var(--red); color:#fff} .btn-primary:hover{background:var(--red-deep)}
+.btn-ghost{background:var(--paper); color:var(--ink); border-color:var(--line-strong)} .btn-ghost:hover{border-color:var(--ink)}
+.btn-sm{padding:8px 14px; font-size:12px}
+.btn-blue{background:#1D4ED8; color:#fff} .btn-blue:hover{background:#1E40AF}
+.actions .spacer{margin-left:auto; font-size:11px; color:var(--muted); font-weight:500}
+/* tree */
+.tree-card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; margin-top:18px;}
+.tree-head{display:flex; align-items:center; gap:12px; padding:16px 24px; border-bottom:1px solid var(--line); background:var(--surface-2);}
+.tree-head h3{margin:0; font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase}
+.tree-area{padding:32px 24px; overflow-x:auto; min-height:120px;}
+.t-root{display:flex; flex-direction:column; align-items:center;}
+.t-root-box{background:var(--red); color:#fff; padding:10px 24px; border-radius:8px; font-weight:800; font-size:14px; text-align:center; max-width:320px; word-break:break-word;}
+.t-vline{width:2px; height:22px; background:var(--line-strong); margin:0 auto;}
+.t-hrow{display:flex; justify-content:center; position:relative;}
+.t-hrow::before{content:''; position:absolute; top:0; left:50px; right:50px; height:2px; background:var(--line-strong);}
+.t-col{display:flex; flex-direction:column; align-items:center; padding:0 10px; position:relative; min-width:150px;}
+.t-col::before{content:''; position:absolute; top:0; left:50%; width:2px; height:18px; background:var(--line-strong);}
+.t-n1{background:#FEF2F2; border:2px solid var(--n1); color:var(--n1); padding:8px 14px; border-radius:7px; font-weight:700; font-size:13px; text-align:center; min-width:130px; max-width:200px; word-break:break-word; margin-top:18px;}
+.t-code{font-size:9px; font-weight:800; opacity:.65; margin-top:2px;}
+.t-vline2{width:2px; height:16px; background:#93C5FD; margin:0 auto;}
+.t-hrow2{display:flex; justify-content:center; position:relative;}
+.t-hrow2::before{content:''; position:absolute; top:0; left:30px; right:30px; height:2px; background:#93C5FD;}
+.t-col2{display:flex; flex-direction:column; align-items:center; padding:0 6px; position:relative; min-width:120px;}
+.t-col2::before{content:''; position:absolute; top:0; left:50%; width:2px; height:16px; background:#93C5FD;}
+.t-n2{background:#EFF6FF; border:2px solid var(--n2); color:var(--n2); padding:6px 12px; border-radius:6px; font-weight:600; font-size:12px; text-align:center; min-width:110px; max-width:170px; word-break:break-word; margin-top:16px;}
+.t-n3list{margin-top:8px; display:flex; flex-direction:column; align-items:center; gap:4px;}
+.t-n3{background:#F0FDFA; border:1.5px solid var(--n3); color:var(--n3); padding:5px 10px; border-radius:5px; font-size:11px; font-weight:600; text-align:center; min-width:100px; max-width:160px; word-break:break-word; position:relative;}
+.t-n3::before{content:''; position:absolute; top:-5px; left:50%; width:1.5px; height:5px; background:#5EEAD4;}
+/* list */
+.list-head{display:flex; align-items:center; gap:14px; padding:16px 24px; border-bottom:1px solid var(--line); background:var(--surface-2); flex-wrap:wrap;}
+.list-head input[type=search]{max-width:300px}
+.list-head .ttl{font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase}
+.list-head .ml{margin-left:auto; display:flex; gap:8px}
+table.list{width:100%; border-collapse:collapse; font-size:13px}
+table.list thead th{text-align:left; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:12px 16px; border-bottom:1px solid var(--line); white-space:nowrap;}
+table.list tbody td{padding:13px 16px; border-bottom:1px solid var(--surface); vertical-align:top}
+table.list tbody tr{cursor:pointer; transition:background .12s}
+table.list tbody tr:hover{background:var(--surface-2)}
+.proto{font-weight:700; font-size:12px}
+.proto small{display:block; color:var(--muted); font-weight:500; font-size:10.5px; margin-top:2px}
+.proj{font-weight:600}
+.proj small{display:block; color:var(--muted); font-weight:500; font-size:11.5px; margin-top:2px}
+.badge{display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; padding:4px 10px; border-radius:999px; white-space:nowrap;}
+.badge::before{content:''; width:6px; height:6px; border-radius:50%; background:currentColor}
+.b-pend{background:var(--warn-soft); color:var(--warn)} .b-apr{background:var(--ok-soft); color:var(--ok)} .b-rep{background:var(--bad-soft); color:var(--bad)}
+.empty{padding:56px 24px; text-align:center; color:var(--muted)}
+.empty h3{margin:0 0 4px; font-size:15px; color:var(--ink); font-weight:700} .empty p{margin:0; font-size:13px}
+/* drawer */
+.overlay{position:fixed; inset:0; background:rgba(20,20,22,.45); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:opacity .2s; z-index:40;}
+.overlay.show{opacity:1; pointer-events:auto}
+.drawer{position:fixed; top:0; right:0; height:100%; width:min(720px,97vw); background:var(--paper); box-shadow:-16px 0 50px rgba(0,0,0,.18); transform:translateX(100%); transition:transform .28s cubic-bezier(.2,.8,.2,1); z-index:45; display:flex; flex-direction:column;}
+.drawer.show{transform:translateX(0)}
+.drawer-top{padding:20px 24px; border-bottom:1px solid var(--line); display:flex; align-items:flex-start; gap:12px}
+.drawer-top h2{margin:0; font-size:16px; font-weight:700}
+.drawer-top .proto-lg{font-size:11.5px; color:var(--muted); font-weight:600; margin-top:3px}
+.xbtn{margin-left:auto; appearance:none; border:1px solid var(--line); background:var(--paper); width:34px; height:34px; border-radius:8px; cursor:pointer; font-size:18px; color:var(--muted); flex:none}
+.xbtn:hover{border-color:var(--ink); color:var(--ink)}
+.drawer-body{padding:16px 24px 24px; overflow-y:auto; flex:1; overflow-x:hidden;}
+.drawer-foot{padding:16px 24px; border-top:1px solid var(--line); background:var(--surface-2); display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.status-row{display:flex; align-items:center; gap:8px; margin-right:auto}
+.status-row label{font-size:11px; color:var(--muted)}
+.status-row select{width:auto; padding:8px 12px; font-size:12px; font-weight:600}
+.btn-danger{background:var(--paper); color:var(--bad); border-color:var(--bad-soft)} .btn-danger:hover{background:var(--bad-soft)}
+.toast{position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:13px 20px; border-radius:10px; font-size:13px; font-weight:600; box-shadow:0 12px 40px rgba(0,0,0,.25); display:flex; align-items:center; gap:10px; opacity:0; pointer-events:none; transition:all .3s cubic-bezier(.2,.8,.2,1); z-index:50; max-width:90vw;}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+.toast .dot{width:8px; height:8px; border-radius:50%; background:#fff; flex:none}
+.toast.ok .dot{background:#5BE49B}
+@media(max-width:680px){.doc-meta{flex-wrap:wrap} .doc-meta div{flex:1 1 40%} .hide-sm{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.doc-help{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;text-decoration:none;border:1.5px solid rgba(255,255,255,.4)}
+.doc-help:hover{background:rgba(255,255,255,.32)}
+</style>
+
+<!-- ==== AUTH GATE (HTML) ==== -->
+<div class="auth-gate" id="authGate" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:40px;display:block"><small>GRUPO JOSÉ ALVES</small></div>
+    <h2>Entrar</h2>
+    <p>Digite seu e-mail para receber um link de acesso — sem senha.</p>
+    <div id="authStep1">
+      <input type="email" id="authEmail" placeholder="seu.nome@email.com.br">
+      <button class="btn btn-primary" onclick="unialfaAuthUI.sendLink()">Enviar link de acesso</button>
+    </div>
+    <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="unialfaAuthUI.signInWithAzure()">Entrar com Microsoft - UNIALFA</button>
+    <div id="treinoLoginBloco" style="display:none">
+      <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+      <p style="font-size:11.5px;color:var(--muted,#6B7280);margin-bottom:8px">Ambiente de treinamento — use uma conta de teste:</p>
+      <input type="email" id="treinoEmail" placeholder="ex.: admin@treino.unialfa.local">
+      <input type="password" id="treinoSenha" placeholder="Senha" style="margin-top:8px">
+      <button class="btn btn-primary" style="margin-top:10px" onclick="unialfaAuthUI.signInTreino()">Entrar (treinamento)</button>
+    </div>
+    <script>if(location.href.indexOf('treino')>-1){var _tb=document.getElementById('treinoLoginBloco');if(_tb)_tb.style.display='block';}</script>
+    <div id="authStep2" style="display:none">
+      <p>✓ Link enviado para <b id="authEmailSent"></b>. Verifique seu e-mail e clique no link — esta página atualiza sozinha.</p>
+      <button class="btn btn-ghost btn-sm" onclick="unialfaAuthUI.reset()">Usar outro e-mail</button>
+    </div>
+    <div id="authMsg" class="auth-msg" style="display:none"></div>
+  </div>
+</div>
+
+<style>
+.auth-gate{position:fixed;inset:0;background:rgba(15,15,15,.92);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--paper,#fff);border-radius:14px;padding:32px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.auth-logo{font-weight:900;font-size:20px;letter-spacing:.04em;color:var(--red,#B91D2E);margin-bottom:18px}
+.auth-logo small{display:block;font-weight:600;font-size:9px;letter-spacing:.2em;color:var(--muted,#6B7280);margin-top:3px}
+.auth-card h2{font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink,#0F0F0F)}
+.auth-card p{font-size:12.5px;color:var(--muted,#6B7280);margin-bottom:16px;line-height:1.5}
+.auth-card input{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;margin-bottom:10px;color:var(--ink,#0F0F0F)}
+.auth-card input:focus{outline:none;border-color:var(--red,#B91D2E);box-shadow:0 0 0 3px rgba(185,29,46,.12)}
+.auth-card .btn{width:100%;justify-content:center}
+.auth-msg{margin-top:10px;font-size:12px;font-weight:600;padding:8px 10px;border-radius:7px}
+.auth-msg.err{background:#FEE2E2;color:#DC2626}
+.auth-msg.ok{background:#D1FAE5;color:#059669}
+.auth-topbar{position:fixed;top:0;left:0;right:0;background:var(--ink,#0F0F0F);color:#fff;font-size:11.5px;padding:8px 18px;display:flex;align-items:center;gap:10px;z-index:150;font-family:var(--font)}
+.auth-topbar b{font-weight:700}
+.auth-topbar .papel-tag{background:var(--red,#B91D2E);padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.auth-topbar .sair{margin-left:auto;background:none;border:none;color:#fff;opacity:.7;cursor:pointer;font-size:11px;text-decoration:underline;font-family:inherit}
+.auth-topbar .sair:hover{opacity:1}
+body.auth-ready{padding-top:34px}
+
+/* projeto vinculado */
+.proj-link-card{background:var(--paper,#fff);border:1px solid var(--line,#E5E7EB);border-radius:var(--radius,10px);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:18px}
+.proj-link-card .plc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.proj-link-card .plc-head h3{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6B7280);flex:1}
+.proj-link-card .plc-hist{font-size:11px;font-weight:700;color:var(--red,#B91D2E);background:none;border:none;cursor:pointer;text-decoration:underline}
+.proj-link-card select{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;color:var(--ink,#0F0F0F)}
+.proj-link-card .plc-info{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px}
+.proj-link-card .plc-info span{color:var(--muted,#6B7280)}
+.proj-link-card .plc-info b{color:var(--ink,#0F0F0F);margin-left:4px}
+.hist-panel{background:var(--surface-2,#F1F2F4);border:1px solid var(--line,#E5E7EB);border-radius:8px;margin-top:12px;padding:12px 14px;font-size:12px;max-height:220px;overflow-y:auto}
+.hist-panel .hi{padding:6px 0;border-bottom:1px solid var(--line,#E5E7EB)}
+.hist-panel .hi:last-child{border-bottom:none}
+.hist-panel .hi b{color:var(--red,#B91D2E)}
+</style>
+
+<script>
+/* ---- Autenticacao (magic link) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var AUTH_BASE = SUPABASE_URL + '/auth/v1';
+  var REST_BASE = SUPABASE_URL + '/rest/v1';
+  var SESSION_KEY = 'unialfa_session';
+
+  function saveSession(s){ localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+  function getSession(){ try{ return JSON.parse(localStorage.getItem(SESSION_KEY)); }catch(e){ return null; } }
+  function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+  function captureRedirect(){
+    if (location.hash && location.hash.indexOf('access_token') > -1) {
+      var params = new URLSearchParams(location.hash.slice(1));
+      if (params.get('access_token')) {
+        saveSession({
+          access_token: params.get('access_token'),
+          refresh_token: params.get('refresh_token'),
+          expires_at: Date.now() + (parseInt(params.get('expires_in')||'3600',10)*1000),
+        });
+        if (params.get('provider_token')) { localStorage.setItem('unialfa_provider_token', params.get('provider_token')); }
+        history.replaceState(null, '', location.pathname + location.search);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async function sendMagicLink(email){
+    var r = await fetch(AUTH_BASE + '/otp', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, create_user: true }),
+    });
+    return r.ok;
+  }
+
+  async function fetchUser(){
+    var s = getSession();
+    if(!s || !s.access_token) return null;
+    if (s.expires_at && Date.now() > s.expires_at) { clearSession(); return null; }
+    var r = await fetch(AUTH_BASE + '/user', { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + s.access_token } });
+    if(!r.ok) { clearSession(); return null; }
+    return await r.json();
+  }
+
+  function authHeaders(extra){
+    var s = getSession();
+    var token = (s && s.access_token) ? s.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) for (var k in extra) h[k]=extra[k];
+    return h;
+  }
+
+  async function fetchProfile(userId){
+    var r = await fetch(REST_BASE + '/perfis?id=eq.' + userId + '&select=*', { headers: authHeaders() });
+    if(!r.ok) return null;
+    var rows = await r.json();
+    return rows[0] || null;
+  }
+
+  async function ensureProfile(user){
+    var p = await fetchProfile(user.id);
+    var meta = user.user_metadata || {};
+    var nome = meta.name || [meta.given_name, meta.family_name].filter(Boolean).join(' ') || null;
+    if(p){
+      if(nome && !p.nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + user.id, {
+          method: 'PATCH', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+          body: JSON.stringify({ nome: nome }),
+        });
+        p.nome = nome;
+      }
+      return p;
+    }
+    var pendente = null;
+    try{
+      var rPend = await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email) + '&select=*', { headers: authHeaders() });
+      if(rPend.ok){ var linhas = await rPend.json(); pendente = linhas[0] || null; }
+    }catch(e){}
+    await fetch(REST_BASE + '/perfis', {
+      method: 'POST', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({
+        id: user.id, email: user.email,
+        nome: (pendente && pendente.nome) || nome,
+        telefone: pendente ? pendente.telefone : null,
+        papel: (pendente && pendente.papel) || 'solicitante',
+      }),
+    });
+    if(pendente){
+      await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email), { method: 'DELETE', headers: authHeaders() });
+    }
+    return await fetchProfile(user.id);
+  }
+
+  var PAPEL_LABEL = {
+    solicitante: 'Solicitante', gerente_projetos: 'Gerente de Projetos', gestor_responsavel: 'Gestor Responsável',
+    dono_negocio: 'Dono do Negócio', alta_gestao: 'Alta Gestão', admin: 'PMO / Admin',
+  };
+
+  async function tentarNomeViaGraph(profile){
+    var token = localStorage.getItem('unialfa_provider_token');
+    if(!token) return profile;
+    localStorage.removeItem('unialfa_provider_token');
+    if(!profile || profile.nome) return profile;
+    try{
+      var r = await fetch('https://graph.microsoft.com/v1.0/me', { headers: { 'Authorization': 'Bearer ' + token } });
+      if(!r.ok) return profile;
+      var me = await r.json();
+      var nome = me.displayName || [me.givenName, me.surname].filter(Boolean).join(' ');
+      if(nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + profile.id, {
+          method:'PATCH', headers: authHeaders({'Prefer':'return=minimal'}),
+          body: JSON.stringify({ nome: nome })
+        });
+        profile.nome = nome;
+      }
+    }catch(e){ console.warn('Nao foi possivel buscar nome via Microsoft Graph', e); }
+    return profile;
+  }
+
+  window.unialfaAuth = {
+    ANON_KEY: SUPABASE_ANON_KEY,
+    REST_BASE: REST_BASE,
+    AUTH_BASE: AUTH_BASE,
+    getSession: getSession, clearSession: clearSession, captureRedirect: captureRedirect,
+    sendMagicLink: sendMagicLink, fetchUser: fetchUser, authHeaders: authHeaders,
+    fetchProfile: fetchProfile, ensureProfile: ensureProfile, tentarNomeViaGraph: tentarNomeViaGraph,
+    papelLabel: function(p){ return PAPEL_LABEL[p]||p; },
+    signOut: function(){ clearSession(); location.reload(); },
+  };
+})();
+
+var unialfaAuthUI = {
+  sendLink: async function(){
+    var email = document.getElementById('authEmail').value.trim();
+    var msg = document.getElementById('authMsg');
+    if(!email || email.indexOf('@')<0){ msg.textContent='Digite um e-mail válido.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    var ok = await unialfaAuth.sendMagicLink(email);
+    if(ok){
+      document.getElementById('authStep1').style.display='none';
+      document.getElementById('authStep2').style.display='block';
+      document.getElementById('authEmailSent').textContent=email;
+    } else {
+      msg.textContent='Não foi possível enviar o link. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block';
+    }
+  },
+  signInWithAzure: function(){ location.href = unialfaAuth.AUTH_BASE + '/authorize?provider=azure&scopes=openid%20email%20profile%20User.Read'; },
+  reset: function(){
+    document.getElementById('authStep1').style.display='block';
+    document.getElementById('authStep2').style.display='none';
+    document.getElementById('authEmail').value='';
+  },
+  signInTreino: async function(){
+    var email = document.getElementById('treinoEmail').value.trim();
+    var senha = document.getElementById('treinoSenha').value;
+    var msg = document.getElementById('authMsg');
+    if(!email || !senha){ msg.textContent='Informe e-mail e senha de treinamento.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    try{
+      var r = await fetch(unialfaAuth.AUTH_BASE + '/token?grant_type=password', { method:'POST', headers:{'Content-Type':'application/json','apikey':unialfaAuth.ANON_KEY}, body: JSON.stringify({email:email, password:senha}) });
+      var data = await r.json();
+      if(!r.ok || !data.access_token){ msg.textContent='E-mail ou senha inválidos.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+      localStorage.setItem('unialfa_session', JSON.stringify({ access_token:data.access_token, refresh_token:data.refresh_token, expires_at: Date.now() + (parseInt(data.expires_in||'3600',10)*1000) }));
+      location.reload();
+    }catch(e){ msg.textContent='Não foi possível entrar. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block'; }
+  },
+};
+
+window.currentUser = null;
+window.currentProfile = null;
+
+function ensureAuthenticated(){
+  return new Promise(function(resolve){
+    async function trySetup(){
+      var user = await unialfaAuth.fetchUser();
+      if(!user) return null;
+      var profile = await unialfaAuth.ensureProfile(user);
+      profile = await unialfaAuth.tentarNomeViaGraph(profile);
+      window.currentUser = user; window.currentProfile = profile;
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='none';
+      document.body.classList.add('auth-ready');
+      if(!document.querySelector('.auth-topbar')){
+        var bar = document.createElement('div');
+        bar.className='auth-topbar';
+        bar.innerHTML = '<span>Conectado como <b>'+ (user.email||'') +'</b></span><span class="papel-tag">'+unialfaAuth.papelLabel(profile?profile.papel:'solicitante')+'</span><button class="sair" onclick="unialfaAuth.signOut()">Sair</button>';
+        document.body.prepend(bar);
+      }
+      return {user:user, profile:profile};
+    }
+    (async function(){
+      unialfaAuth.captureRedirect();
+      var result = await trySetup();
+      if(result){ resolve(result); return; }
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='flex';
+      var iv = setInterval(async function(){
+        var r = await trySetup();
+        if(r){ clearInterval(iv); resolve(r); }
+      }, 3000);
+    })();
+  });
+}
+
+/* ---- Projeto compartilhado + historico ---- */
+window.unialfaProjeto = {
+  async listarAprovados(){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?status=eq.Aprovado&select=id,nome,unidade,gerente,solicitacao_id&order=nome', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async buscar(id){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+id+'&select=*', { headers: unialfaAuth.authHeaders() });
+    var rows = r.ok ? await r.json() : [];
+    return rows[0] || null;
+  },
+  async criar(dados){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=representation'}), body: JSON.stringify(dados)
+    });
+    var rows = r.ok ? await r.json() : [];
+    return rows[0] || null;
+  },
+  async atualizarCampo(projetoId, campo, valorNovo, valorAnterior, formularioOrigem){
+    var patch = {}; patch[campo] = valorNovo; patch.atualizado_em = new Date().toISOString();
+    await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+projetoId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify(patch)
+    });
+    var user = window.currentUser;
+    await fetch(unialfaAuth.REST_BASE + '/projeto_historico', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ projeto_id: projetoId, campo: campo, valor_anterior: valorAnterior, valor_novo: valorNovo, formulario_origem: formularioOrigem, alterado_por: user?user.id:null, alterado_por_email: user?user.email:null })
+    });
+  },
+  async marcarStatus(projetoId, status){
+    await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+projetoId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify({status:status, atualizado_em: new Date().toISOString()})
+    });
+  },
+  async historico(projetoId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_historico?projeto_id=eq.'+projetoId+'&select=*&order=criado_em.desc', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async sincronizarSeMudou(projetoId, formularioOrigem, camposAntigos, camposNovos){
+    if(!projetoId) return;
+    var labels = {nome:'Nome do projeto', unidade:'Unidade', gerente:'Gerente de projeto'};
+    for(var campo in camposNovos){
+      var novo = (camposNovos[campo]||'').trim();
+      var antigo = (camposAntigos[campo]||'').trim();
+      if(novo && novo !== antigo){
+        var ok = confirm('O campo "'+(labels[campo]||campo)+'" mudou de "'+(antigo||'—')+'" para "'+novo+'".\n\nAtualizar no projeto compartilhado? (isso reflete em todos os formulários vinculados a este projeto)');
+        if(ok){ await this.atualizarCampo(projetoId, campo, novo, antigo, formularioOrigem); }
+      }
+    }
+  },
+  async mostrarHistorico(projetoId, hostEl){
+    var itens = await this.historico(projetoId);
+    var labels = {nome:'Nome do projeto', unidade:'Unidade', gerente:'Gerente de projeto', status:'Status'};
+    if(!itens.length){ hostEl.innerHTML = '<div class="hist-panel"><i>Nenhuma alteração registrada ainda.</i></div>'; hostEl.style.display='block'; return; }
+    var html = '<div class="hist-panel">';
+    itens.forEach(function(h){
+      var d = new Date(h.criado_em);
+      html += '<div class="hi"><b>'+(labels[h.campo]||h.campo)+'</b>: "'+(h.valor_anterior||'—')+'" → "'+(h.valor_novo||'—')+'"<br>'+
+        '<span style="color:var(--muted-2,#9CA3AF)">'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+(h.formulario_origem||'')+' · '+(h.alterado_por_email||'—')+'</span></div>';
+    });
+    html += '</div>';
+    hostEl.innerHTML = html; hostEl.style.display='block';
+  },
+};
+
+/* ---- Equipe por projeto (controla quem pode criar/editar registros vinculados) ---- */
+window.unialfaEquipe = {
+  async listarTodosProjetos(){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?select=id,nome,unidade,status&order=nome', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async listar(projetoId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&select=*&order=usuario_email', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async souMembro(projetoId){
+    if(window.currentProfile && window.currentProfile.papel==='admin') return true;
+    if(!projetoId) return false;
+    var membros = await this.listar(projetoId);
+    var uid = window.currentUser ? window.currentUser.id : null;
+    return membros.some(function(m){ return m.usuario_id===uid; });
+  },
+  async adicionar(projetoId, usuarioId, usuarioEmail){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ projeto_id: projetoId, usuario_id: usuarioId, usuario_email: usuarioEmail, adicionado_por: window.currentUser?window.currentUser.id:null })
+    });
+    return r.ok;
+  },
+  async remover(projetoId, usuarioId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&usuario_id=eq.'+usuarioId, {
+      method:'DELETE', headers: unialfaAuth.authHeaders()
+    });
+    return r.ok;
+  },
+};
+
+/* ---- Historico de alteracoes por registro (conteudo do proprio documento) ---- */
+window.unialfaHistorico = {
+  async registrar(registroKey, formulario, camposAntigos, camposNovos){
+    var user = window.currentUser;
+    var entries = [];
+    for(var campo in camposNovos){
+      var novo = (camposNovos[campo]==null?'':String(camposNovos[campo])).trim();
+      var antigo = (camposAntigos[campo]==null?'':String(camposAntigos[campo])).trim();
+      if(novo !== antigo){
+        entries.push({ registro_key: registroKey, formulario: formulario, campo: campo, valor_anterior: antigo, valor_novo: novo, alterado_por: user?user.id:null, alterado_por_email: user?user.email:null });
+      }
+    }
+    if(!entries.length) return;
+    await fetch(unialfaAuth.REST_BASE + '/registro_historico', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify(entries)
+    });
+  },
+  async listar(registroKey){
+    var r = await fetch(unialfaAuth.REST_BASE + '/registro_historico?registro_key=eq.'+encodeURIComponent(registroKey)+'&select=*&order=criado_em.desc', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async mostrar(registroKey, hostEl, labels){
+    var itens = await this.listar(registroKey);
+    if(!itens.length){ hostEl.innerHTML = '<div class="hist-panel"><i>Nenhuma alteração registrada ainda.</i></div>'; hostEl.style.display='block'; return; }
+    var html = '<div class="hist-panel">';
+    itens.forEach(function(h){
+      var d = new Date(h.criado_em);
+      var lbl = (labels && labels[h.campo]) || h.campo;
+      html += '<div class="hi"><b>'+lbl+'</b>: "'+(h.valor_anterior||'—')+'" → "'+(h.valor_novo||'—')+'"<br>'+
+        '<span style="color:var(--muted-2,#9CA3AF)">'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+(h.alterado_por_email||'—')+'</span></div>';
+    });
+    html += '</div>';
+    hostEl.innerHTML = html; hostEl.style.display='block';
+  },
+};
+</script>
+
+<div class="wrap">
+  <div class="doc-head">
+    <div class="doc-band">
+      <div class="doc-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:38px;display:block;background:#fff;border-radius:6px;padding:3px 8px"><small>GRUPO JOSÉ ALVES</small></div>
+      <div class="doc-title">
+        <h1>Estrutura Analítica de Projeto — EAP</h1>
+        <p>Work Breakdown Structure (WBS) · Escritório de Projetos</p>
+      </div>
+      <a class="doc-help" href="15 - central-ajuda.html?v=11#passo-5" target="_blank" rel="noopener" title="Ajuda sobre este formulário">?</a>
+    </div>
+    <div class="doc-meta">
+      <div><span>Referência</span><b>EAP / WBS</b></div>
+      <div><span>Níveis</span><b>0 · 1 · 2 · 3</b></div>
+      <div class="hide-sm"><span>Aprovação</span><b>Via status do registro</b></div>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" id="tab-new" onclick="showView('new')">＋ Nova EAP</button>
+    <button class="tab" role="tab" aria-selected="false" id="tab-list" onclick="showView('list')">
+      EAPs cadastradas <span class="count" id="count">0</span>
+    </button>
+  </div>
+
+  <div id="view-new">
+    <div class="proj-link-card">
+      <div class="plc-head"><h3>Projeto vinculado</h3><button type="button" class="plc-hist" id="btnHistorico" onclick="toggleHistorico()" style="display:none">Ver histórico</button></div>
+      <select id="projetoSelect" onchange="onProjetoSelect()">
+        <option value="">Selecione um projeto aprovado (Gate 1)…</option>
+      </select>
+      <div class="plc-info" id="projetoInfo" style="display:none">
+        <span>Unidade:<b id="pi-unidade">—</b></span>
+        <span>Gerente:<b id="pi-gerente">—</b></span>
+        <span>Status:<b id="pi-status">—</b></span>
+      </div>
+      <div id="equipeAviso" style="display:none;margin-top:10px;font-size:12px;color:var(--bad,#9F1239);font-weight:600">Você não faz parte da equipe deste projeto. Peça a um administrador para adicioná-lo(a) em Administração → Equipes.</div>
+      <div id="historicoPanel" style="display:none"></div>
+    </div>
+    <div class="card">
+      <div class="section-h"><div class="n">0</div><h2>Raiz do projeto</h2><p>Nível 0 — nome do projeto</p></div>
+      <div class="proj-row">
+        <div class="field" id="field-nomeProjeto">
+          <label>Nome do projeto<span class="req">*</span></label>
+          <input id="nomeProjeto" type="text" placeholder="Ex: Implantação do CRM">
+          <div class="err-msg">Informe o nome do projeto.</div>
+        </div>
+        <div class="field" style="max-width:210px">
+          <label>Unidade responsável</label>
+          <select id="unidade">
+            <option value="">Selecione…</option>
+            <option>Superintendência Reitoria</option><option>Ouvidoria</option><option>CPA</option><option>Comitê da Qualidade</option>
+            <option>Diretoria Educação Executiva</option><option>Diretoria de Escola Business</option><option>Diretoria de Escola de Direito</option><option>Diretoria de Operações EAD</option><option>Diretoria de Marketing e Vendas</option>
+            <option>Coord. Curso Lato Sensu</option><option>Coord. Pós-Graduação Stricto Sensu</option><option>Coord. Curso Graduação, Técnico e Ensino Médio</option><option>Coord. Curso Graduação</option>
+            <option>Coord. Operações Acadêmicas EAD</option><option>Coord. Gestão de Polos</option><option>Corpo Docente</option><option>Corpo Docente (PJ)</option>
+            <option>Marketing</option><option>Vendas</option><option>Relacionamento</option><option>Planej. e Operações</option><option>RH</option>
+            <option>Secretaria Geral</option><option>Asseg. Qualidade</option><option>Segurança</option><option>ADM e Infraestrutura</option><option>GPTI</option>
+            <option>Controladoria</option><option>Gerência de Controladoria</option>
+          </select>
+        </div>
+        <div class="field" style="max-width:200px">
+          <label>Gerente de projeto</label>
+          <input id="gerente" type="text" placeholder="Nome do GP">
+        </div>
+      </div>
+      <div class="section-h" style="border-top:1px solid var(--line); border-radius:0">
+        <div class="n" style="background:var(--n1)">1</div><h2>Pacotes</h2>
+        <div class="n" style="background:var(--n2); margin-left:8px">2</div><h2 style="margin-left:4px">Entregas</h2>
+        <div class="n" style="background:var(--n3); margin-left:8px">3</div><h2 style="margin-left:4px">Atividades</h2>
+        <p>Decomposição hierárquica do escopo</p>
+      </div>
+      <div class="legend">
+        <div class="leg"><div class="dot l1"></div>Nível 1 — Pacote de trabalho</div>
+        <div class="leg"><div class="dot l2"></div>Nível 2 — Entrega</div>
+        <div class="leg"><div class="dot l3"></div>Nível 3 — Atividade</div>
+        <div class="leg" style="margin-left:auto">Prioridade da atividade (opcional): <span class="prio-tag P0" style="margin-left:6px">P0</span> crítica <span class="prio-tag P1">P1</span> alta <span class="prio-tag P2">P2</span> normal</div>
+      </div>
+      <div class="builder" id="builder">
+        <div class="add-n1-wrap"><button class="add-btn add-n1" id="btn-add-n1" onclick="addN1Block()">+ Adicionar pacote de trabalho (nível 1)</button></div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">Registrar EAP</button>
+        <button class="btn btn-blue" onclick="previewTree()">Visualizar árvore</button>
+        <button class="btn btn-ghost" onclick="clearForm()">Limpar</button>
+        <span class="spacer">Adicione quantos pacotes, entregas e atividades precisar</span>
+      </div>
+    </div>
+
+    <div class="tree-card" id="tree-preview" style="display:none">
+      <div class="tree-head">
+        <h3>Árvore da EAP</h3>
+        <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="document.getElementById('tree-preview').style.display='none'">Fechar</button>
+      </div>
+      <div class="tree-area" id="tree-area"></div>
+    </div>
+  </div>
+
+  <div id="view-list" style="display:none">
+    <div class="card">
+      <div class="list-head">
+        <span class="ttl">EAPs cadastradas</span>
+        <input type="search" id="search" placeholder="Buscar por projeto, gerente…" oninput="renderList()">
+        <div class="ml">
+          <span style="font-size:12px; color:var(--muted)">Clique numa EAP para imprimir ou exportar em Word</span>
+        </div>
+      </div>
+      <div id="list-body"></div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-top">
+    <div><h2 id="d-proj">—</h2><div class="proto-lg" id="d-proto">—</div></div>
+    <button class="xbtn" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body" id="d-body"></div>
+  <button type="button" id="btnRegHistorico" onclick="toggleRegistroHistorico()" style="margin:0 24px 10px;font-size:11px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit;padding:0">Ver histórico de alterações</button>
+  <div id="regHistoricoPanel" style="display:none;margin:0 24px 10px"></div>
+  <div class="drawer-foot">
+    <div class="status-row">
+      <label for="d-status">Status</label>
+      <select id="d-status" onchange="changeStatus()">
+        <option value="Em elaboração">Em elaboração</option>
+        <option value="Aprovada">Aprovada</option>
+        <option value="Revisão necessária">Revisão necessária</option>
+      </select>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="imprimirEap()">🖨️ Imprimir</button>
+    <button class="btn btn-ghost btn-sm" onclick="exportarEapWord()">⬇ Exportar Word</button>
+    <button class="btn btn-ghost btn-sm" onclick="editCurrent()">Editar dados</button>
+    <button class="btn btn-danger btn-sm" onclick="deleteCurrent()">Excluir</button>
+  </div>
+</aside>
+<div class="toast" id="toast"><span class="dot"></span><span id="toast-msg"></span></div>
+
+<script>
+/* ---- Armazenamento persistente via Supabase (substitui window.storage) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var TABLE = 'kv_store';
+  var base = SUPABASE_URL + '/rest/v1/' + TABLE;
+  function headers(extra){
+    var session = null;
+    try{ session = JSON.parse(localStorage.getItem('unialfa_session')); }catch(e){}
+    var token = (session && session.access_token) ? session.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) { for (var k in extra) h[k] = extra[k]; }
+    return h;
+  }
+  window.storage = {
+    get: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key) + '&select=value', { headers: headers() });
+      if(!r.ok) return null;
+      var rows = await r.json();
+      return rows.length ? { value: rows[0].value } : null;
+    },
+    set: async function(key, value){
+      var r = await fetch(base + '?on_conflict=key', { method: 'POST', headers: headers({ 'Prefer': 'resolution=merge-duplicates' }), body: JSON.stringify({ key: key, value: value, updated_at: new Date().toISOString() }) });
+      return r.ok;
+    },
+    delete: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key), { method: 'DELETE', headers: headers() });
+      return r.ok;
+    },
+    list: async function(prefix){
+      var r = await fetch(base + '?key=like.' + encodeURIComponent(prefix) + '*&select=key', { headers: headers() });
+      if(!r.ok) return { keys: [] };
+      var rows = await r.json();
+      return { keys: rows.map(function(x){ return x.key; }) };
+    },
+  };
+})();
+</script>
+<script>
+const KEY_PREFIX='eap:';
+let cache=[], currentId=null, editId=null, _n1c=0, _n2c={}, _n3c={};
+
+let projetosAprovados=[]; let historicoAberto=false;
+async function carregarProjetosAprovados(selecionarId){
+  projetosAprovados = await unialfaProjeto.listarAprovados();
+  const sel=document.getElementById('projetoSelect');
+  sel.innerHTML='<option value="">Selecione um projeto aprovado (Gate 1)…</option>' +
+    projetosAprovados.map(p=>`<option value="${p.id}">${p.nome}</option>`).join('');
+  if(selecionarId){ sel.value=selecionarId; onProjetoSelect(false); }
+}
+async function onProjetoSelect(preencherCampos=true){
+  const id=document.getElementById('projetoSelect').value;
+  const info=document.getElementById('projetoInfo');
+  document.getElementById('btnHistorico').style.display = id ? 'inline' : 'none';
+  document.getElementById('historicoPanel').style.display='none'; historicoAberto=false;
+  const p=projetosAprovados.find(x=>x.id===id);
+  if(!p){ info.style.display='none'; document.getElementById('equipeAviso').style.display='none'; atualizarBotaoEquipe(true); return; }
+  document.getElementById('pi-unidade').textContent=p.unidade||'—';
+  document.getElementById('pi-gerente').textContent=p.gerente||'—';
+  document.getElementById('pi-status').textContent='Aprovado';
+  info.style.display='flex';
+  const souMembro = await unialfaEquipe.souMembro(id);
+  document.getElementById('equipeAviso').style.display = souMembro ? 'none' : 'block';
+  atualizarBotaoEquipe(souMembro);
+  if(preencherCampos){
+    document.getElementById('nomeProjeto').value=p.nome||'';
+    document.getElementById('unidade').value=p.unidade||'';
+    document.getElementById('gerente').value=p.gerente||'';
+    document.getElementById('field-nomeProjeto').classList.remove('error');
+  }
+}
+function atualizarBotaoEquipe(souMembro){
+  const btn=document.getElementById('submitBtn');
+  if(!btn) return;
+  btn.disabled = !souMembro;
+  btn.style.opacity = souMembro ? '1' : '.5';
+  btn.style.cursor = souMembro ? 'pointer' : 'not-allowed';
+}
+async function toggleHistorico(){
+  const id=document.getElementById('projetoSelect').value; if(!id) return;
+  const panel=document.getElementById('historicoPanel');
+  historicoAberto=!historicoAberto;
+  if(historicoAberto) await unialfaProjeto.mostrarHistorico(id, panel);
+  else panel.style.display='none';
+}
+
+function toast(msg,ok=true){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.toggle('ok',ok); t.classList.add('show');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+function fmtStamp(ms){const dt=new Date(ms); return dt.toLocaleDateString('pt-BR')+' '+dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+function badgeClass(s){return s==='Aprovada'?'b-apr':s==='Revisão necessária'?'b-rep':'b-pend';}
+function esc(s){return(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function addN1Block(val=''){
+  _n1c++;
+  const id='n1_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);
+  const n=_n1c;
+  _n2c[id]=0;
+  const div=document.createElement('div');
+  div.className='n1-block'; div.id=id; div.dataset.n1=n;
+  div.innerHTML=`<div class="n1-head">
+    <span class="n1-badge">NÍVEL 1 · ${n}</span>
+    <input type="text" placeholder="Nome do pacote de trabalho" value="${esc(val)}">
+    <button class="n1-del" onclick="document.getElementById('${id}').remove()">×</button>
+  </div>
+  <div class="n1-body">
+    <div id="n2list_${id}"></div>
+    <button class="add-btn add-n2" onclick="addN2Block('${id}')">+ Adicionar entrega (nível 2)</button>
+  </div>`;
+  const btn=document.getElementById('btn-add-n1');
+  document.getElementById('builder').insertBefore(div, btn.parentElement);
+  addN2Block(id);
+}
+
+function addN2Block(n1id,val=''){
+  const n1el=document.getElementById(n1id); if(!n1el) return;
+  const n1=n1el.dataset.n1;
+  _n2c[n1id]=(_n2c[n1id]||0)+1;
+  const n=_n2c[n1id];
+  const id='n2_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);
+  _n3c[id]=0;
+  const div=document.createElement('div');
+  div.className='n2-block'; div.id=id;
+  div.innerHTML=`<div class="n2-head">
+    <span class="n2-badge">N2 · ${n1}.${n}</span>
+    <input type="text" placeholder="Nome da entrega" value="${esc(val)}">
+    <button class="n2-del" onclick="document.getElementById('${id}').remove()">×</button>
+  </div>
+  <div class="n2-body">
+    <div id="n3list_${id}"></div>
+    <button class="add-btn add-n3" onclick="addN3Row('${id}')">+ Atividade (nível 3)</button>
+  </div>`;
+  document.getElementById('n2list_'+n1id).appendChild(div);
+  addN3Row(id);
+}
+
+const PRIO_OPTS=[['','—'],['P0','P0 · Crítica'],['P1','P1 · Alta'],['P2','P2 · Normal']];
+function addN3Row(n2id,val='',prio=''){
+  _n3c[n2id]=(_n3c[n2id]||0)+1;
+  const n=_n3c[n2id];
+  const id='n3_'+Date.now()+'_'+Math.random().toString(36).slice(2,5);
+  const div=document.createElement('div');
+  div.className='n3-row'; div.id=id;
+  div.innerHTML=`<span class="n3-badge">N3·${n}</span>
+    <input type="text" placeholder="Nome da atividade" value="${esc(val)}">
+    <select class="n3-prio" data-p="${esc(prio)}" title="Prioridade (opcional)" onchange="this.dataset.p=this.value">${PRIO_OPTS.map(o=>`<option value="${o[0]}"${o[0]===prio?' selected':''}>${o[1]}</option>`).join('')}</select>
+    <button class="n3-del" onclick="document.getElementById('${id}').remove()">×</button>`;
+  document.getElementById('n3list_'+n2id).appendChild(div);
+}
+
+function readForm(){
+  const n1s=[];
+  document.querySelectorAll('#builder > .n1-block').forEach(b=>{
+    const name=(b.querySelector('.n1-head input').value||'').trim();
+    const n2s=[];
+    b.querySelectorAll('.n2-block').forEach(b2=>{
+      const n2name=(b2.querySelector('.n2-head input').value||'').trim();
+      const n3s=[];
+      b2.querySelectorAll('.n3-row').forEach(row=>{
+        const v=(row.querySelector('input').value||'').trim();
+        const prioridade=row.querySelector('.n3-prio').value||'';
+        if(v) n3s.push({nome:v, prioridade});
+      });
+      n2s.push({name:n2name,n3s});
+    });
+    n1s.push({name,n2s});
+  });
+  return n1s;
+}
+/* Nível 3 podia ser salvo como string simples (antes da prioridade existir) ou como
+   {nome, prioridade}. Esta função normaliza os dois formatos para leitura. */
+function n3Nome(n3){ return typeof n3==='string' ? n3 : (n3&&n3.nome)||''; }
+function n3Prio(n3){ return (n3&&typeof n3==='object'&&n3.prioridade)||''; }
+
+function renderTree(nome,n1s,host){
+  if(!n1s||!n1s.length){host.innerHTML='<p style="color:var(--muted);font-size:13px;text-align:center">Nenhum pacote de trabalho cadastrado.</p>'; return;}
+  let html=`<div class="t-root"><div class="t-root-box">${esc(nome)}</div><div class="t-vline"></div><div class="t-hrow">`;
+  n1s.forEach((n1,i)=>{
+    html+=`<div class="t-col"><div class="t-n1">${esc(n1.name||'(sem nome)')}<div class="t-code">${i+1}</div></div>`;
+    if(n1.n2s&&n1.n2s.length){
+      html+=`<div class="t-vline2"></div><div class="t-hrow2">`;
+      n1.n2s.forEach((n2,j)=>{
+        html+=`<div class="t-col2"><div class="t-n2">${esc(n2.name||'(sem nome)')}<div class="t-code">${i+1}.${j+1}</div></div>`;
+        if(n2.n3s&&n2.n3s.length){
+          html+=`<div class="t-n3list">`;
+          n2.n3s.forEach((n3,k)=>{
+            const nome=n3Nome(n3), prio=n3Prio(n3);
+            html+=`<div class="t-n3">${esc(nome||'(sem nome)')}${prio?`<span class="prio-tag ${prio}">${prio}</span>`:''}<div class="t-code">${i+1}.${j+1}.${k+1}</div></div>`;
+          });
+          html+=`</div>`;
+        }
+        html+=`</div>`;
+      });
+      html+=`</div>`;
+    }
+    html+=`</div>`;
+  });
+  html+=`</div></div>`;
+  host.innerHTML=html;
+}
+
+function previewTree(){
+  const nome=(document.getElementById('nomeProjeto').value||'').trim()||'(Projeto)';
+  renderTree(nome, readForm(), document.getElementById('tree-area'));
+  document.getElementById('tree-preview').style.display='block';
+  document.getElementById('tree-preview').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function validate(){
+  const el=document.getElementById('nomeProjeto');
+  const f=document.getElementById('field-nomeProjeto');
+  if(!el.value.trim()){f.classList.add('error'); el.focus(); return false;}
+  f.classList.remove('error'); return true;
+}
+
+/* Conteúdo desta EAP é a árvore hierárquica n1s (aninhada) — não há campos escalares
+   simples além dos já cobertos pelo sync de Projeto compartilhado (nomeProjeto/unidade/gerente),
+   por isso não há histórico de conteúdo próprio a registrar aqui. */
+const HIST_LABELS = {};
+
+async function submitForm(){
+  if(!validate()){toast('Informe o nome do projeto',false); return;}
+  const projetoId=document.getElementById('projetoSelect').value;
+  if(!projetoId){ toast('Selecione o projeto vinculado (deve estar Aprovado no Gate 1)', false); return; }
+  if(!(await unialfaEquipe.souMembro(projetoId))){ toast('Você não faz parte da equipe deste projeto.', false); return; }
+  let rec, camposAntigos={};
+  if(editId){
+    rec = Object.assign({}, cache.find(x=>x.id===editId));
+    camposAntigos = { nome: rec.nomeProjeto, unidade: rec.unidade, gerente: rec.gerente };
+  } else {
+    const year=new Date().getFullYear();
+    const seq=String(cache.length+1).padStart(3,'0');
+    rec={ id:'e_'+Date.now()+'_'+Math.random().toString(36).slice(2,7), protocolo:`EAP-${year}-${seq}`, status:'Em elaboração', createdAt:Date.now(), criadoPorEmail: window.currentUser?window.currentUser.email:null };
+  }
+  rec.nomeProjeto=document.getElementById('nomeProjeto').value.trim();
+  rec.unidade=document.getElementById('unidade').value;
+  rec.gerente=document.getElementById('gerente').value.trim();
+  rec.n1s=readForm();
+  rec.projetoId=projetoId;
+  try{
+    await unialfaProjeto.sincronizarSeMudou(projetoId, 'EAP - Estrutura Analítica de Projeto', camposAntigos, { nome: rec.nomeProjeto, unidade: rec.unidade, gerente: rec.gerente });
+    const r=await window.storage.set(KEY_PREFIX+rec.id, JSON.stringify(rec));
+    if(!r) throw new Error();
+    if(editId){
+      const idx=cache.findIndex(x=>x.id===rec.id);
+      if(idx>-1) cache[idx]=rec; else cache.unshift(rec);
+      toast('EAP '+rec.protocolo+' atualizada');
+    } else {
+      cache.unshift(rec);
+      toast('EAP '+rec.protocolo+' registrada');
+    }
+    document.getElementById('count').textContent=cache.length;
+    editId=null;
+    clearForm(); showView('list');
+  }catch(e){toast('Não foi possível salvar.',false);}
+}
+
+function rebuildTree(n1sData){
+  clearFormDOM();
+  (n1sData||[]).forEach(n1=>{
+    addN1Block(n1.name);
+    const blocks=document.querySelectorAll('#builder > .n1-block');
+    const n1id=blocks[blocks.length-1].id;
+    document.getElementById('n2list_'+n1id).innerHTML='';
+    _n2c[n1id]=0;
+    (n1.n2s||[]).forEach(n2=>{
+      addN2Block(n1id, n2.name);
+      const n2els=document.querySelectorAll('#n2list_'+n1id+' .n2-block');
+      const n2id=n2els[n2els.length-1].id;
+      document.getElementById('n3list_'+n2id).innerHTML='';
+      _n3c[n2id]=0;
+      (n2.n3s||[]).forEach(n3=>{ addN3Row(n2id, n3Nome(n3), n3Prio(n3)); });
+    });
+  });
+  if(!n1sData || !n1sData.length){ addN1Block(); }
+}
+
+async function editCurrent(){
+  const r=cache.find(x=>x.id===currentId); if(!r) return;
+  editId=r.id;
+  document.getElementById('nomeProjeto').value=r.nomeProjeto||'';
+  document.getElementById('unidade').value=r.unidade||'';
+  document.getElementById('gerente').value=r.gerente||'';
+  document.getElementById('field-nomeProjeto').classList.remove('error');
+  rebuildTree(r.n1s);
+  document.getElementById('tree-preview').style.display='none';
+  closeDrawer();
+  showView('new');
+  updateEditBanner();
+  if(r.projetoId) await carregarProjetosAprovados(r.projetoId);
+}
+function updateEditBanner(){
+  document.getElementById('submitBtn').textContent = editId ? 'Salvar alterações' : 'Registrar EAP';
+}
+
+function clearFormDOM(){
+  _n1c=0; _n2c={}; _n3c={};
+  const b=document.getElementById('builder');
+  b.querySelectorAll('.n1-block').forEach(el=>el.remove());
+}
+function clearForm(){
+  document.getElementById('nomeProjeto').value='';
+  document.getElementById('unidade').value='';
+  document.getElementById('gerente').value='';
+  document.getElementById('field-nomeProjeto').classList.remove('error');
+  document.getElementById('projetoSelect').value='';
+  document.getElementById('projetoInfo').style.display='none';
+  document.getElementById('btnHistorico').style.display='none';
+  document.getElementById('historicoPanel').style.display='none';
+  clearFormDOM();
+  document.getElementById('tree-preview').style.display='none';
+  addN1Block();
+  editId=null;
+  updateEditBanner();
+}
+
+async function loadAll(){
+  cache=[];
+  try{
+    const res=await window.storage.list(KEY_PREFIX);
+    const keys=(res&&res.keys)?res.keys:[];
+    for(const k of keys){try{const r=await window.storage.get(k); if(r&&r.value) cache.push(JSON.parse(r.value));}catch(e){}}
+  }catch(e){console.warn(e);}
+  cache.sort((a,b)=>b.createdAt-a.createdAt);
+  document.getElementById('count').textContent=cache.length;
+}
+
+function showView(v){
+  document.getElementById('view-new').style.display=v==='new'?'block':'none';
+  document.getElementById('view-list').style.display=v==='list'?'block':'none';
+  document.getElementById('tab-new').setAttribute('aria-selected',v==='new');
+  document.getElementById('tab-list').setAttribute('aria-selected',v==='list');
+  if(v==='list') renderList();
+}
+
+function renderList(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  const rows=cache.filter(r=>!q||((r.nomeProjeto+r.gerente+r.unidade+r.protocolo).toLowerCase().includes(q)));
+  const body=document.getElementById('list-body');
+  if(!cache.length){body.innerHTML='<div class="empty"><h3>Nenhuma EAP cadastrada</h3><p>As estruturas analíticas registradas aparecem aqui.</p></div>'; return;}
+  if(!rows.length){body.innerHTML='<div class="empty"><h3>Nenhum resultado</h3><p>Ajuste a busca.</p></div>'; return;}
+  let html='<table class="list"><thead><tr><th>Protocolo</th><th>Projeto</th><th class="hide-sm">Unidade</th><th class="hide-sm">Pacotes N1</th><th>Status</th></tr></thead><tbody>';
+  for(const r of rows){
+    const n1c=(r.n1s||[]).length;
+    html+=`<tr onclick="openDrawer('${r.id}')">
+      <td><div class="proto">${esc(r.protocolo)}<small>${fmtStamp(r.createdAt)}</small></div></td>
+      <td><div class="proj">${esc(r.nomeProjeto)}<small>GP: ${esc(r.gerente||'—')}</small></div></td>
+      <td class="hide-sm">${esc(r.unidade||'—')}</td>
+      <td class="hide-sm">${n1c} pacote${n1c!==1?'s':''}</td>
+      <td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td>
+    </tr>`;
+  }
+  html+='</tbody></table>'; body.innerHTML=html;
+}
+
+function openDrawer(id){
+  const r=cache.find(x=>x.id===id); if(!r) return; currentId=id;
+  document.getElementById('d-proj').textContent=r.nomeProjeto;
+  document.getElementById('d-proto').textContent=r.protocolo+' · '+fmtStamp(r.createdAt);
+  document.getElementById('d-status').value=r.status;
+  const body=document.getElementById('d-body');
+  body.innerHTML=`<p style="font-size:11px;color:var(--muted);font-weight:600;margin:0 0 14px">GERENTE: ${esc(r.gerente||'—')} &nbsp;|&nbsp; UNIDADE: ${esc(r.unidade||'—')}</p><div id="drawer-tree" style="overflow-x:auto"></div>`;
+  renderTree(r.nomeProjeto, r.n1s, document.getElementById('drawer-tree'));
+  document.getElementById('regHistoricoPanel').style.display='none';
+  regHistoricoAberto=false;
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('drawer').classList.add('show');
+}
+function closeDrawer(){document.getElementById('overlay').classList.remove('show'); document.getElementById('drawer').classList.remove('show'); currentId=null;}
+let regHistoricoAberto=false;
+async function toggleRegistroHistorico(){
+  if(!currentId) return;
+  const panel=document.getElementById('regHistoricoPanel');
+  regHistoricoAberto=!regHistoricoAberto;
+  if(regHistoricoAberto) await unialfaHistorico.mostrar(KEY_PREFIX+currentId, panel, HIST_LABELS);
+  else panel.style.display='none';
+}
+async function changeStatus(){
+  const r=cache.find(x=>x.id===currentId); if(!r) return;
+  r.status=document.getElementById('d-status').value;
+  try{await window.storage.set(KEY_PREFIX+r.id, JSON.stringify(r)); renderList(); toast('Status atualizado para "'+r.status+'"');}
+  catch(e){toast('Erro ao atualizar status',false);}
+}
+async function deleteCurrent(){
+  const r=cache.find(x=>x.id===currentId); if(!r) return;
+  if(!confirm('Excluir a EAP '+r.protocolo+'?')) return;
+  try{await window.storage.delete(KEY_PREFIX+r.id); cache=cache.filter(x=>x.id!==currentId); document.getElementById('count').textContent=cache.length; closeDrawer(); renderList(); toast('EAP excluída');}
+  catch(e){toast('Erro ao excluir',false);}
+}
+
+const ATA_LOGO_DATAURI='data:image/png;base64,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';
+
+/* ---------- Impressao / exportacao da EAP ---------- */
+function eapNodeHtml(nome,nivel,prio){
+  const bg=nivel===1?'#F6F6F7':nivel===2?'#FAFAFB':'#fff';
+  const pad=14+((nivel-1)*22);
+  const prioBadge=prio?' <span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px;border:1px solid #1A1A1A">'+esc(prio)+'</span>':'';
+  return '<div style="padding:5px 10px 5px '+pad+'px;border-bottom:1px solid #E4E4E7;background:'+bg+';font-weight:'+(nivel===1?'700':nivel===2?'600':'400')+'">'+esc(nome||'(sem nome)')+prioBadge+'</div>';
+}
+function buildEapDocumentoHtml(r){
+  const hoje=new Date().toLocaleDateString('pt-BR');
+  const style=[
+    'body{font-family:Calibri,Arial,sans-serif;color:#1A1A1A;margin:24px;font-size:12px}',
+    '.doc-head{display:flex;border:1px solid #1A1A1A;margin-bottom:14px}',
+    '.doc-logo{width:150px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px;border-right:1px solid #1A1A1A}',
+    '.doc-logo img{max-width:130px;display:block}',
+    '.doc-headinfo{flex:1}',
+    '.doc-headinfo .ttl{text-align:center;font-weight:700;padding:6px;border-bottom:1px solid #1A1A1A;background:#F6F6F7}',
+    '.doc-headinfo table{width:100%;border-collapse:collapse}',
+    '.doc-headinfo td{border-top:1px solid #1A1A1A;padding:4px 8px;font-size:10px;text-align:center}',
+    '.doc-headinfo td b{display:block;font-size:11px}',
+    '.doc-box{border:1px solid #1A1A1A;margin-bottom:10px}',
+    '.doc-box .lbl{background:#1A1A1A;color:#fff;font-weight:700;font-size:10px;letter-spacing:.05em;padding:5px 8px;text-transform:uppercase}',
+    '.doc-box .val{padding:8px;min-height:16px}',
+    '.doc-row{display:flex}',
+    '.doc-row .doc-box{flex:1;margin-bottom:0}',
+    '.doc-tree{border:1px solid #1A1A1A}',
+    '.doc-foot{text-align:center;color:#6A6A70;font-size:10px;margin-top:18px;border-top:1px solid #E4E4E7;padding-top:8px}',
+    '.doc-gen{text-align:center;color:#9CA3AF;font-size:9px;margin-top:4px}',
+    '@page{margin:14mm}'
+  ].join('\n');
+  let treeHtml='';
+  (r.n1s||[]).forEach(n1=>{
+    treeHtml+=eapNodeHtml(n1.name,1,'');
+    (n1.n2s||[]).forEach(n2=>{
+      treeHtml+=eapNodeHtml(n2.name,2,'');
+      (n2.n3s||[]).forEach(n3=>{
+        treeHtml+=eapNodeHtml(n3Nome(n3),3,n3Prio(n3));
+      });
+    });
+  });
+  if(!treeHtml) treeHtml='<div style="padding:10px;color:#6A6A70">Nenhuma entrega registrada.</div>';
+  return '<!doctype html><html><head><meta charset="utf-8"><title>EAP - '+esc(r.protocolo)+'</title><style>'+style+'</style></head><body>'
+    +'<div class="doc-head">'
+    +'<div class="doc-logo"><img src="'+ATA_LOGO_DATAURI+'" alt="ALFA"></div>'
+    +'<div class="doc-headinfo">'
+    +'<div class="ttl">ESTRUTURA ANALITICA DO PROJETO - EAP</div>'
+    +'<table><tr>'
+    +'<td><b>&mdash;</b>Revisao</td>'
+    +'<td><b>&mdash;</b>Homologacao</td>'
+    +'<td><b>'+esc(r.protocolo)+'</b>Protocolo</td>'
+    +'</tr></table>'
+    +'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Nome do projeto</div><div class="val">'+(esc(r.nomeProjeto)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-row">'
+    +'<div class="doc-box"><div class="lbl">Unidade responsavel</div><div class="val">'+(esc(r.unidade)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Gerente de projeto</div><div class="val">'+(esc(r.gerente)||'&nbsp;')+'</div></div>'
+    +'</div>'
+    +'<div class="doc-box"><div class="lbl">Estrutura analitica (Programa &gt; Projeto &gt; Entrega)</div><div class="doc-tree">'+treeHtml+'</div></div>'
+    +'<div class="doc-foot">GRUPO JOSE ALVES</div>'
+    +'<div class="doc-gen">Documento gerado pelo Sistema de Gestao de Projetos UNIALFA em '+hoje+' &mdash; Status: '+esc(r.status)+'</div>'
+    +'</body></html>';
+}
+function imprimirEap(){
+  const r=cache.find(x=>x.id===currentId); if(!r){toast('Selecione uma EAP para imprimir',false);return;}
+  const html=buildEapDocumentoHtml(r);
+  const iframe=document.createElement('iframe');
+  iframe.style.position='fixed'; iframe.style.right='0'; iframe.style.bottom='0';
+  iframe.style.width='0'; iframe.style.height='0'; iframe.style.border='0';
+  document.body.appendChild(iframe);
+  iframe.contentDocument.open(); iframe.contentDocument.write(html); iframe.contentDocument.close();
+  iframe.onload=function(){
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    setTimeout(function(){document.body.removeChild(iframe);},1000);
+  };
+}
+function exportarEapWord(){
+  const r=cache.find(x=>x.id===currentId); if(!r){toast('Selecione uma EAP para exportar',false);return;}
+  const html=buildEapDocumentoHtml(r);
+  const wordHtml=html.replace('<!doctype html><html>',"<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>");
+  const blob=new Blob([wordHtml],{type:'application/msword'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='EAP - '+r.protocolo+'.doc'; a.click(); URL.revokeObjectURL(url);
+  toast('EAP exportada em Word');
+}
+
+document.getElementById('nomeProjeto').addEventListener('input',()=>document.getElementById('field-nomeProjeto').classList.remove('error'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeDrawer();});
+(async()=>{ await ensureAuthenticated(); await loadAll(); addN1Block(); renderList(); await carregarProjetosAprovados(); })();
+</script>

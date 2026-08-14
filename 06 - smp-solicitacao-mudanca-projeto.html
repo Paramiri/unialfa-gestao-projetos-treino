@@ -1,0 +1,1198 @@
+<!-- SMP — Solicitação de Mudança de Projeto / UNIALFA -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#B91D2E;--red-deep:#8E1322;--ink:#1A1A1A;--muted:#6A6A70;
+  --paper:#FFFFFF;--surface:#F6F6F7;--surface-2:#FAFAFB;
+  --line:#E4E4E7;--line-strong:#D4D4D8;
+  --ok:#1B7F4B;--ok-soft:#E6F4EC;--warn:#B45309;--warn-soft:#FBF1E3;--bad:#9F1239;--bad-soft:#FBE7EC;
+  --radius:10px;--shadow:0 1px 2px rgba(20,20,20,.04),0 8px 28px rgba(20,20,20,.06);
+  --font:'Montserrat',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--surface);-webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:28px 20px 64px}
+.doc-head{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.doc-band{background:var(--red);color:#fff;padding:18px 24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.doc-logo{font-weight:800;font-size:22px;letter-spacing:.04em;line-height:1;padding-right:18px;border-right:2px solid rgba(255,255,255,.35)}
+.doc-logo small{display:block;font-weight:600;font-size:10px;letter-spacing:.22em;margin-top:5px;opacity:.85}
+.doc-title h1{margin:0;font-size:17px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.doc-title p{margin:3px 0 0;font-size:12px;font-weight:500;opacity:.9}
+.doc-meta{display:flex;gap:0;border-top:1px solid var(--line);background:var(--surface-2);font-size:11px;flex-wrap:wrap}
+.doc-meta div{padding:9px 24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:1px}
+.doc-meta div:last-child{border-right:none}
+.doc-meta span{color:var(--muted);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:9.5px}
+.doc-meta b{font-weight:700;font-size:12px}
+.tabs{display:flex;gap:8px;margin:22px 0 16px}
+.tab{appearance:none;border:1px solid var(--line);background:var(--paper);color:var(--muted);font-family:var(--font);font-weight:600;font-size:13px;padding:10px 18px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .15s}
+.tab:hover{border-color:var(--line-strong);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tab .count{background:var(--red);color:#fff;font-size:11px;font-weight:700;min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center}
+.tab[aria-selected="true"] .count{background:#fff;color:var(--ink)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-top:18px}
+#list-body{overflow-x:auto}
+.section-h{display:flex;align-items:center;gap:12px;padding:16px 24px 13px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.section-h .n{padding:0 9px;height:26px;min-width:26px;border-radius:7px;background:var(--red);color:#fff;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none}
+.section-h h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.section-h p{margin:0 0 0 auto;font-size:11px;color:var(--muted);font-weight:500}
+.grid{padding:20px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+label{font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--ink)}
+label .req{color:var(--red);margin-left:2px}
+label .ref{color:var(--muted);font-weight:600;margin-right:5px}
+.hint{font-size:11px;color:var(--muted);font-weight:500;margin-top:-2px}
+input,select,textarea{font-family:var(--font);font-size:13.5px;color:var(--ink);border:1px solid var(--line-strong);border-radius:8px;padding:10px 12px;background:var(--paper);width:100%;transition:border-color .15s,box-shadow .15s}
+input::placeholder,textarea::placeholder{color:#A8A8AE}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(185,29,46,.12)}
+textarea{resize:vertical;min-height:80px}
+.field.error input,.field.error select,.field.error textarea{border-color:var(--bad);box-shadow:0 0 0 3px rgba(159,18,57,.10)}
+.err-msg{font-size:11px;color:var(--bad);font-weight:600;display:none}
+.field.error .err-msg{display:block}
+/* impact grid */
+.imp-grid{padding:18px 24px;display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.imp-item{border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.imp-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.imp-icon{width:28px;height:28px;border-radius:7px;background:var(--red);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
+.imp-head span{font-size:12px;font-weight:700;letter-spacing:.03em}
+.imp-item textarea{border:none;border-radius:0;padding:12px 14px;font-size:13px;min-height:72px;background:var(--paper)}
+.imp-item textarea:focus{border:none;box-shadow:none;outline:none;background:#FFFAF0}
+/* decision */
+.dec-grid{padding:20px 24px;display:grid;grid-template-columns:auto auto 1fr;gap:12px 20px;align-items:start}
+.dec-opts{display:flex;gap:14px;align-items:center;grid-column:1/-1}
+.dec-opt{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600}
+.dec-opt input[type=radio]{accent-color:var(--red);width:16px;height:16px;cursor:pointer}
+.actions{display:flex;align-items:center;gap:12px;padding:18px 24px;border-top:1px solid var(--line);background:var(--surface-2)}
+.btn{appearance:none;font-family:var(--font);font-weight:700;font-size:13px;border-radius:8px;padding:11px 22px;cursor:pointer;border:1px solid transparent;transition:all .15s;display:inline-flex;align-items:center;gap:8px}
+.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--red-deep)}
+.btn-ghost{background:var(--paper);color:var(--ink);border-color:var(--line-strong)}.btn-ghost:hover{border-color:var(--ink)}
+.btn-sm{padding:8px 14px;font-size:12px}
+.btn-danger{background:var(--paper);color:var(--bad);border-color:var(--bad-soft)}.btn-danger:hover{background:var(--bad-soft)}
+.actions .spacer{margin-left:auto;font-size:11px;color:var(--muted);font-weight:500}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:13px 20px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 12px 40px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px;opacity:0;pointer-events:none;transition:all .3s cubic-bezier(.2,.8,.2,1);z-index:50;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast .dot{width:8px;height:8px;border-radius:50%;background:#fff;flex:none}
+.toast.ok .dot{background:#5BE49B}
+.list-head{display:flex;align-items:center;gap:14px;padding:16px 24px;border-bottom:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+.list-head input[type=search]{max-width:300px}
+.list-head .ttl{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.list-head .ml{margin-left:auto;display:flex;gap:8px}
+table.list{width:100%;border-collapse:collapse;font-size:13px}
+table.list thead th{text-align:left;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:12px 16px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.list tbody td{padding:13px 16px;border-bottom:1px solid var(--surface);vertical-align:top}
+table.list tbody tr{cursor:pointer;transition:background .12s}
+table.list tbody tr:hover{background:var(--surface-2)}
+.proto{font-weight:700;font-size:12px;white-space:nowrap}
+.proto small{display:block;color:var(--muted);font-weight:500;font-size:10.5px;margin-top:2px}
+.proj{font-weight:600}
+.proj small{display:block;color:var(--muted);font-weight:500;font-size:11.5px;margin-top:2px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.badge::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-pend{background:var(--warn-soft);color:var(--warn)}
+.b-apr{background:var(--ok-soft);color:var(--ok)}
+.b-rep{background:var(--bad-soft);color:var(--bad)}
+.empty{padding:56px 24px;text-align:center;color:var(--muted)}
+.empty h3{margin:0 0 4px;font-size:15px;color:var(--ink);font-weight:700}
+.empty p{margin:0;font-size:13px}
+.overlay{position:fixed;inset:0;background:rgba(20,20,22,.45);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.overlay.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(560px,96vw);background:var(--paper);box-shadow:-16px 0 50px rgba(0,0,0,.18);transform:translateX(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);z-index:45;display:flex;flex-direction:column}
+.drawer.show{transform:translateX(0)}
+.drawer-top{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:12px}
+.drawer-top h2{margin:0;font-size:16px;font-weight:700}
+.drawer-top .proto-lg{font-size:11.5px;color:var(--muted);font-weight:600;margin-top:3px}
+.xbtn{margin-left:auto;appearance:none;border:1px solid var(--line);background:var(--paper);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;color:var(--muted);flex:none}
+.xbtn:hover{border-color:var(--ink);color:var(--ink)}
+.drawer-body{padding:8px 24px 24px;overflow-y:auto;flex:1}
+.dl .grp{margin:18px 0 6px;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.dl .row{padding:12px 0;border-bottom:1px solid var(--surface)}
+.dl dt{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.dl dd{margin:0;font-size:13.5px;white-space:pre-wrap;word-break:break-word}
+.drawer-foot{padding:16px 24px;border-top:1px solid var(--line);background:var(--surface-2);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.status-row{display:flex;align-items:center;gap:8px;margin-right:auto}
+.status-row label{font-size:11px;color:var(--muted)}
+.status-row select{width:auto;padding:8px 12px;font-size:12px;font-weight:600}
+@media(max-width:680px){.grid,.imp-grid{grid-template-columns:1fr}.doc-meta{flex-wrap:wrap}.doc-meta div{flex:1 1 40%}.hide-sm{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.doc-help{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;text-decoration:none;border:1.5px solid rgba(255,255,255,.4)}
+.doc-help:hover{background:rgba(255,255,255,.32)}
+</style>
+
+<!-- ==== AUTH GATE (HTML) ==== -->
+<div class="auth-gate" id="authGate" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:40px;display:block"><small>GRUPO JOSÉ ALVES</small></div>
+    <h2>Entrar</h2>
+    <p>Digite seu e-mail para receber um link de acesso — sem senha.</p>
+    <div id="authStep1">
+      <input type="email" id="authEmail" placeholder="seu.nome@email.com.br">
+      <button class="btn btn-primary" onclick="unialfaAuthUI.sendLink()">Enviar link de acesso</button>
+    </div>
+    <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="unialfaAuthUI.signInWithAzure()">Entrar com Microsoft - UNIALFA</button>
+    <div id="treinoLoginBloco" style="display:none">
+      <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+      <p style="font-size:11.5px;color:var(--muted,#6B7280);margin-bottom:8px">Ambiente de treinamento — use uma conta de teste:</p>
+      <input type="email" id="treinoEmail" placeholder="ex.: admin@treino.unialfa.local">
+      <input type="password" id="treinoSenha" placeholder="Senha" style="margin-top:8px">
+      <button class="btn btn-primary" style="margin-top:10px" onclick="unialfaAuthUI.signInTreino()">Entrar (treinamento)</button>
+    </div>
+    <script>if(location.href.indexOf('treino')>-1){var _tb=document.getElementById('treinoLoginBloco');if(_tb)_tb.style.display='block';}</script>
+    <div id="authStep2" style="display:none">
+      <p>✓ Link enviado para <b id="authEmailSent"></b>. Verifique seu e-mail e clique no link — esta página atualiza sozinha.</p>
+      <button class="btn btn-ghost btn-sm" onclick="unialfaAuthUI.reset()">Usar outro e-mail</button>
+    </div>
+    <div id="authMsg" class="auth-msg" style="display:none"></div>
+  </div>
+</div>
+
+<style>
+.auth-gate{position:fixed;inset:0;background:rgba(15,15,15,.92);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--paper,#fff);border-radius:14px;padding:32px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.auth-logo{font-weight:900;font-size:20px;letter-spacing:.04em;color:var(--red,#B91D2E);margin-bottom:18px}
+.auth-logo small{display:block;font-weight:600;font-size:9px;letter-spacing:.2em;color:var(--muted,#6B7280);margin-top:3px}
+.auth-card h2{font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink,#0F0F0F)}
+.auth-card p{font-size:12.5px;color:var(--muted,#6B7280);margin-bottom:16px;line-height:1.5}
+.auth-card input{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;margin-bottom:10px;color:var(--ink,#0F0F0F)}
+.auth-card input:focus{outline:none;border-color:var(--red,#B91D2E);box-shadow:0 0 0 3px rgba(185,29,46,.12)}
+.auth-card .btn{width:100%;justify-content:center}
+.auth-msg{margin-top:10px;font-size:12px;font-weight:600;padding:8px 10px;border-radius:7px}
+.auth-msg.err{background:#FEE2E2;color:#DC2626}
+.auth-msg.ok{background:#D1FAE5;color:#059669}
+.auth-topbar{position:fixed;top:0;left:0;right:0;background:var(--ink,#0F0F0F);color:#fff;font-size:11.5px;padding:8px 18px;display:flex;align-items:center;gap:10px;z-index:150;font-family:var(--font)}
+.auth-topbar b{font-weight:700}
+.auth-topbar .papel-tag{background:var(--red,#B91D2E);padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.auth-topbar .sair{margin-left:auto;background:none;border:none;color:#fff;opacity:.7;cursor:pointer;font-size:11px;text-decoration:underline;font-family:inherit}
+.auth-topbar .sair:hover{opacity:1}
+body.auth-ready{padding-top:34px}
+
+/* projeto vinculado */
+.proj-link-card{background:var(--paper,#fff);border:1px solid var(--line,#E5E7EB);border-radius:var(--radius,10px);box-shadow:var(--shadow);padding:16px 20px;margin-bottom:18px}
+.proj-link-card .plc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.proj-link-card .plc-head h3{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#6B7280);flex:1}
+.proj-link-card .plc-hist{font-size:11px;font-weight:700;color:var(--red,#B91D2E);background:none;border:none;cursor:pointer;text-decoration:underline}
+.proj-link-card select{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;color:var(--ink,#0F0F0F)}
+.proj-link-card .plc-info{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12px}
+.proj-link-card .plc-info span{color:var(--muted,#6B7280)}
+.proj-link-card .plc-info b{color:var(--ink,#0F0F0F);margin-left:4px}
+.hist-panel{background:var(--surface-2,#F1F2F4);border:1px solid var(--line,#E5E7EB);border-radius:8px;margin-top:12px;padding:12px 14px;font-size:12px;max-height:220px;overflow-y:auto}
+.hist-panel .hi{padding:6px 0;border-bottom:1px solid var(--line,#E5E7EB)}
+.hist-panel .hi:last-child{border-bottom:none}
+.hist-panel .hi b{color:var(--red,#B91D2E)}
+</style>
+
+<script>
+/* ---- Autenticacao (magic link) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var AUTH_BASE = SUPABASE_URL + '/auth/v1';
+  var REST_BASE = SUPABASE_URL + '/rest/v1';
+  var SESSION_KEY = 'unialfa_session';
+
+  function saveSession(s){ localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+  function getSession(){ try{ return JSON.parse(localStorage.getItem(SESSION_KEY)); }catch(e){ return null; } }
+  function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+  function captureRedirect(){
+    if (location.hash && location.hash.indexOf('access_token') > -1) {
+      var params = new URLSearchParams(location.hash.slice(1));
+      if (params.get('access_token')) {
+        saveSession({
+          access_token: params.get('access_token'),
+          refresh_token: params.get('refresh_token'),
+          expires_at: Date.now() + (parseInt(params.get('expires_in')||'3600',10)*1000),
+        });
+        if (params.get('provider_token')) { localStorage.setItem('unialfa_provider_token', params.get('provider_token')); }
+        history.replaceState(null, '', location.pathname + location.search);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async function sendMagicLink(email){
+    var r = await fetch(AUTH_BASE + '/otp', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, create_user: true }),
+    });
+    return r.ok;
+  }
+
+  async function fetchUser(){
+    var s = getSession();
+    if(!s || !s.access_token) return null;
+    if (s.expires_at && Date.now() > s.expires_at) { clearSession(); return null; }
+    var r = await fetch(AUTH_BASE + '/user', { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + s.access_token } });
+    if(!r.ok) { clearSession(); return null; }
+    return await r.json();
+  }
+
+  function authHeaders(extra){
+    var s = getSession();
+    var token = (s && s.access_token) ? s.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) for (var k in extra) h[k]=extra[k];
+    return h;
+  }
+
+  async function fetchProfile(userId){
+    var r = await fetch(REST_BASE + '/perfis?id=eq.' + userId + '&select=*', { headers: authHeaders() });
+    if(!r.ok) return null;
+    var rows = await r.json();
+    return rows[0] || null;
+  }
+
+  async function ensureProfile(user){
+    var p = await fetchProfile(user.id);
+    var meta = user.user_metadata || {};
+    var nome = meta.name || [meta.given_name, meta.family_name].filter(Boolean).join(' ') || null;
+    if(p){
+      if(nome && !p.nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + user.id, {
+          method: 'PATCH', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+          body: JSON.stringify({ nome: nome }),
+        });
+        p.nome = nome;
+      }
+      return p;
+    }
+    var pendente = null;
+    try{
+      var rPend = await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email) + '&select=*', { headers: authHeaders() });
+      if(rPend.ok){ var linhas = await rPend.json(); pendente = linhas[0] || null; }
+    }catch(e){}
+    await fetch(REST_BASE + '/perfis', {
+      method: 'POST', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({
+        id: user.id, email: user.email,
+        nome: (pendente && pendente.nome) || nome,
+        telefone: pendente ? pendente.telefone : null,
+        papel: (pendente && pendente.papel) || 'solicitante',
+      }),
+    });
+    if(pendente){
+      await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email), { method: 'DELETE', headers: authHeaders() });
+    }
+    return await fetchProfile(user.id);
+  }
+
+  var PAPEL_LABEL = {
+    solicitante: 'Solicitante', gerente_projetos: 'Gerente de Projetos', gestor_responsavel: 'Gestor Responsável',
+    dono_negocio: 'Dono do Negócio', alta_gestao: 'Alta Gestão', admin: 'PMO / Admin',
+  };
+
+  async function tentarNomeViaGraph(profile){
+    var token = localStorage.getItem('unialfa_provider_token');
+    if(!token) return profile;
+    localStorage.removeItem('unialfa_provider_token');
+    if(!profile || profile.nome) return profile;
+    try{
+      var r = await fetch('https://graph.microsoft.com/v1.0/me', { headers: { 'Authorization': 'Bearer ' + token } });
+      if(!r.ok) return profile;
+      var me = await r.json();
+      var nome = me.displayName || [me.givenName, me.surname].filter(Boolean).join(' ');
+      if(nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + profile.id, {
+          method:'PATCH', headers: authHeaders({'Prefer':'return=minimal'}),
+          body: JSON.stringify({ nome: nome })
+        });
+        profile.nome = nome;
+      }
+    }catch(e){ console.warn('Nao foi possivel buscar nome via Microsoft Graph', e); }
+    return profile;
+  }
+
+  window.unialfaAuth = {
+    ANON_KEY: SUPABASE_ANON_KEY,
+    REST_BASE: REST_BASE,
+    AUTH_BASE: AUTH_BASE,
+    getSession: getSession, clearSession: clearSession, captureRedirect: captureRedirect,
+    sendMagicLink: sendMagicLink, fetchUser: fetchUser, authHeaders: authHeaders,
+    fetchProfile: fetchProfile, ensureProfile: ensureProfile, tentarNomeViaGraph: tentarNomeViaGraph,
+    papelLabel: function(p){ return PAPEL_LABEL[p]||p; },
+    signOut: function(){ clearSession(); location.reload(); },
+  };
+})();
+
+var unialfaAuthUI = {
+  sendLink: async function(){
+    var email = document.getElementById('authEmail').value.trim();
+    var msg = document.getElementById('authMsg');
+    if(!email || email.indexOf('@')<0){ msg.textContent='Digite um e-mail válido.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    var ok = await unialfaAuth.sendMagicLink(email);
+    if(ok){
+      document.getElementById('authStep1').style.display='none';
+      document.getElementById('authStep2').style.display='block';
+      document.getElementById('authEmailSent').textContent=email;
+    } else {
+      msg.textContent='Não foi possível enviar o link. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block';
+    }
+  },
+  signInWithAzure: function(){ location.href = unialfaAuth.AUTH_BASE + '/authorize?provider=azure&scopes=openid%20email%20profile%20User.Read'; },
+  reset: function(){
+    document.getElementById('authStep1').style.display='block';
+    document.getElementById('authStep2').style.display='none';
+    document.getElementById('authEmail').value='';
+  },
+  signInTreino: async function(){
+    var email = document.getElementById('treinoEmail').value.trim();
+    var senha = document.getElementById('treinoSenha').value;
+    var msg = document.getElementById('authMsg');
+    if(!email || !senha){ msg.textContent='Informe e-mail e senha de treinamento.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    try{
+      var r = await fetch(unialfaAuth.AUTH_BASE + '/token?grant_type=password', { method:'POST', headers:{'Content-Type':'application/json','apikey':unialfaAuth.ANON_KEY}, body: JSON.stringify({email:email, password:senha}) });
+      var data = await r.json();
+      if(!r.ok || !data.access_token){ msg.textContent='E-mail ou senha inválidos.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+      localStorage.setItem('unialfa_session', JSON.stringify({ access_token:data.access_token, refresh_token:data.refresh_token, expires_at: Date.now() + (parseInt(data.expires_in||'3600',10)*1000) }));
+      location.reload();
+    }catch(e){ msg.textContent='Não foi possível entrar. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block'; }
+  },
+};
+
+window.currentUser = null;
+window.currentProfile = null;
+
+function ensureAuthenticated(){
+  return new Promise(function(resolve){
+    async function trySetup(){
+      var user = await unialfaAuth.fetchUser();
+      if(!user) return null;
+      var profile = await unialfaAuth.ensureProfile(user);
+      profile = await unialfaAuth.tentarNomeViaGraph(profile);
+      window.currentUser = user; window.currentProfile = profile;
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='none';
+      document.body.classList.add('auth-ready');
+      if(!document.querySelector('.auth-topbar')){
+        var bar = document.createElement('div');
+        bar.className='auth-topbar';
+        bar.innerHTML = '<span>Conectado como <b>'+ (user.email||'') +'</b></span><span class="papel-tag">'+unialfaAuth.papelLabel(profile?profile.papel:'solicitante')+'</span><button class="sair" onclick="unialfaAuth.signOut()">Sair</button>';
+        document.body.prepend(bar);
+      }
+      return {user:user, profile:profile};
+    }
+    (async function(){
+      unialfaAuth.captureRedirect();
+      var result = await trySetup();
+      if(result){ resolve(result); return; }
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='flex';
+      var iv = setInterval(async function(){
+        var r = await trySetup();
+        if(r){ clearInterval(iv); resolve(r); }
+      }, 3000);
+    })();
+  });
+}
+
+/* ---- Projeto compartilhado + historico ---- */
+window.unialfaProjeto = {
+  async listarAprovados(){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?status=eq.Aprovado&select=id,nome,unidade,gerente,solicitacao_id&order=nome', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async buscar(id){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+id+'&select=*', { headers: unialfaAuth.authHeaders() });
+    var rows = r.ok ? await r.json() : [];
+    return rows[0] || null;
+  },
+  async criar(dados){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=representation'}), body: JSON.stringify(dados)
+    });
+    var rows = r.ok ? await r.json() : [];
+    return rows[0] || null;
+  },
+  async atualizarCampo(projetoId, campo, valorNovo, valorAnterior, formularioOrigem){
+    var patch = {}; patch[campo] = valorNovo; patch.atualizado_em = new Date().toISOString();
+    await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+projetoId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify(patch)
+    });
+    var user = window.currentUser;
+    await fetch(unialfaAuth.REST_BASE + '/projeto_historico', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ projeto_id: projetoId, campo: campo, valor_anterior: valorAnterior, valor_novo: valorNovo, formulario_origem: formularioOrigem, alterado_por: user?user.id:null, alterado_por_email: user?user.email:null })
+    });
+  },
+  async marcarStatus(projetoId, status){
+    await fetch(unialfaAuth.REST_BASE + '/projetos?id=eq.'+projetoId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify({status:status, atualizado_em: new Date().toISOString()})
+    });
+  },
+  async registrarEvento(projetoId, campo, valorAnterior, valorNovo, formularioOrigem){
+    if(!projetoId) return;
+    var user = window.currentUser;
+    await fetch(unialfaAuth.REST_BASE + '/projeto_historico', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ projeto_id: projetoId, campo: campo, valor_anterior: valorAnterior, valor_novo: valorNovo, formulario_origem: formularioOrigem, alterado_por: user?user.id:null, alterado_por_email: user?user.email:null })
+    });
+  },
+  async historico(projetoId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_historico?projeto_id=eq.'+projetoId+'&select=*&order=criado_em.desc', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async sincronizarSeMudou(projetoId, formularioOrigem, camposAntigos, camposNovos){
+    if(!projetoId) return;
+    var labels = {nome:'Nome do projeto', unidade:'Unidade', gerente:'Gerente de projeto'};
+    for(var campo in camposNovos){
+      var novo = (camposNovos[campo]||'').trim();
+      var antigo = (camposAntigos[campo]||'').trim();
+      if(novo && novo !== antigo){
+        var ok = confirm('O campo "'+(labels[campo]||campo)+'" mudou de "'+(antigo||'—')+'" para "'+novo+'".\n\nAtualizar no projeto compartilhado? (isso reflete em todos os formulários vinculados a este projeto)');
+        if(ok){ await this.atualizarCampo(projetoId, campo, novo, antigo, formularioOrigem); }
+      }
+    }
+  },
+  async mostrarHistorico(projetoId, hostEl){
+    var itens = await this.historico(projetoId);
+    var labels = {nome:'Nome do projeto', unidade:'Unidade', gerente:'Gerente de projeto', status:'Status'};
+    if(!itens.length){ hostEl.innerHTML = '<div class="hist-panel"><i>Nenhuma alteração registrada ainda.</i></div>'; hostEl.style.display='block'; return; }
+    var html = '<div class="hist-panel">';
+    itens.forEach(function(h){
+      var d = new Date(h.criado_em);
+      html += '<div class="hi"><b>'+(labels[h.campo]||h.campo)+'</b>: "'+(h.valor_anterior||'—')+'" → "'+(h.valor_novo||'—')+'"<br>'+
+        '<span style="color:var(--muted-2,#9CA3AF)">'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+(h.formulario_origem||'')+' · '+(h.alterado_por_email||'—')+'</span></div>';
+    });
+    html += '</div>';
+    hostEl.innerHTML = html; hostEl.style.display='block';
+  },
+};
+
+/* ---- Equipe por projeto (controla quem pode criar/editar registros vinculados) ---- */
+window.unialfaEquipe = {
+  async listarTodosProjetos(){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?select=id,nome,unidade,status&order=nome', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async listar(projetoId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&select=*&order=usuario_email', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async souMembro(projetoId){
+    if(window.currentProfile && window.currentProfile.papel==='admin') return true;
+    if(!projetoId) return false;
+    var membros = await this.listar(projetoId);
+    var uid = window.currentUser ? window.currentUser.id : null;
+    return membros.some(function(m){ return m.usuario_id===uid; });
+  },
+  async adicionar(projetoId, usuarioId, usuarioEmail){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ projeto_id: projetoId, usuario_id: usuarioId, usuario_email: usuarioEmail, adicionado_por: window.currentUser?window.currentUser.id:null })
+    });
+    return r.ok;
+  },
+  async remover(projetoId, usuarioId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&usuario_id=eq.'+usuarioId, {
+      method:'DELETE', headers: unialfaAuth.authHeaders()
+    });
+    return r.ok;
+  },
+};
+
+window.unialfaNotificar = {
+  async enviar(destinatarios, subject, html){
+    try{
+      var emails = Array.from(new Set((destinatarios||[]).filter(Boolean)));
+      if(!emails.length) return;
+      await fetch(unialfaAuth.REST_BASE.replace('/rest/v1','/functions/v1') + '/send-notification', {
+        method:'POST', headers: unialfaAuth.authHeaders(),
+        body: JSON.stringify({ to: emails, subject: subject, html: html }),
+      });
+    }catch(e){ console.warn('Notificação por e-mail não pôde ser enviada', e); }
+  },
+  async emailsAdmins(){
+    try{
+      var r = await fetch(unialfaAuth.REST_BASE + '/perfis?papel=eq.admin&select=email', { headers: unialfaAuth.authHeaders() });
+      if(!r.ok) return [];
+      var rows = await r.json();
+      return rows.map(function(p){return p.email;}).filter(Boolean);
+    }catch(e){ return []; }
+  },
+  async emailsEquipe(projetoId){
+    if(!projetoId) return [];
+    try{
+      var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&select=usuario_email', { headers: unialfaAuth.authHeaders() });
+      if(!r.ok) return [];
+      var rows = await r.json();
+      return rows.map(function(p){return p.usuario_email;}).filter(Boolean);
+    }catch(e){ return []; }
+  },
+};
+
+function notificarDecisaoSMP(rec){
+  Promise.all([unialfaNotificar.emailsEquipe(rec.projetoId), unialfaNotificar.emailsAdmins()]).then(function(res){
+    var equipe=res[0], admins=res[1];
+    unialfaNotificar.enviar([rec.criadoPorEmail].concat(equipe,admins),
+      'SMP '+rec.status.toLowerCase()+' — '+(rec.tituloMudanca||rec.protocolo),
+      '<p>A Solicitação de Mudança de Projeto <b>'+esc(rec.tituloMudanca||rec.protocolo)+'</b> ('+esc(rec.protocolo)+') foi <b>'+esc(rec.status.toLowerCase())+'</b>.</p>');
+  });
+}
+
+/* ---- Historico de alteracoes por registro (conteudo do proprio documento) ---- */
+window.unialfaHistorico = {
+  async registrar(registroKey, formulario, camposAntigos, camposNovos){
+    var user = window.currentUser;
+    var entries = [];
+    for(var campo in camposNovos){
+      var novo = (camposNovos[campo]==null?'':String(camposNovos[campo])).trim();
+      var antigo = (camposAntigos[campo]==null?'':String(camposAntigos[campo])).trim();
+      if(novo !== antigo){
+        entries.push({ registro_key: registroKey, formulario: formulario, campo: campo, valor_anterior: antigo, valor_novo: novo, alterado_por: user?user.id:null, alterado_por_email: user?user.email:null });
+      }
+    }
+    if(!entries.length) return;
+    await fetch(unialfaAuth.REST_BASE + '/registro_historico', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}), body: JSON.stringify(entries)
+    });
+  },
+  async listar(registroKey){
+    var r = await fetch(unialfaAuth.REST_BASE + '/registro_historico?registro_key=eq.'+encodeURIComponent(registroKey)+'&select=*&order=criado_em.desc', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async mostrar(registroKey, hostEl, labels){
+    var itens = await this.listar(registroKey);
+    if(!itens.length){ hostEl.innerHTML = '<div class="hist-panel"><i>Nenhuma alteração registrada ainda.</i></div>'; hostEl.style.display='block'; return; }
+    var html = '<div class="hist-panel">';
+    itens.forEach(function(h){
+      var d = new Date(h.criado_em);
+      var lbl = (labels && labels[h.campo]) || h.campo;
+      html += '<div class="hi"><b>'+lbl+'</b>: "'+(h.valor_anterior||'—')+'" → "'+(h.valor_novo||'—')+'"<br>'+
+        '<span style="color:var(--muted-2,#9CA3AF)">'+d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+' · '+(h.alterado_por_email||'—')+'</span></div>';
+    });
+    html += '</div>';
+    hostEl.innerHTML = html; hostEl.style.display='block';
+  },
+};
+</script>
+
+<div class="wrap">
+  <div class="doc-head">
+    <div class="doc-band">
+      <div class="doc-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:38px;display:block;background:#fff;border-radius:6px;padding:3px 8px"><small>GRUPO JOSÉ ALVES</small></div>
+      <div class="doc-title">
+        <h1>Solicitação de Mudança de Projeto — SMP</h1>
+        <p>Controle de mudanças · Escritório de Projetos</p>
+      </div>
+      <a class="doc-help" href="15 - central-ajuda.html?v=11#passo-7" target="_blank" rel="noopener" title="Ajuda sobre este formulário">?</a>
+    </div>
+    <div class="doc-meta">
+      <div><span>Código</span><b>FORALF00343</b></div>
+      <div><span>Revisão</span><b>00</b></div>
+      <div><span>Homologação</span><b>19/05/2026</b></div>
+      <div class="hide-sm"><span>Aprovação</span><b>Via campo decisão + status</b></div>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" id="tab-new" onclick="showView('new')">＋ Nova SMP</button>
+    <button class="tab" role="tab" aria-selected="false" id="tab-list" onclick="showView('list')">
+      SMPs cadastradas <span class="count" id="count">0</span>
+    </button>
+  </div>
+
+  <div id="view-new">
+    <div class="proj-link-card">
+      <div class="plc-head"><h3>Projeto vinculado</h3><button type="button" class="plc-hist" id="btnHistorico" onclick="toggleHistorico()" style="display:none">Ver histórico</button></div>
+      <select id="projetoSelect" onchange="onProjetoSelect()">
+        <option value="">Selecione um projeto aprovado (Gate 1)…</option>
+      </select>
+      <div class="plc-info" id="projetoInfo" style="display:none">
+        <span>Unidade:<b id="pi-unidade">—</b></span>
+        <span>Gerente:<b id="pi-gerente">—</b></span>
+        <span>Status:<b id="pi-status">—</b></span>
+      </div>
+      <div id="equipeAviso" style="display:none;margin-top:10px;font-size:12px;color:var(--bad,#9F1239);font-weight:600">Você não faz parte da equipe deste projeto. Peça a um administrador para adicioná-lo(a) em Administração → Equipes.</div>
+      <div id="historicoPanel" style="display:none"></div>
+    </div>
+
+    <!-- 1 Identificação do projeto -->
+    <div class="card">
+      <div class="section-h"><div class="n">1</div><h2>Identificação do projeto</h2></div>
+      <div class="grid">
+        <div class="field full" data-for="nomeProjeto">
+          <label>Nome do programa/projeto<span class="req">*</span></label>
+          <input id="nomeProjeto" type="text" placeholder="Nome do projeto afetado pela mudança">
+          <div class="err-msg">Informe o nome do projeto.</div>
+        </div>
+        <div class="field" data-for="unidade">
+          <label>Unidade responsável<span class="req">*</span></label>
+          <select id="unidade">
+            <option value="">Selecione…</option>
+            <option>Superintendência Reitoria</option><option>Ouvidoria</option><option>CPA</option><option>Comitê da Qualidade</option>
+            <option>Diretoria Educação Executiva</option><option>Diretoria de Escola Business</option><option>Diretoria de Escola de Direito</option><option>Diretoria de Operações EAD</option><option>Diretoria de Marketing e Vendas</option>
+            <option>Coord. Curso Lato Sensu</option><option>Coord. Pós-Graduação Stricto Sensu</option><option>Coord. Curso Graduação, Técnico e Ensino Médio</option><option>Coord. Curso Graduação</option>
+            <option>Coord. Operações Acadêmicas EAD</option><option>Coord. Gestão de Polos</option><option>Corpo Docente</option><option>Corpo Docente (PJ)</option>
+            <option>Marketing</option><option>Vendas</option><option>Relacionamento</option><option>Planej. e Operações</option><option>RH</option>
+            <option>Secretaria Geral</option><option>Asseg. Qualidade</option><option>Segurança</option><option>ADM e Infraestrutura</option><option>GPTI</option>
+            <option>Controladoria</option><option>Gerência de Controladoria</option>
+          </select>
+          <div class="err-msg">Selecione a unidade.</div>
+        </div>
+        <div class="field" data-for="gerente">
+          <label>Gerente de projeto<span class="req">*</span></label>
+          <input id="gerente" type="text" placeholder="Nome do GP">
+          <div class="err-msg">Informe o gerente.</div>
+        </div>
+        <div class="field">
+          <label>Data de elaboração</label>
+          <input id="dataElab" type="date">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 Identificação da mudança -->
+    <div class="card">
+      <div class="section-h"><div class="n">2</div><h2>Identificação da mudança</h2></div>
+      <div class="grid">
+        <div class="field full" data-for="tituloMudanca">
+          <label>Título da mudança<span class="req">*</span></label>
+          <input id="tituloMudanca" type="text" placeholder="Título objetivo da mudança solicitada">
+          <div class="err-msg">Informe o título da mudança.</div>
+        </div>
+        <div class="field" data-for="solicitante">
+          <label>Solicitante<span class="req">*</span></label>
+          <input id="solicitante" type="text" placeholder="Nome do solicitante">
+          <div class="err-msg">Informe o solicitante.</div>
+        </div>
+        <div class="field">
+          <label>Data da solicitação</label>
+          <input id="dataSolic" type="date">
+        </div>
+      </div>
+    </div>
+
+    <!-- 3–5 Descrição, benefícios, impacto da não implementação -->
+    <div class="card">
+      <div class="section-h"><div class="n">3–5</div><h2>Descrição e justificativa</h2><p>O que muda, por que muda e o que acontece se não mudar</p></div>
+      <div class="grid">
+        <div class="field full" data-for="descricao">
+          <label><span class="ref">3 ·</span>Descrição da mudança<span class="req">*</span></label>
+          <div class="hint">Detalhe o que será alterado no projeto.</div>
+          <textarea id="descricao" placeholder="Descreva detalhadamente a mudança solicitada"></textarea>
+          <div class="err-msg">Descreva a mudança.</div>
+        </div>
+        <div class="field full">
+          <label><span class="ref">4 ·</span>Benefícios</label>
+          <div class="hint">Justificativa e benefícios que a mudança trará para o projeto.</div>
+          <textarea id="beneficios" placeholder="Quais os ganhos com a implementação?"></textarea>
+        </div>
+        <div class="field full">
+          <label><span class="ref">5 ·</span>Impacto da não implementação</label>
+          <div class="hint">O que acontece se a mudança não for feita?</div>
+          <textarea id="naoImplantacao" placeholder="Descreva os impactos de não implementar a mudança"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 Análise de impactos -->
+    <div class="card">
+      <div class="section-h"><div class="n">6</div><h2>Análise dos impactos</h2><p>8 dimensões</p></div>
+      <div class="imp-grid">
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">🎯</div><span>No objetivo</span></div>
+          <textarea id="impObjetivo" placeholder="Haverá alterações no objetivo do projeto?"></textarea>
+        </div>
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">📅</div><span>No cronograma</span></div>
+          <textarea id="impCronograma" placeholder="Haverá alterações no cronograma? Qual % de aumento no prazo?"></textarea>
+        </div>
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">📐</div><span>No escopo</span></div>
+          <textarea id="impEscopo" placeholder="Haverá alterações no escopo do projeto?"></textarea>
+        </div>
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">💰</div><span>No custo</span></div>
+          <textarea id="impCusto" placeholder="Haverá alterações de custo? Qual % de aumento?"></textarea>
+        </div>
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">🧭</div><span>No alinhamento estratégico</span></div>
+          <textarea id="impEstrategico" placeholder="Haverá alterações no alinhamento estratégico?"></textarea>
+        </div>
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">✅</div><span>Na qualidade</span></div>
+          <textarea id="impQualidade" placeholder="Haverá alterações na qualidade do projeto?"></textarea>
+        </div>
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">⚠️</div><span>Riscos decorrentes</span></div>
+          <textarea id="impRiscos" placeholder="Quais os riscos decorrentes da implementação da mudança?"></textarea>
+        </div>
+        <div class="imp-item">
+          <div class="imp-head"><div class="imp-icon">🔗</div><span>Outros impactos</span></div>
+          <textarea id="impOutros" placeholder="Ex: projetos inter-relacionados, outros tipos de impacto"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 Decisão -->
+    <div class="card">
+      <div class="section-h"><div class="n">7</div><h2>Decisão em relação à mudança</h2></div>
+      <div class="grid">
+        <div class="field full">
+          <label>Decisão</label>
+          <div class="dec-opts">
+            <label class="dec-opt"><input type="radio" name="decisao" id="dec-apr" value="Aprovada"> Aprovada</label>
+            <label class="dec-opt"><input type="radio" name="decisao" id="dec-rep" value="Não aprovada"> Não aprovada</label>
+            <label class="dec-opt"><input type="radio" name="decisao" id="dec-pend" value="Pendente" checked> Pendente de avaliação</label>
+          </div>
+        </div>
+        <div class="field full">
+          <label>Justificativa da decisão</label>
+          <textarea id="justDecisao" placeholder="Descreva a justificativa para a decisão tomada"></textarea>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">Registrar SMP</button>
+        <button class="btn btn-ghost" onclick="clearForm()">Limpar campos</button>
+        <span class="spacer">Campos com <b style="color:var(--red)">*</b> são obrigatórios</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST VIEW -->
+  <div id="view-list" style="display:none">
+    <div class="card">
+      <div class="list-head">
+        <span class="ttl">SMPs cadastradas</span>
+        <input type="search" id="search" placeholder="Buscar por projeto, título, solicitante…" oninput="renderList()">
+        <div class="ml">
+          <span style="font-size:12px; color:var(--muted)">Clique numa SMP para imprimir ou exportar em Word</span>
+        </div>
+      </div>
+      <div id="list-body"></div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-top">
+    <div><h2 id="d-titulo">—</h2><div class="proto-lg" id="d-proto">—</div></div>
+    <button class="xbtn" onclick="closeDrawer()">×</button>
+  </div>
+  <div class="drawer-body">
+    <dl class="dl" id="d-body"></dl>
+    <button type="button" id="btnRegHistorico" onclick="toggleRegistroHistorico()" style="margin-bottom:10px;font-size:11px;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;text-decoration:underline;font-family:inherit;padding:0">Ver histórico de alterações</button>
+    <div id="regHistoricoPanel" style="display:none"></div>
+  </div>
+  <div class="drawer-foot">
+    <div class="status-row">
+      <label for="d-status">Status</label>
+      <select id="d-status" onchange="changeStatus()">
+        <option value="Pendente de avaliação">Pendente de avaliação</option>
+        <option value="Aprovada">Aprovada</option>
+        <option value="Não aprovada">Não aprovada</option>
+      </select>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="imprimirSmp()">🖨️ Imprimir</button>
+    <button class="btn btn-ghost btn-sm" onclick="exportarSmpWord()">⬇ Exportar Word</button>
+    <button class="btn btn-ghost btn-sm" onclick="editCurrent()">Editar dados</button>
+    <button class="btn btn-danger btn-sm" onclick="deleteCurrent()">Excluir</button>
+  </div>
+</aside>
+<div class="toast" id="toast"><span class="dot"></span><span id="toast-msg"></span></div>
+
+<script>
+/* ---- Armazenamento persistente via Supabase (substitui window.storage) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var TABLE = 'kv_store';
+  var base = SUPABASE_URL + '/rest/v1/' + TABLE;
+  function headers(extra){
+    var session = null;
+    try{ session = JSON.parse(localStorage.getItem('unialfa_session')); }catch(e){}
+    var token = (session && session.access_token) ? session.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) { for (var k in extra) h[k] = extra[k]; }
+    return h;
+  }
+  window.storage = {
+    get: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key) + '&select=value', { headers: headers() });
+      if(!r.ok) return null;
+      var rows = await r.json();
+      return rows.length ? { value: rows[0].value } : null;
+    },
+    set: async function(key, value){
+      var r = await fetch(base + '?on_conflict=key', { method: 'POST', headers: headers({ 'Prefer': 'resolution=merge-duplicates' }), body: JSON.stringify({ key: key, value: value, updated_at: new Date().toISOString() }) });
+      return r.ok;
+    },
+    delete: async function(key){
+      var r = await fetch(base + '?key=eq.' + encodeURIComponent(key), { method: 'DELETE', headers: headers() });
+      return r.ok;
+    },
+    list: async function(prefix){
+      var r = await fetch(base + '?key=like.' + encodeURIComponent(prefix) + '*&select=key', { headers: headers() });
+      if(!r.ok) return { keys: [] };
+      var rows = await r.json();
+      return { keys: rows.map(function(x){ return x.key; }) };
+    },
+  };
+})();
+</script>
+<script>
+const KEY_PREFIX='smp:';
+let cache=[], currentId=null, editId=null;
+
+const SIMPLE_FIELDS=['nomeProjeto','unidade','gerente','dataElab','tituloMudanca','solicitante','dataSolic','descricao','beneficios','naoImplantacao','impObjetivo','impCronograma','impEscopo','impCusto','impEstrategico','impQualidade','impRiscos','impOutros','justDecisao'];
+const REQUIRED=['nomeProjeto','unidade','gerente','tituloMudanca','solicitante','descricao'];
+
+const DETAIL=[
+  {grp:'Identificação do projeto',fields:[
+    {k:'gerente',l:'Gerente de projeto'},{k:'unidade',l:'Unidade responsável'},{k:'dataElab',l:'Data de elaboração',date:true}
+  ]},
+  {grp:'Identificação da mudança',fields:[
+    {k:'solicitante',l:'Solicitante'},{k:'dataSolic',l:'Data da solicitação',date:true}
+  ]},
+  {grp:'Descrição e justificativa',fields:[
+    {k:'descricao',l:'Descrição da mudança'},{k:'beneficios',l:'Benefícios'},{k:'naoImplantacao',l:'Impacto da não implementação'}
+  ]},
+  {grp:'Análise dos impactos',fields:[
+    {k:'impObjetivo',l:'No objetivo'},{k:'impCronograma',l:'No cronograma'},
+    {k:'impEscopo',l:'No escopo'},{k:'impCusto',l:'No custo'},
+    {k:'impEstrategico',l:'No alinhamento estratégico'},{k:'impQualidade',l:'Na qualidade'},
+    {k:'impRiscos',l:'Riscos decorrentes'},{k:'impOutros',l:'Outros impactos'}
+  ]},
+  {grp:'Decisão',fields:[
+    {k:'decisao',l:'Decisão'},{k:'justDecisao',l:'Justificativa da decisão'}
+  ]},
+];
+
+let projetosAprovados=[]; let historicoAberto=false;
+async function carregarProjetosAprovados(selecionarId){
+  projetosAprovados = await unialfaProjeto.listarAprovados();
+  const sel=document.getElementById('projetoSelect');
+  sel.innerHTML='<option value="">Selecione um projeto aprovado (Gate 1)…</option>' +
+    projetosAprovados.map(p=>`<option value="${p.id}">${esc(p.nome)}</option>`).join('');
+  if(selecionarId){ sel.value=selecionarId; onProjetoSelect(false); }
+}
+async function onProjetoSelect(preencherCampos=true){
+  const id=document.getElementById('projetoSelect').value;
+  const info=document.getElementById('projetoInfo');
+  document.getElementById('btnHistorico').style.display = id ? 'inline' : 'none';
+  document.getElementById('historicoPanel').style.display='none'; historicoAberto=false;
+  const p=projetosAprovados.find(x=>x.id===id);
+  if(!p){ info.style.display='none'; document.getElementById('equipeAviso').style.display='none'; atualizarBotaoEquipe(true); return; }
+  document.getElementById('pi-unidade').textContent=p.unidade||'—';
+  document.getElementById('pi-gerente').textContent=p.gerente||'—';
+  document.getElementById('pi-status').textContent='Aprovado';
+  info.style.display='flex';
+  const souMembro = await unialfaEquipe.souMembro(id);
+  document.getElementById('equipeAviso').style.display = souMembro ? 'none' : 'block';
+  atualizarBotaoEquipe(souMembro);
+  if(preencherCampos){
+    document.getElementById('nomeProjeto').value=p.nome||'';
+    document.getElementById('unidade').value=p.unidade||'';
+    document.getElementById('gerente').value=p.gerente||'';
+    clearError('nomeProjeto'); clearError('unidade'); clearError('gerente');
+  }
+}
+function atualizarBotaoEquipe(souMembro){
+  const btn=document.getElementById('submitBtn');
+  if(!btn) return;
+  btn.disabled = !souMembro;
+  btn.style.opacity = souMembro ? '1' : '.5';
+  btn.style.cursor = souMembro ? 'pointer' : 'not-allowed';
+}
+async function toggleHistorico(){
+  const id=document.getElementById('projetoSelect').value; if(!id) return;
+  const panel=document.getElementById('historicoPanel');
+  historicoAberto=!historicoAberto;
+  if(historicoAberto) await unialfaProjeto.mostrarHistorico(id, panel);
+  else panel.style.display='none';
+}
+
+function toast(msg,ok=true){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.toggle('ok',ok);t.classList.add('show');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+function fmtDate(iso){if(!iso)return '—';const p=iso.split('-');return `${p[2]}/${p[1]}/${p[0]}`;}
+function fmtStamp(ms){const dt=new Date(ms);return dt.toLocaleDateString('pt-BR')+' '+dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});}
+function badgeClass(s){return s==='Aprovada'?'b-apr':s==='Não aprovada'?'b-rep':'b-pend';}
+function esc(s){return(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function clearError(id){const f=document.querySelector(`.field[data-for="${id}"]`);if(f)f.classList.remove('error');}
+REQUIRED.forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',()=>clearError(id));});
+
+function validate(){
+  let firstBad=null;
+  REQUIRED.forEach(id=>{
+    const el=document.getElementById(id);
+    const f=document.querySelector(`.field[data-for="${id}"]`);
+    if(!el.value.trim()){f.classList.add('error');if(!firstBad)firstBad=f;}else f.classList.remove('error');
+  });
+  if(firstBad)firstBad.scrollIntoView({behavior:'smooth',block:'center'});
+  return !firstBad;
+}
+
+const HIST_LABELS = { nomeProjeto:'Nome do programa/projeto', unidade:'Unidade responsável', gerente:'Gerente de projeto', dataElab:'Data de elaboração', tituloMudanca:'Título da mudança', solicitante:'Solicitante', dataSolic:'Data da solicitação', descricao:'Descrição da mudança', beneficios:'Benefícios', naoImplantacao:'Impacto da não implementação', impObjetivo:'No objetivo', impCronograma:'No cronograma', impEscopo:'No escopo', impCusto:'No custo', impEstrategico:'No alinhamento estratégico', impQualidade:'Na qualidade', impRiscos:'Riscos decorrentes', impOutros:'Outros impactos', decisao:'Decisão', justDecisao:'Justificativa da decisão' };
+
+async function submitForm(){
+  if(!validate()){toast('Revise os campos obrigatórios',false);return;}
+  const projetoId=document.getElementById('projetoSelect').value;
+  if(!projetoId){ toast('Selecione o projeto vinculado (deve estar Aprovado no Gate 1)', false); return; }
+  if(!(await unialfaEquipe.souMembro(projetoId))){ toast('Você não faz parte da equipe deste projeto.', false); return; }
+  const dec=document.querySelector('input[name="decisao"]:checked');
+  let rec, camposAntigos={}, registroAntigo=null, statusAntigo=null;
+  if(editId){
+    rec = Object.assign({}, cache.find(x=>x.id===editId));
+    registroAntigo = Object.assign({}, rec);
+    statusAntigo = rec.status;
+    camposAntigos = { nome: rec.nomeProjeto, unidade: rec.unidade, gerente: rec.gerente };
+  } else {
+    const year=new Date().getFullYear();
+    const seq=String(cache.length+1).padStart(3,'0');
+    rec={id:'s_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),protocolo:`FORALF00343-${year}-${seq}`,status:'Pendente de avaliação',createdAt:Date.now(),criadoPorEmail:window.currentUser?window.currentUser.email:null};
+  }
+  SIMPLE_FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)rec[id]=(el.value||'').trim();});
+  rec.decisao=dec?dec.value:'Pendente de avaliação';
+  if(rec.decisao==='Aprovada')rec.status='Aprovada';
+  else if(rec.decisao==='Não aprovada')rec.status='Não aprovada';
+  else rec.status='Pendente de avaliação';
+  rec.projetoId=projetoId;
+  try{
+    await unialfaProjeto.sincronizarSeMudou(projetoId, 'SMP - Solicitação de Mudança de Projeto (FORALF00343)', camposAntigos, { nome: rec.nomeProjeto, unidade: rec.unidade, gerente: rec.gerente });
+    if(registroAntigo){ await unialfaHistorico.registrar(KEY_PREFIX+rec.id, 'SMP - Solicitação de Mudança de Projeto (FORALF00343)', registroAntigo, rec); }
+    const r=await window.storage.set(KEY_PREFIX+rec.id,JSON.stringify(rec));
+    if(!r)throw new Error();
+    if(rec.status!==statusAntigo && (rec.status==='Aprovada'||rec.status==='Não aprovada')){
+      await unialfaProjeto.registrarEvento(projetoId, 'SMP: '+(rec.tituloMudanca||rec.protocolo), statusAntigo||'—', rec.status, 'SMP - Solicitação de Mudança de Projeto (FORALF00343)');
+      notificarDecisaoSMP(rec);
+    }
+    if(editId){
+      const idx=cache.findIndex(x=>x.id===rec.id);
+      if(idx>-1) cache[idx]=rec; else cache.unshift(rec);
+      toast('SMP '+rec.protocolo+' atualizada');
+    } else {
+      cache.unshift(rec);
+      toast('SMP '+rec.protocolo+' registrada');
+    }
+    document.getElementById('count').textContent=cache.length;
+    editId=null;
+    clearForm();showView('list');
+  }catch(e){toast('Não foi possível salvar.',false);}
+}
+async function editCurrent(){
+  const r=cache.find(x=>x.id===currentId); if(!r) return;
+  editId=r.id;
+  SIMPLE_FIELDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=r[id]||''; });
+  const decMap={'Aprovada':'dec-apr','Não aprovada':'dec-rep','Pendente':'dec-pend'};
+  const decId = decMap[r.decisao] || 'dec-pend';
+  document.getElementById(decId).checked=true;
+  document.querySelectorAll('.field.error').forEach(f=>f.classList.remove('error'));
+  closeDrawer();
+  showView('new');
+  updateEditBanner();
+  if(r.projetoId) await carregarProjetosAprovados(r.projetoId);
+}
+function updateEditBanner(){
+  document.getElementById('submitBtn').textContent = editId ? 'Salvar alterações' : 'Registrar SMP';
+}
+function clearForm(){
+  SIMPLE_FIELDS.forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('dec-pend').checked=true;
+  document.querySelectorAll('.field.error').forEach(f=>f.classList.remove('error'));
+  document.getElementById('projetoSelect').value='';
+  document.getElementById('projetoInfo').style.display='none';
+  document.getElementById('btnHistorico').style.display='none';
+  document.getElementById('historicoPanel').style.display='none';
+  editId=null;
+  updateEditBanner();
+}
+
+async function loadAll(){
+  cache=[];
+  try{
+    const res=await window.storage.list(KEY_PREFIX);
+    const keys=(res&&res.keys)?res.keys:[];
+    for(const k of keys){try{const r=await window.storage.get(k);if(r&&r.value)cache.push(JSON.parse(r.value));}catch(e){}}
+  }catch(e){console.warn(e);}
+  cache.sort((a,b)=>b.createdAt-a.createdAt);
+  document.getElementById('count').textContent=cache.length;
+}
+
+function showView(v){
+  document.getElementById('view-new').style.display=v==='new'?'block':'none';
+  document.getElementById('view-list').style.display=v==='list'?'block':'none';
+  document.getElementById('tab-new').setAttribute('aria-selected',v==='new');
+  document.getElementById('tab-list').setAttribute('aria-selected',v==='list');
+  if(v==='list')renderList();
+}
+
+function renderList(){
+  const q=(document.getElementById('search').value||'').toLowerCase();
+  const rows=cache.filter(r=>!q||((r.nomeProjeto+r.tituloMudanca+r.solicitante+r.protocolo).toLowerCase().includes(q)));
+  const body=document.getElementById('list-body');
+  if(!cache.length){body.innerHTML='<div class="empty"><h3>Nenhuma SMP cadastrada</h3><p>As solicitações de mudança registradas aparecem aqui.</p></div>';return;}
+  if(!rows.length){body.innerHTML='<div class="empty"><h3>Nenhum resultado</h3><p>Ajuste a busca.</p></div>';return;}
+  let html='<table class="list"><thead><tr><th>Protocolo</th><th>Projeto</th><th class="hide-sm">Título da mudança</th><th class="hide-sm">Solicitante</th><th>Status</th></tr></thead><tbody>';
+  for(const r of rows){
+    html+=`<tr onclick="openDrawer('${r.id}')">
+      <td><div class="proto">${esc(r.protocolo)}<small>${fmtStamp(r.createdAt)}</small></div></td>
+      <td><div class="proj">${esc(r.nomeProjeto)}<small>GP: ${esc(r.gerente||'—')}</small></div></td>
+      <td class="hide-sm">${esc(r.tituloMudanca||'—')}</td>
+      <td class="hide-sm">${esc(r.solicitante||'—')}</td>
+      <td><span class="badge ${badgeClass(r.status)}">${esc(r.status)}</span></td>
+    </tr>`;
+  }
+  html+='</tbody></table>';body.innerHTML=html;
+}
+
+function openDrawer(id){
+  const r=cache.find(x=>x.id===id);if(!r)return;currentId=id;
+  document.getElementById('d-titulo').textContent=r.tituloMudanca||r.protocolo;
+  document.getElementById('d-proto').textContent=r.protocolo+' · '+r.nomeProjeto+' · '+fmtStamp(r.createdAt);
+  document.getElementById('d-status').value=r.status;
+  let html='';
+  for(const sec of DETAIL){
+    html+=`<div class="grp">${sec.grp}</div>`;
+    for(const f of sec.fields){
+      let v=r[f.k]; if(f.date)v=fmtDate(v);
+      html+=`<div class="row"><dt>${f.l}</dt><dd>${esc(v||'—')}</dd></div>`;
+    }
+  }
+  document.getElementById('d-body').innerHTML=html;
+  document.getElementById('regHistoricoPanel').style.display='none';
+  regHistoricoAberto=false;
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('drawer').classList.add('show');
+}
+function closeDrawer(){document.getElementById('overlay').classList.remove('show');document.getElementById('drawer').classList.remove('show');currentId=null;}
+let regHistoricoAberto=false;
+async function toggleRegistroHistorico(){
+  if(!currentId) return;
+  const panel=document.getElementById('regHistoricoPanel');
+  regHistoricoAberto=!regHistoricoAberto;
+  if(regHistoricoAberto) await unialfaHistorico.mostrar(KEY_PREFIX+currentId, panel, HIST_LABELS);
+  else panel.style.display='none';
+}
+async function changeStatus(){
+  const r=cache.find(x=>x.id===currentId);if(!r)return;
+  const statusAntigo=r.status;
+  r.status=document.getElementById('d-status').value;
+  try{
+    await window.storage.set(KEY_PREFIX+r.id,JSON.stringify(r));
+    if(r.projetoId && r.status!==statusAntigo && (r.status==='Aprovada'||r.status==='Não aprovada')){
+      await unialfaProjeto.registrarEvento(r.projetoId, 'SMP: '+(r.tituloMudanca||r.protocolo), statusAntigo, r.status, 'SMP - Solicitação de Mudança de Projeto (FORALF00343)');
+      notificarDecisaoSMP(r);
+    }
+    renderList();toast('Status atualizado para "'+r.status+'"');
+  }
+  catch(e){toast('Erro ao atualizar',false);}
+}
+async function deleteCurrent(){
+  const r=cache.find(x=>x.id===currentId);if(!r)return;
+  if(!confirm('Excluir a SMP '+r.protocolo+'?'))return;
+  try{await window.storage.delete(KEY_PREFIX+r.id);cache=cache.filter(x=>x.id!==currentId);document.getElementById('count').textContent=cache.length;closeDrawer();renderList();toast('SMP excluída');}
+  catch(e){toast('Erro ao excluir',false);}
+}
+
+const ATA_LOGO_DATAURI='data:image/png;base64,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';
+
+/* ---------- Impressao / exportacao no formato homologado (FORALF00343) ---------- */
+function buildSmpDocumentoHtml(r){
+  const hoje=new Date().toLocaleDateString('pt-BR');
+  const style=[
+    'body{font-family:Calibri,Arial,sans-serif;color:#1A1A1A;margin:24px;font-size:12px}',
+    '.doc-head{display:flex;border:1px solid #1A1A1A;margin-bottom:14px}',
+    '.doc-logo{width:150px;background:#fff;display:flex;align-items:center;justify-content:center;padding:10px;border-right:1px solid #1A1A1A}',
+    '.doc-logo img{max-width:130px;display:block}',
+    '.doc-headinfo{flex:1}',
+    '.doc-headinfo .ttl{text-align:center;font-weight:700;padding:6px;border-bottom:1px solid #1A1A1A;background:#F6F6F7}',
+    '.doc-headinfo table{width:100%;border-collapse:collapse}',
+    '.doc-headinfo td{border-top:1px solid #1A1A1A;padding:4px 8px;font-size:10px;text-align:center}',
+    '.doc-headinfo td b{display:block;font-size:11px}',
+    '.doc-box{border:1px solid #1A1A1A;margin-bottom:10px}',
+    '.doc-box .lbl{background:#1A1A1A;color:#fff;font-weight:700;font-size:10px;letter-spacing:.05em;padding:5px 8px;text-transform:uppercase}',
+    '.doc-box .val{padding:8px;min-height:16px;white-space:pre-wrap}',
+    '.doc-row{display:flex}',
+    '.doc-row .doc-box{flex:1;margin-bottom:0}',
+    '.doc-t{width:100%;border-collapse:collapse;font-size:11px}',
+    '.doc-t th,.doc-t td{border:1px solid #1A1A1A;padding:5px 8px;text-align:left}',
+    '.doc-t th{background:#F6F6F7;font-size:10px;text-transform:uppercase;letter-spacing:.03em}',
+    '.doc-foot{text-align:center;color:#6A6A70;font-size:10px;margin-top:18px;border-top:1px solid #E4E4E7;padding-top:8px}',
+    '.doc-gen{text-align:center;color:#9CA3AF;font-size:9px;margin-top:4px}',
+    '.pgbreak{page-break-before:always}',
+    '@page{margin:14mm}'
+  ].join('\n');
+  const impactos=[
+    ['No Objetivo',r.impObjetivo],['No Cronograma',r.impCronograma],['No Escopo',r.impEscopo],
+    ['No Custo',r.impCusto],['No Alinhamento Estrategico',r.impEstrategico],['Na Qualidade',r.impQualidade],
+    ['Riscos Decorrentes',r.impRiscos],['Outros',r.impOutros]
+  ];
+  const impactosHtml='<table class="doc-t"><thead><tr><th>Impacto</th><th>Descricao</th></tr></thead><tbody>'
+    +impactos.map(([k,v])=>'<tr><td>'+esc(k)+'</td><td>'+(esc(v)||'&nbsp;')+'</td></tr>').join('')
+    +'</tbody></table>';
+  return '<!doctype html><html><head><meta charset="utf-8"><title>SMP - '+esc(r.protocolo)+'</title><style>'+style+'</style></head><body>'
+    +'<div class="doc-head">'
+    +'<div class="doc-logo"><img src="'+ATA_LOGO_DATAURI+'" alt="ALFA"></div>'
+    +'<div class="doc-headinfo">'
+    +'<div class="ttl">FORALF00343 &mdash; SOLICITACAO DE MUDANCA DE PROJETO - SMP</div>'
+    +'<table><tr>'
+    +'<td><b>00</b>Revisao</td>'
+    +'<td><b>19/05/2026</b>Homologacao</td>'
+    +'<td><b>'+esc(r.protocolo)+'</b>Protocolo</td>'
+    +'</tr></table>'
+    +'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Nome do programa/projeto</div><div class="val">'+(esc(r.nomeProjeto)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-row">'
+    +'<div class="doc-box"><div class="lbl">Unidade responsavel</div><div class="val">'+(esc(r.unidade)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Gerente de projeto</div><div class="val">'+(esc(r.gerente)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Data de elaboracao</div><div class="val">'+fmtDate(r.dataElab)+'</div></div>'
+    +'</div>'
+    +'<div class="doc-box"><div class="lbl">Titulo da mudanca</div><div class="val">'+(esc(r.tituloMudanca)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-row">'
+    +'<div class="doc-box"><div class="lbl">Solicitante</div><div class="val">'+(esc(r.solicitante)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Data da solicitacao</div><div class="val">'+fmtDate(r.dataSolic)+'</div></div>'
+    +'</div>'
+    +'<div class="doc-box"><div class="lbl">Descricao</div><div class="val">'+(esc(r.descricao)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Beneficios</div><div class="val">'+(esc(r.beneficios)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Impacto da nao implementacao</div><div class="val">'+(esc(r.naoImplantacao)||'&nbsp;')+'</div></div>'
+    +'<div class="pgbreak"></div>'
+    +'<div class="doc-box"><div class="lbl">Analise dos impactos</div><div class="val">'+impactosHtml+'</div></div>'
+    +'<div class="doc-row">'
+    +'<div class="doc-box"><div class="lbl">Decisao</div><div class="val">'+(esc(r.decisao)||'&nbsp;')+'</div></div>'
+    +'<div class="doc-box"><div class="lbl">Justificativa da decisao</div><div class="val">'+(esc(r.justDecisao)||'&nbsp;')+'</div></div>'
+    +'</div>'
+    +'<div class="doc-foot">GRUPO JOSE ALVES</div>'
+    +'<div class="doc-gen">Documento gerado pelo Sistema de Gestao de Projetos UNIALFA em '+hoje+' &mdash; Status: '+esc(r.status)+'</div>'
+    +'</body></html>';
+}
+function imprimirSmp(){
+  const r=cache.find(x=>x.id===currentId); if(!r){toast('Selecione uma SMP para imprimir',false);return;}
+  const html=buildSmpDocumentoHtml(r);
+  const iframe=document.createElement('iframe');
+  iframe.style.position='fixed'; iframe.style.right='0'; iframe.style.bottom='0';
+  iframe.style.width='0'; iframe.style.height='0'; iframe.style.border='0';
+  document.body.appendChild(iframe);
+  iframe.contentDocument.open(); iframe.contentDocument.write(html); iframe.contentDocument.close();
+  iframe.onload=function(){
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
+    setTimeout(function(){document.body.removeChild(iframe);},1000);
+  };
+}
+function exportarSmpWord(){
+  const r=cache.find(x=>x.id===currentId); if(!r){toast('Selecione uma SMP para exportar',false);return;}
+  const html=buildSmpDocumentoHtml(r);
+  const wordHtml=html.replace('<!doctype html><html>',"<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>");
+  const blob=new Blob([wordHtml],{type:'application/msword'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='SMP - '+r.protocolo+'.doc'; a.click(); URL.revokeObjectURL(url);
+  toast('SMP exportada em Word');
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+(async()=>{ await ensureAuthenticated(); await loadAll(); renderList(); await carregarProjetosAprovados(); })();
+</script>

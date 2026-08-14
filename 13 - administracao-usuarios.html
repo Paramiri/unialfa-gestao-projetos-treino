@@ -1,0 +1,842 @@
+<!-- Administração de Usuários e Papéis / UNIALFA -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --red:#B91D2E; --red-deep:#8E1322; --ink:#1A1A1A; --muted:#6A6A70;
+    --paper:#FFFFFF; --surface:#F6F6F7; --surface-2:#FAFAFB;
+    --line:#E4E4E7; --line-strong:#D4D4D8;
+    --ok:#1B7F4B; --ok-soft:#E6F4EC; --warn:#B45309; --warn-soft:#FBF1E3; --bad:#9F1239; --bad-soft:#FBE7EC;
+    --radius:10px; --shadow:0 1px 2px rgba(20,20,20,.04), 0 8px 28px rgba(20,20,20,.06);
+    --font:'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font-family:var(--font); color:var(--ink); background:var(--surface); -webkit-font-smoothing:antialiased; line-height:1.5;}
+  .wrap{max-width:960px; margin:0 auto; padding:28px 20px 64px}
+  .doc-head{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+  .doc-band{background:var(--red); color:#fff; padding:18px 24px; display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+  .doc-logo{font-weight:800; font-size:22px; letter-spacing:.04em; line-height:1; padding-right:18px; border-right:2px solid rgba(255,255,255,.35);}
+  .doc-logo small{display:block; font-weight:600; font-size:10px; letter-spacing:.22em; margin-top:5px; opacity:.85}
+  .doc-title{flex:1; min-width:220px}
+  .doc-title h1{margin:0; font-size:17px; font-weight:700; letter-spacing:.06em; text-transform:uppercase}
+  .doc-title p{margin:3px 0 0; font-size:12px; font-weight:500; opacity:.9; letter-spacing:.02em}
+
+  .card{background:var(--paper); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; margin-top:18px;}
+  #content-body, #equipe-body{overflow-x:auto}
+  .section-h{display:flex; align-items:center; gap:12px; padding:18px 24px 14px; border-bottom:1px solid var(--line); background:var(--surface-2);}
+  .section-h h2{margin:0; font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase}
+  .section-h p{margin:0 0 0 auto; font-size:11px; color:var(--muted); font-weight:500}
+
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th{text-align:left; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding:10px 24px; border-bottom:1px solid var(--line); background:var(--surface-2);}
+  td{padding:12px 24px; border-bottom:1px solid var(--line); vertical-align:middle;}
+  tr:last-child td{border-bottom:none}
+  td b{font-weight:700}
+  td small{display:block; color:var(--muted); font-size:11px; margin-top:2px}
+  select{font-family:var(--font); font-size:12.5px; font-weight:600; color:var(--ink); border:1px solid var(--line-strong); border-radius:7px; padding:7px 10px; background:var(--paper); cursor:pointer;}
+  select:focus{outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(185,29,46,.12);}
+  .empty{padding:48px 24px; text-align:center; color:var(--muted); font-size:13px;}
+  .denied{padding:48px 24px; text-align:center;}
+  .denied h2{font-size:16px; margin:0 0 8px}
+  .denied p{color:var(--muted); font-size:13px; margin:0}
+  .role-tag{display:inline-block; font-size:10px; font-weight:700; letter-spacing:.03em; padding:3px 9px; border-radius:999px; background:var(--surface-2); border:1px solid var(--line-strong); color:var(--muted);}
+  .role-tag.admin{background:var(--bad-soft); color:var(--bad); border-color:transparent}
+  .pending-tag{display:inline-block; font-size:10px; font-weight:700; letter-spacing:.03em; padding:3px 9px; border-radius:999px; background:var(--warn-soft); color:var(--warn); margin-top:4px;}
+  .user-add{padding:16px 24px; border-bottom:1px solid var(--line); display:flex; gap:10px; align-items:center; flex-wrap:wrap; background:var(--surface-2);}
+  .user-add input, .user-add select{flex:1; min-width:150px; font-family:var(--font); font-size:12.5px; font-weight:600; color:var(--ink); border:1px solid var(--line-strong); border-radius:7px; padding:8px 10px; background:var(--paper);}
+  .user-add input:focus, .user-add select:focus{outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(185,29,46,.12);}
+  .tel-input{font-family:var(--font); font-size:12.5px; font-weight:600; color:var(--ink); border:1px solid var(--line-strong); border-radius:7px; padding:6px 9px; width:140px;}
+  .tel-input:focus{outline:none; border-color:var(--red); box-shadow:0 0 0 3px rgba(185,29,46,.12);}
+  .papeis-grupo{display:flex; gap:8px; flex-wrap:wrap;}
+  .papel-chip{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:600; padding:7px 12px; border-radius:999px; border:1px solid var(--line-strong); background:var(--paper); cursor:pointer; user-select:none;}
+  .papel-chip input{cursor:pointer; margin:0}
+  .papel-chip.marcado{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+  .vtabs{display:flex; gap:8px; margin-top:18px}
+  .vtab{appearance:none; border:1px solid var(--line); background:var(--paper); color:var(--muted); font-family:var(--font); font-weight:700; font-size:12px; padding:9px 18px; border-radius:999px; cursor:pointer;}
+  .vtab[aria-selected="true"]{background:var(--ink); border-color:var(--ink); color:#fff}
+  .equipe-picker{padding:18px 24px; border-bottom:1px solid var(--line); background:var(--surface-2); display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+  .equipe-picker select{flex:1; min-width:220px; font-size:13px; padding:9px 12px;}
+  .equipe-add{padding:16px 24px; border-bottom:1px solid var(--line); display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+  .equipe-add select{flex:1; min-width:200px}
+  .btn{appearance:none; font-family:var(--font); font-weight:700; font-size:12.5px; border-radius:8px; padding:9px 16px; cursor:pointer; border:1px solid transparent; background:var(--red); color:#fff;}
+  .btn:hover{background:var(--red-deep)}
+  .btn:disabled{opacity:.5; cursor:not-allowed}
+  .btn-remove{appearance:none; border:none; background:none; color:var(--bad); font-size:11px; font-weight:700; cursor:pointer; text-decoration:underline}
+
+  .toast{position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:13px 20px; border-radius:10px; font-size:13px; font-weight:600; box-shadow:0 12px 40px rgba(0,0,0,.25); display:flex; align-items:center; gap:10px; opacity:0; pointer-events:none; transition:all .3s cubic-bezier(.2,.8,.2,1); z-index:50; max-width:90vw;}
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+  .toast .dot{width:8px; height:8px; border-radius:50%; background:#5BE49B; flex:none}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  .doc-help{flex:none;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;text-decoration:none;border:1.5px solid rgba(255,255,255,.4)}
+  .doc-help:hover{background:rgba(255,255,255,.32)}
+</style>
+
+<!-- ==== AUTH GATE (HTML) ==== -->
+<div class="auth-gate" id="authGate" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:40px;display:block"><small>GRUPO JOSÉ ALVES</small></div>
+    <h2>Entrar</h2>
+    <p>Digite seu e-mail para receber um link de acesso — sem senha.</p>
+    <div id="authStep1">
+      <input type="email" id="authEmail" placeholder="seu.nome@email.com.br">
+      <button class="btn btn-primary" onclick="unialfaAuthUI.sendLink()">Enviar link de acesso</button>
+    </div>
+    <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+    <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="unialfaAuthUI.signInWithAzure()">Entrar com Microsoft - UNIALFA</button>
+    <div id="treinoLoginBloco" style="display:none">
+      <div style="text-align:center;margin:14px 0;color:var(--muted,#6B7280);font-size:11px;font-weight:600">— ou —</div>
+      <p style="font-size:11.5px;color:var(--muted,#6B7280);margin-bottom:8px">Ambiente de treinamento — use uma conta de teste:</p>
+      <input type="email" id="treinoEmail" placeholder="ex.: admin@treino.unialfa.local">
+      <input type="password" id="treinoSenha" placeholder="Senha" style="margin-top:8px">
+      <button class="btn btn-primary" style="margin-top:10px" onclick="unialfaAuthUI.signInTreino()">Entrar (treinamento)</button>
+    </div>
+    <script>if(location.href.indexOf('treino')>-1){var _tb=document.getElementById('treinoLoginBloco');if(_tb)_tb.style.display='block';}</script>
+    <div id="authStep2" style="display:none">
+      <p>✓ Link enviado para <b id="authEmailSent"></b>. Verifique seu e-mail e clique no link — esta página atualiza sozinha.</p>
+      <button class="btn btn-ghost btn-sm" onclick="unialfaAuthUI.reset()">Usar outro e-mail</button>
+    </div>
+    <div id="authMsg" class="auth-msg" style="display:none"></div>
+  </div>
+</div>
+
+<style>
+.auth-gate{position:fixed;inset:0;background:rgba(15,15,15,.92);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--paper,#fff);border-radius:14px;padding:32px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.auth-logo{font-weight:900;font-size:20px;letter-spacing:.04em;color:var(--red,#B91D2E);margin-bottom:18px}
+.auth-logo small{display:block;font-weight:600;font-size:9px;letter-spacing:.2em;color:var(--muted,#6B7280);margin-top:3px}
+.auth-card h2{font-size:17px;font-weight:800;margin-bottom:6px;color:var(--ink,#0F0F0F)}
+.auth-card p{font-size:12.5px;color:var(--muted,#6B7280);margin-bottom:16px;line-height:1.5}
+.auth-card input{width:100%;font-family:inherit;font-size:13.5px;border:1px solid var(--line-strong,#D1D5DB);border-radius:8px;padding:10px 12px;margin-bottom:10px;color:var(--ink,#0F0F0F)}
+.auth-card input:focus{outline:none;border-color:var(--red,#B91D2E);box-shadow:0 0 0 3px rgba(185,29,46,.12)}
+.auth-card .btn{width:100%;justify-content:center; appearance:none; font-family:var(--font); font-weight:700; font-size:13px; letter-spacing:.02em; border-radius:8px; padding:11px 22px; cursor:pointer; border:1px solid transparent; display:inline-flex; align-items:center; gap:8px;}
+.btn-primary{background:var(--red); color:#fff}
+.btn-primary:hover{background:var(--red-deep)}
+.btn-ghost{background:var(--paper); color:var(--ink); border-color:var(--line-strong)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn-sm{padding:7px 14px; font-size:12px}
+.auth-msg{margin-top:10px;font-size:12px;font-weight:600;padding:8px 10px;border-radius:7px}
+.auth-msg.err{background:#FEE2E2;color:#DC2626}
+.auth-msg.ok{background:#D1FAE5;color:#059669}
+.auth-topbar{position:fixed;top:0;left:0;right:0;background:var(--ink,#0F0F0F);color:#fff;font-size:11.5px;padding:8px 18px;display:flex;align-items:center;gap:10px;z-index:150;font-family:var(--font)}
+.auth-topbar b{font-weight:700}
+.auth-topbar .papel-tag{background:var(--red,#B91D2E);padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.auth-topbar .sair{margin-left:auto;background:none;border:none;color:#fff;opacity:.7;cursor:pointer;font-size:11px;text-decoration:underline;font-family:inherit}
+.auth-topbar .sair:hover{opacity:1}
+body.auth-ready{padding-top:34px}
+</style>
+
+<script>
+/* ---- Autenticacao (magic link) ---- */
+(function(){
+  var IS_TREINO = location.href.indexOf('treino')>-1;
+  var SUPABASE_URL = IS_TREINO ? 'https://uuxvdulunrwppbmofyux.supabase.co' : 'https://fiarntunpqteopwjkhjg.supabase.co';
+  var SUPABASE_ANON_KEY = IS_TREINO ? 'sb_publishable_c2t1YzuGTrNvg5770BYOvg_04hR9NrE' : 'sb_publishable_RO-UPexCYhZ0rVZiIYWunA_a7YqodnQ';
+  var AUTH_BASE = SUPABASE_URL + '/auth/v1';
+  var REST_BASE = SUPABASE_URL + '/rest/v1';
+  var SESSION_KEY = 'unialfa_session';
+
+  function saveSession(s){ localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+  function getSession(){ try{ return JSON.parse(localStorage.getItem(SESSION_KEY)); }catch(e){ return null; } }
+  function clearSession(){ localStorage.removeItem(SESSION_KEY); }
+
+  function captureRedirect(){
+    if (location.hash && location.hash.indexOf('access_token') > -1) {
+      var params = new URLSearchParams(location.hash.slice(1));
+      if (params.get('access_token')) {
+        saveSession({
+          access_token: params.get('access_token'),
+          refresh_token: params.get('refresh_token'),
+          expires_at: Date.now() + (parseInt(params.get('expires_in')||'3600',10)*1000),
+        });
+        if (params.get('provider_token')) { localStorage.setItem('unialfa_provider_token', params.get('provider_token')); }
+        history.replaceState(null, '', location.pathname + location.search);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  async function sendMagicLink(email){
+    var r = await fetch(AUTH_BASE + '/otp', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, create_user: true }),
+    });
+    return r.ok;
+  }
+
+  async function fetchUser(){
+    var s = getSession();
+    if(!s || !s.access_token) return null;
+    if (s.expires_at && Date.now() > s.expires_at) { clearSession(); return null; }
+    var r = await fetch(AUTH_BASE + '/user', { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + s.access_token } });
+    if(!r.ok) { clearSession(); return null; }
+    return await r.json();
+  }
+
+  function authHeaders(extra){
+    var s = getSession();
+    var token = (s && s.access_token) ? s.access_token : SUPABASE_ANON_KEY;
+    var h = { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+    if (extra) for (var k in extra) h[k]=extra[k];
+    return h;
+  }
+
+  async function fetchProfile(userId){
+    var r = await fetch(REST_BASE + '/perfis?id=eq.' + userId + '&select=*', { headers: authHeaders() });
+    if(!r.ok) return null;
+    var rows = await r.json();
+    return rows[0] || null;
+  }
+
+  async function ensureProfile(user){
+    var p = await fetchProfile(user.id);
+    var meta = user.user_metadata || {};
+    var nome = meta.name || [meta.given_name, meta.family_name].filter(Boolean).join(' ') || null;
+    if(p){
+      if(nome && !p.nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + user.id, {
+          method: 'PATCH', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+          body: JSON.stringify({ nome: nome }),
+        });
+        p.nome = nome;
+      }
+      return p;
+    }
+    var pendente = null;
+    try{
+      var rPend = await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email) + '&select=*', { headers: authHeaders() });
+      if(rPend.ok){ var linhas = await rPend.json(); pendente = linhas[0] || null; }
+    }catch(e){}
+    await fetch(REST_BASE + '/perfis', {
+      method: 'POST', headers: authHeaders({ 'Prefer': 'return=minimal' }),
+      body: JSON.stringify({
+        id: user.id, email: user.email,
+        nome: (pendente && pendente.nome) || nome,
+        telefone: pendente ? pendente.telefone : null,
+        papel: (pendente && pendente.papel) || 'solicitante',
+      }),
+    });
+    if(pendente){
+      await fetch(REST_BASE + '/perfis_pendentes?email=eq.' + encodeURIComponent(user.email), { method: 'DELETE', headers: authHeaders() });
+    }
+    return await fetchProfile(user.id);
+  }
+
+  var PAPEL_LABEL = {
+    solicitante: 'Solicitante', gerente_projetos: 'Gerente de Projetos', gestor_responsavel: 'Gestor Responsável',
+    dono_negocio: 'Dono do Negócio', alta_gestao: 'Alta Gestão', admin: 'PMO / Admin',
+  };
+
+  async function tentarNomeViaGraph(profile){
+    var token = localStorage.getItem('unialfa_provider_token');
+    if(!token) return profile;
+    localStorage.removeItem('unialfa_provider_token');
+    if(!profile || profile.nome) return profile;
+    try{
+      var r = await fetch('https://graph.microsoft.com/v1.0/me', { headers: { 'Authorization': 'Bearer ' + token } });
+      if(!r.ok) return profile;
+      var me = await r.json();
+      var nome = me.displayName || [me.givenName, me.surname].filter(Boolean).join(' ');
+      if(nome){
+        await fetch(REST_BASE + '/perfis?id=eq.' + profile.id, {
+          method:'PATCH', headers: authHeaders({'Prefer':'return=minimal'}),
+          body: JSON.stringify({ nome: nome })
+        });
+        profile.nome = nome;
+      }
+    }catch(e){ console.warn('Nao foi possivel buscar nome via Microsoft Graph', e); }
+    return profile;
+  }
+
+  window.unialfaAuth = {
+    ANON_KEY: SUPABASE_ANON_KEY,
+    REST_BASE: REST_BASE,
+    AUTH_BASE: AUTH_BASE,
+    getSession: getSession, clearSession: clearSession, captureRedirect: captureRedirect,
+    sendMagicLink: sendMagicLink, fetchUser: fetchUser, authHeaders: authHeaders,
+    fetchProfile: fetchProfile, ensureProfile: ensureProfile, tentarNomeViaGraph: tentarNomeViaGraph,
+    papelLabel: function(p){ return PAPEL_LABEL[p]||p; },
+    signOut: function(){ clearSession(); location.reload(); },
+  };
+})();
+
+var unialfaAuthUI = {
+  sendLink: async function(){
+    var email = document.getElementById('authEmail').value.trim();
+    var msg = document.getElementById('authMsg');
+    if(!email || email.indexOf('@')<0){ msg.textContent='Digite um e-mail válido.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    var ok = await unialfaAuth.sendMagicLink(email);
+    if(ok){
+      document.getElementById('authStep1').style.display='none';
+      document.getElementById('authStep2').style.display='block';
+      document.getElementById('authEmailSent').textContent=email;
+    } else {
+      msg.textContent='Não foi possível enviar o link. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block';
+    }
+  },
+  signInWithAzure: function(){ location.href = unialfaAuth.AUTH_BASE + '/authorize?provider=azure&scopes=openid%20email%20profile%20User.Read'; },
+  reset: function(){
+    document.getElementById('authStep1').style.display='block';
+    document.getElementById('authStep2').style.display='none';
+    document.getElementById('authEmail').value='';
+  },
+  signInTreino: async function(){
+    var email = document.getElementById('treinoEmail').value.trim();
+    var senha = document.getElementById('treinoSenha').value;
+    var msg = document.getElementById('authMsg');
+    if(!email || !senha){ msg.textContent='Informe e-mail e senha de treinamento.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+    msg.style.display='none';
+    try{
+      var r = await fetch(unialfaAuth.AUTH_BASE + '/token?grant_type=password', { method:'POST', headers:{'Content-Type':'application/json','apikey':unialfaAuth.ANON_KEY}, body: JSON.stringify({email:email, password:senha}) });
+      var data = await r.json();
+      if(!r.ok || !data.access_token){ msg.textContent='E-mail ou senha inválidos.'; msg.className='auth-msg err'; msg.style.display='block'; return; }
+      localStorage.setItem('unialfa_session', JSON.stringify({ access_token:data.access_token, refresh_token:data.refresh_token, expires_at: Date.now() + (parseInt(data.expires_in||'3600',10)*1000) }));
+      location.reload();
+    }catch(e){ msg.textContent='Não foi possível entrar. Tente novamente.'; msg.className='auth-msg err'; msg.style.display='block'; }
+  },
+};
+
+window.currentUser = null;
+window.currentProfile = null;
+
+function ensureAuthenticated(){
+  return new Promise(function(resolve){
+    async function trySetup(){
+      var user = await unialfaAuth.fetchUser();
+      if(!user) return null;
+      var profile = await unialfaAuth.ensureProfile(user);
+      profile = await unialfaAuth.tentarNomeViaGraph(profile);
+      window.currentUser = user; window.currentProfile = profile;
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='none';
+      document.body.classList.add('auth-ready');
+      if(!document.querySelector('.auth-topbar')){
+        var bar = document.createElement('div');
+        bar.className='auth-topbar';
+        bar.innerHTML = '<span>Conectado como <b>'+ (user.email||'') +'</b></span><span class="papel-tag">'+unialfaAuth.papelLabel(profile?profile.papel:'solicitante')+'</span><button class="sair" onclick="unialfaAuth.signOut()">Sair</button>';
+        document.body.prepend(bar);
+      }
+      return {user:user, profile:profile};
+    }
+    (async function(){
+      unialfaAuth.captureRedirect();
+      var result = await trySetup();
+      if(result){ resolve(result); return; }
+      var gate = document.getElementById('authGate');
+      if(gate) gate.style.display='flex';
+      var iv = setInterval(async function(){
+        var r = await trySetup();
+        if(r){ clearInterval(iv); resolve(r); }
+      }, 3000);
+    })();
+  });
+}
+
+/* ---- Equipe por projeto ---- */
+window.unialfaEquipe = {
+  async listarTodosProjetos(){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projetos?select=id,nome,unidade,status&order=nome', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async listar(projetoId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&select=*&order=usuario_email', { headers: unialfaAuth.authHeaders() });
+    return r.ok ? await r.json() : [];
+  },
+  async adicionar(projetoId, usuarioId, usuarioEmail){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ projeto_id: projetoId, usuario_id: usuarioId, usuario_email: usuarioEmail, adicionado_por: window.currentUser?window.currentUser.id:null })
+    });
+    return r.ok;
+  },
+  async remover(projetoId, usuarioId){
+    var r = await fetch(unialfaAuth.REST_BASE + '/projeto_equipe?projeto_id=eq.'+projetoId+'&usuario_id=eq.'+usuarioId, {
+      method:'DELETE', headers: unialfaAuth.authHeaders()
+    });
+    return r.ok;
+  },
+};
+</script>
+
+<div class="wrap">
+  <div class="doc-head">
+    <div class="doc-band">
+      <div class="doc-logo"><img src="icons/logo-alfa.png" alt="ALFA" style="height:38px;display:block;background:#fff;border-radius:6px;padding:3px 8px"><small>GRUPO JOSÉ ALVES</small></div>
+      <div class="doc-title">
+        <h1>Administração de Usuários</h1>
+        <p>Controle de acesso · Papéis e permissões · Escritório de Projetos</p>
+      </div>
+      <a class="doc-help" href="15 - central-ajuda.html?v=11#administracao" target="_blank" rel="noopener" title="Ajuda sobre a Administração">?</a>
+    </div>
+  </div>
+
+  <div class="vtabs" id="vtabs" style="display:none">
+    <button class="vtab" aria-selected="true" onclick="showAba('usuarios')">Usuários</button>
+    <button class="vtab" aria-selected="false" onclick="showAba('equipes')">Equipes</button>
+    <button class="vtab" aria-selected="false" onclick="showAba('config')">Configurações</button>
+  </div>
+
+  <div class="card" id="content-card">
+    <div class="section-h"><h2>Usuários cadastrados</h2><p id="count-label"></p></div>
+    <div class="user-add" id="userAddRow">
+      <input type="text" id="novoNome" placeholder="Nome completo">
+      <input type="tel" id="novoTelefone" placeholder="Telefone (opcional)">
+      <input type="email" id="novoEmail" placeholder="E-mail institucional">
+      <select id="novoPapel"></select>
+      <button class="btn" onclick="adicionarUsuario()">+ Adicionar usuário</button>
+    </div>
+    <div id="content-body"><div class="empty">Carregando…</div></div>
+  </div>
+
+  <div class="card" id="equipes-card" style="display:none">
+    <div class="section-h"><h2>Equipe por projeto</h2><p>Quem pode criar/editar registros vinculados</p></div>
+    <div class="equipe-picker">
+      <select id="equipeProjetoSelect" onchange="carregarEquipe()">
+        <option value="">Selecione um projeto…</option>
+      </select>
+    </div>
+    <div class="equipe-add" id="equipeAddRow" style="display:none">
+      <select id="equipeUsuarioSelect"></select>
+      <button class="btn" onclick="adicionarMembro()">+ Adicionar à equipe</button>
+    </div>
+    <div id="equipe-body"><div class="empty">Selecione um projeto para ver a equipe.</div></div>
+  </div>
+
+  <div class="card" id="config-card" style="display:none">
+    <div class="section-h"><h2>Configurações do sistema</h2><p>Flags gerais, alteráveis só por Admin</p></div>
+    <div style="padding:20px 24px; display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap">
+      <div>
+        <b style="display:block; font-size:13px; margin-bottom:4px">Permitir enviar Solicitação de Demanda sem login</b>
+        <span style="font-size:12px; color:var(--muted)">Quando ativado, aparece a opção "Continuar sem login" na tela de entrada da Solicitação de Demanda — a pessoa informa nome e e-mail manualmente para registro.</span>
+      </div>
+      <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; flex:none">
+        <input type="checkbox" id="toggleSemLogin" onchange="alterarConfigSemLogin('permitir_solicitacao_sem_login', 'toggleSemLogin', this.checked)" style="width:38px; height:20px; cursor:pointer">
+      </label>
+    </div>
+    <div style="padding:20px 24px; display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap; border-top:1px solid var(--line)">
+      <div>
+        <b style="display:block; font-size:13px; margin-bottom:4px">Permitir enviar Ata de Reunião sem login</b>
+        <span style="font-size:12px; color:var(--muted)">Quando ativado, aparece a opção "Continuar sem login" na tela de entrada da Ata de Reunião — a pessoa informa nome e e-mail manualmente para registro.</span>
+      </div>
+      <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; flex:none">
+        <input type="checkbox" id="toggleAtaSemLogin" onchange="alterarConfigSemLogin('permitir_ata_sem_login', 'toggleAtaSemLogin', this.checked)" style="width:38px; height:20px; cursor:pointer">
+      </label>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid var(--line)">
+      <b style="display:block; font-size:13px; margin-bottom:4px">Quem pode ver o Painel Executivo</b>
+      <span style="font-size:12px; color:var(--muted); display:block; margin-bottom:10px">Marque os papéis que podem abrir esta página. PMO/Admin sempre tem acesso, mesmo sem estar marcado aqui.</span>
+      <div class="papeis-grupo" id="papeisPainelExecutivo" data-chave="papeis_painel_executivo"></div>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid var(--line)">
+      <b style="display:block; font-size:13px; margin-bottom:4px">Quem pode ver o Relatório de Situação de Projetos</b>
+      <span style="font-size:12px; color:var(--muted); display:block; margin-bottom:10px">Marque os papéis que podem abrir esta página. PMO/Admin sempre tem acesso, mesmo sem estar marcado aqui.</span>
+      <div class="papeis-grupo" id="papeisRelatorioSituacao" data-chave="papeis_relatorio_situacao"></div>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid var(--line)">
+      <b style="display:block; font-size:13px; margin-bottom:4px">Quem pode ver o Relatório de Entregas e Benefícios</b>
+      <span style="font-size:12px; color:var(--muted); display:block; margin-bottom:10px">Marque os papéis que podem abrir esta página. PMO/Admin sempre tem acesso, mesmo sem estar marcado aqui.</span>
+      <div class="papeis-grupo" id="papeisRelatorioEntregas" data-chave="papeis_relatorio_entregas"></div>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid var(--line)">
+      <b style="display:block; font-size:13px; margin-bottom:4px">Quem pode editar o Plano de Comunicação de Projeto</b>
+      <span style="font-size:12px; color:var(--muted); display:block; margin-bottom:10px">A visualização e impressão continuam abertas a qualquer usuário autenticado — isto controla só quem pode usar "Editar dados". PMO/Admin sempre tem acesso, mesmo sem estar marcado aqui.</span>
+      <div class="papeis-grupo" id="papeisPlanoComunicacao" data-chave="papeis_plano_comunicacao_editar"></div>
+    </div>
+    <div style="padding:20px 24px; display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap; border-top:1px solid var(--line)">
+      <div>
+        <b style="display:block; font-size:13px; margin-bottom:4px">Habilitar importação de transcrição por IA (Ata de Reunião)</b>
+        <span style="font-size:12px; color:var(--muted)">Quando ativado, aparece na Ata de Reunião a opção de colar a transcrição de uma reunião para a IA sugerir pauta, participantes, resumo, encaminhamentos e entraves. Cada análise tem um custo real de API — mantenha desativado se não for usar.</span>
+      </div>
+      <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; flex:none">
+        <input type="checkbox" id="toggleImportarIA" onchange="alterarConfigSemLogin('permitir_importar_transcricao_ata', 'toggleImportarIA', this.checked)" style="width:38px; height:20px; cursor:pointer">
+      </label>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid var(--line)">
+      <b style="display:block; font-size:13px; margin-bottom:4px">Quem pode importar transcrição na Ata de Reunião</b>
+      <span style="font-size:12px; color:var(--muted); display:block; margin-bottom:10px">Só tem efeito com a importação habilitada acima. PMO/Admin sempre tem acesso, mesmo sem estar marcado aqui.</span>
+      <div class="papeis-grupo" id="papeisImportarIA" data-chave="papeis_importar_transcricao_ata"></div>
+    </div>
+    <div style="padding:20px 24px; display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap; border-top:1px solid var(--line)">
+      <div>
+        <b style="display:block; font-size:13px; margin-bottom:4px">Habilitar importação de áudio por IA (Ata de Reunião)</b>
+        <span style="font-size:12px; color:var(--muted)">Quando ativado (e com a importação de transcrição acima também ligada), aparece a opção de anexar a gravação da reunião (.mp3, .m4a, .aac, .wav, .ogg…) para transcrição automática. Regra independente da importação por texto acima — tem custo real de API próprio.</span>
+      </div>
+      <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; flex:none">
+        <input type="checkbox" id="toggleImportarAudio" onchange="alterarConfigSemLogin('permitir_importar_audio_ata', 'toggleImportarAudio', this.checked)" style="width:38px; height:20px; cursor:pointer">
+      </label>
+    </div>
+    <div style="padding:20px 24px; border-top:1px solid var(--line)">
+      <b style="display:block; font-size:13px; margin-bottom:4px">Quem pode importar áudio na Ata de Reunião</b>
+      <span style="font-size:12px; color:var(--muted); display:block; margin-bottom:10px">Só tem efeito com a importação de áudio habilitada acima. PMO/Admin sempre tem acesso, mesmo sem estar marcado aqui.</span>
+      <div class="papeis-grupo" id="papeisImportarAudio" data-chave="papeis_importar_audio_ata"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="dot"></span><span id="toast-msg"></span></div>
+
+<script>
+const PAPEIS=['solicitante','gerente_projetos','gestor_responsavel','dono_negocio','alta_gestao','admin'];
+
+function toast(msg, ok=true){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-msg').textContent=msg;
+  t.classList.toggle('ok', ok); t.classList.add('show');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3200);
+}
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+let todosUsuarios=[];
+let usuariosPendentes=[];
+
+async function carregarUsuarios(){
+  const body=document.getElementById('content-body');
+  const [r, rPend]=await Promise.all([
+    fetch(unialfaAuth.REST_BASE+'/perfis?select=*&order=email', { headers: unialfaAuth.authHeaders() }),
+    fetch(unialfaAuth.REST_BASE+'/perfis_pendentes?select=*&order=email', { headers: unialfaAuth.authHeaders() }),
+  ]);
+  const rows = r.ok ? await r.json() : [];
+  const pend = rPend.ok ? await rPend.json() : [];
+  todosUsuarios = rows;
+  usuariosPendentes = pend;
+  document.getElementById('count-label').textContent = rows.length+' usuário(s)'+(pend.length?' · '+pend.length+' pré-cadastro(s) pendente(s)':'');
+  if(!rows.length && !pend.length){ body.innerHTML='<div class="empty">Nenhum usuário cadastrado ainda. Use "+ Adicionar usuário" acima ou aguarde o primeiro login via link mágico.</div>'; return; }
+  let html='<table><thead><tr><th>E-mail</th><th>Nome</th><th>Telefone</th><th>Papel atual</th><th>Alterar papel</th><th></th></tr></thead><tbody>';
+  rows.forEach(u=>{
+    html+=`<tr>
+      <td><b>${esc(u.email)}</b>${u.id===window.currentUser.id?'<small>Você</small>':''}</td>
+      <td>${esc(u.nome)||'—'}</td>
+      <td><input class="tel-input" type="tel" value="${esc(u.telefone)||''}" placeholder="—" onblur="alterarTelefone('${u.id}', this.value, this)"></td>
+      <td><span class="role-tag ${u.papel==='admin'?'admin':''}">${esc(unialfaAuth.papelLabel(u.papel))}</span></td>
+      <td><select onchange="alterarPapel('${u.id}', this.value, this)">
+        ${PAPEIS.map(p=>`<option value="${p}" ${p===u.papel?'selected':''}>${unialfaAuth.papelLabel(p)}</option>`).join('')}
+      </select></td>
+      <td>${u.id===window.currentUser.id?'':`<button class="btn-remove" onclick="removerUsuario('${u.id}','${esc(u.email)}', this)">Remover</button>`}</td>
+    </tr>`;
+  });
+  pend.forEach(u=>{
+    html+=`<tr style="opacity:.8">
+      <td><b>${esc(u.email)}</b><br><span class="pending-tag">Pendente — 1º login</span></td>
+      <td>${esc(u.nome)||'—'}</td>
+      <td><input class="tel-input" type="tel" value="${esc(u.telefone)||''}" placeholder="—" onblur="alterarTelefonePendente('${esc(u.email)}', this.value, this)"></td>
+      <td><span class="role-tag ${u.papel==='admin'?'admin':''}">${esc(unialfaAuth.papelLabel(u.papel))}</span></td>
+      <td><select onchange="alterarPapelPendente('${esc(u.email)}', this.value, this)">
+        ${PAPEIS.map(p=>`<option value="${p}" ${p===u.papel?'selected':''}>${unialfaAuth.papelLabel(p)}</option>`).join('')}
+      </select></td>
+      <td><button class="btn-remove" onclick="removerPendente('${esc(u.email)}')">Remover</button></td>
+    </tr>`;
+  });
+  html+='</tbody></table>';
+  body.innerHTML=html;
+}
+
+async function alterarPapel(userId, novoPapel, selectEl){
+  selectEl.disabled=true;
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/perfis?id=eq.'+userId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ papel: novoPapel })
+    });
+    if(!r.ok) throw new Error();
+    toast('Papel atualizado para "'+unialfaAuth.papelLabel(novoPapel)+'"');
+    await carregarUsuarios();
+  }catch(e){
+    toast('Não foi possível atualizar o papel. Verifique se você ainda tem permissão de administrador.', false);
+  }finally{
+    selectEl.disabled=false;
+  }
+}
+
+async function alterarTelefone(userId, novoTelefone, inputEl){
+  inputEl.disabled=true;
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/perfis?id=eq.'+userId, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ telefone: novoTelefone.trim()||null })
+    });
+    if(!r.ok) throw new Error();
+    toast('Telefone atualizado');
+  }catch(e){
+    toast('Não foi possível atualizar o telefone', false);
+  }finally{
+    inputEl.disabled=false;
+  }
+}
+
+async function alterarTelefonePendente(email, novoTelefone, inputEl){
+  inputEl.disabled=true;
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/perfis_pendentes?email=eq.'+encodeURIComponent(email), {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ telefone: novoTelefone.trim()||null })
+    });
+    if(!r.ok) throw new Error();
+    toast('Telefone atualizado');
+  }catch(e){
+    toast('Não foi possível atualizar o telefone', false);
+  }finally{
+    inputEl.disabled=false;
+  }
+}
+
+async function alterarPapelPendente(email, novoPapel, selectEl){
+  selectEl.disabled=true;
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/perfis_pendentes?email=eq.'+encodeURIComponent(email), {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ papel: novoPapel })
+    });
+    if(!r.ok) throw new Error();
+    toast('Papel do pré-cadastro atualizado para "'+unialfaAuth.papelLabel(novoPapel)+'"');
+  }catch(e){
+    toast('Não foi possível atualizar o papel', false);
+  }finally{
+    selectEl.disabled=false;
+  }
+}
+
+async function removerPendente(email){
+  if(!confirm('Remover este pré-cadastro? A pessoa deixará de ter nome/telefone/papel pré-definidos ao logar pela primeira vez.')) return;
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/perfis_pendentes?email=eq.'+encodeURIComponent(email), {
+      method:'DELETE', headers: unialfaAuth.authHeaders()
+    });
+    if(!r.ok) throw new Error();
+    toast('Pré-cadastro removido');
+    await carregarUsuarios();
+  }catch(e){
+    toast('Não foi possível remover', false);
+  }
+}
+
+const FORM_LABELS={
+  demanda:'Solicitação de Demanda', canvas:'Canvas de Projeto', tap:'TAP - Termo de Abertura de Projeto',
+  plan:'Planejamento e Desenvolvimento de Projeto', eap:'EAP - Estrutura Analítica de Projeto',
+  smp:'SMP - Solicitação de Mudança de Projeto', ata:'Ata de Reunião',
+  tep:'TEP - Termo de Encerramento de Projeto', rla:'RLA - Registro de Lições Aprendidas',
+};
+
+async function verificarVinculosUsuario(usuario){
+  const motivos=[];
+  const [rEquipe, rProjetos, rKv]=await Promise.all([
+    fetch(unialfaAuth.REST_BASE+'/projeto_equipe?usuario_id=eq.'+usuario.id+'&select=projeto_id', { headers: unialfaAuth.authHeaders() }),
+    fetch(unialfaAuth.REST_BASE+'/projetos?criado_por=eq.'+usuario.id+'&select=id,nome', { headers: unialfaAuth.authHeaders() }),
+    fetch(unialfaAuth.REST_BASE+'/kv_store?select=key,value', { headers: unialfaAuth.authHeaders() }),
+  ]);
+
+  const equipe = rEquipe.ok ? await rEquipe.json() : [];
+  if(equipe.length) motivos.push('É membro da equipe de '+equipe.length+' projeto(s).');
+
+  const projetosCriados = rProjetos.ok ? await rProjetos.json() : [];
+  if(projetosCriados.length) motivos.push('Criou o(s) projeto(s): '+projetosCriados.map(p=>p.nome).join(', ')+'.');
+
+  const kvRows = rKv.ok ? await rKv.json() : [];
+  const formsEncontrados = new Set();
+  kvRows.forEach(row=>{
+    try{
+      const v = JSON.parse(row.value);
+      if(v && v.criadoPorEmail && String(v.criadoPorEmail).toLowerCase()===usuario.email.toLowerCase()){
+        const prefixo = row.key.split(':')[0];
+        formsEncontrados.add(FORM_LABELS[prefixo] || prefixo);
+      }
+    }catch(e){}
+  });
+  if(formsEncontrados.size) motivos.push('Tem registro criado em: '+[...formsEncontrados].join(', ')+'.');
+
+  return motivos;
+}
+
+async function removerUsuario(id, email, btnEl){
+  btnEl.disabled=true;
+  try{
+    const motivos = await verificarVinculosUsuario({ id, email });
+    if(motivos.length){
+      alert('Não é possível remover '+email+':\n\n- '+motivos.join('\n- '));
+      return;
+    }
+    if(!confirm('Remover '+email+' do sistema?\n\nA pessoa não tem equipe, projeto nem registro vinculado. Se ela fizer login de novo depois, o perfil é recriado do zero (papel Solicitante).')) return;
+    const r=await fetch(unialfaAuth.REST_BASE+'/perfis?id=eq.'+id, { method:'DELETE', headers: unialfaAuth.authHeaders() });
+    if(!r.ok) throw new Error();
+    toast('Usuário removido');
+    await carregarUsuarios();
+  }catch(e){
+    toast('Não foi possível remover o usuário', false);
+  }finally{
+    btnEl.disabled=false;
+  }
+}
+
+async function adicionarUsuario(){
+  const nome=document.getElementById('novoNome').value.trim();
+  const telefone=document.getElementById('novoTelefone').value.trim();
+  const email=document.getElementById('novoEmail').value.trim().toLowerCase();
+  const papel=document.getElementById('novoPapel').value;
+  if(!email || email.indexOf('@')<0){ toast('Informe um e-mail válido', false); return; }
+  if(todosUsuarios.some(u=>u.email.toLowerCase()===email)){ toast('Este e-mail já tem uma conta ativa', false); return; }
+  if(usuariosPendentes.some(u=>u.email.toLowerCase()===email)){ toast('Este e-mail já está pré-cadastrado', false); return; }
+  const btn=document.querySelector('#userAddRow .btn');
+  btn.disabled=true;
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/perfis_pendentes', {
+      method:'POST', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ email: email, nome: nome||null, telefone: telefone||null, papel: papel, criado_por: window.currentUser.id })
+    });
+    if(!r.ok) throw new Error();
+    toast('Pré-cadastro criado — os dados se aplicam no primeiro login de '+email);
+    document.getElementById('novoNome').value='';
+    document.getElementById('novoTelefone').value='';
+    document.getElementById('novoEmail').value='';
+    document.getElementById('novoPapel').value='solicitante';
+    await carregarUsuarios();
+  }catch(e){
+    toast('Não foi possível criar o pré-cadastro', false);
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+function showAba(aba){
+  document.getElementById('content-card').style.display = aba==='usuarios' ? 'block' : 'none';
+  document.getElementById('equipes-card').style.display = aba==='equipes' ? 'block' : 'none';
+  document.getElementById('config-card').style.display = aba==='config' ? 'block' : 'none';
+  document.querySelectorAll('.vtab').forEach((b,i)=>b.setAttribute('aria-selected', (aba==='usuarios'&&i===0)||(aba==='equipes'&&i===1)||(aba==='config'&&i===2)));
+  if(aba==='config'){
+    carregarConfigSemLogin('permitir_solicitacao_sem_login', 'toggleSemLogin');
+    carregarConfigSemLogin('permitir_ata_sem_login', 'toggleAtaSemLogin');
+    carregarConfigPapeis('papeis_painel_executivo', 'papeisPainelExecutivo');
+    carregarConfigPapeis('papeis_relatorio_situacao', 'papeisRelatorioSituacao');
+    carregarConfigPapeis('papeis_relatorio_entregas', 'papeisRelatorioEntregas');
+    carregarConfigPapeis('papeis_plano_comunicacao_editar', 'papeisPlanoComunicacao');
+    carregarConfigSemLogin('permitir_importar_transcricao_ata', 'toggleImportarIA');
+    carregarConfigPapeis('papeis_importar_transcricao_ata', 'papeisImportarIA');
+    carregarConfigSemLogin('permitir_importar_audio_ata', 'toggleImportarAudio');
+    carregarConfigPapeis('papeis_importar_audio_ata', 'papeisImportarAudio');
+  }
+}
+
+function renderGrupoPapeis(elId, selecionados){
+  const el=document.getElementById(elId);
+  const chave=el.dataset.chave;
+  el.innerHTML = PAPEIS.map(p=>{
+    const marcado = selecionados.includes(p);
+    return `<label class="papel-chip ${marcado?'marcado':''}">
+      <input type="checkbox" value="${p}" ${marcado?'checked':''} onchange="alterarConfigPapeis('${chave}','${elId}')">
+      ${unialfaAuth.papelLabel(p)}
+    </label>`;
+  }).join('');
+}
+
+async function carregarConfigPapeis(chave, elId){
+  const r=await fetch(unialfaAuth.REST_BASE+'/configuracoes?chave=eq.'+chave+'&select=valor', { headers: unialfaAuth.authHeaders() });
+  const rows = r.ok ? await r.json() : [];
+  const selecionados = (rows[0] && Array.isArray(rows[0].valor)) ? rows[0].valor : [];
+  renderGrupoPapeis(elId, selecionados);
+}
+
+async function alterarConfigPapeis(chave, elId){
+  const el=document.getElementById(elId);
+  const selecionados = Array.from(el.querySelectorAll('input[type=checkbox]:checked')).map(cb=>cb.value);
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/configuracoes?chave=eq.'+chave, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ valor: selecionados, atualizado_em: new Date().toISOString() })
+    });
+    if(!r.ok) throw new Error();
+    toast('Permissão de visualização atualizada');
+    renderGrupoPapeis(elId, selecionados);
+  }catch(e){
+    toast('Não foi possível salvar', false);
+    await carregarConfigPapeis(chave, elId);
+  }
+}
+
+async function carregarConfigSemLogin(chave, elId){
+  const r=await fetch(unialfaAuth.REST_BASE+'/configuracoes?chave=eq.'+chave+'&select=valor', { headers: unialfaAuth.authHeaders() });
+  const rows = r.ok ? await r.json() : [];
+  document.getElementById(elId).checked = !!(rows[0] && rows[0].valor===true);
+}
+
+async function alterarConfigSemLogin(chave, elId, ativo){
+  try{
+    const r=await fetch(unialfaAuth.REST_BASE+'/configuracoes?chave=eq.'+chave, {
+      method:'PATCH', headers: unialfaAuth.authHeaders({'Prefer':'return=minimal'}),
+      body: JSON.stringify({ valor: ativo, atualizado_em: new Date().toISOString() })
+    });
+    if(!r.ok) throw new Error();
+    toast(ativo ? 'Opção "sem login" ativada' : 'Opção "sem login" desativada');
+  }catch(e){
+    toast('Não foi possível salvar a configuração', false);
+    document.getElementById(elId).checked = !ativo;
+  }
+}
+
+async function carregarProjetosEquipe(){
+  const projetos = await unialfaEquipe.listarTodosProjetos();
+  const sel=document.getElementById('equipeProjetoSelect');
+  sel.innerHTML='<option value="">Selecione um projeto…</option>' +
+    projetos.map(p=>`<option value="${p.id}">${esc(p.nome)} (${esc(p.status)})</option>`).join('');
+}
+
+async function carregarEquipe(){
+  const projetoId=document.getElementById('equipeProjetoSelect').value;
+  const addRow=document.getElementById('equipeAddRow');
+  const body=document.getElementById('equipe-body');
+  if(!projetoId){ addRow.style.display='none'; body.innerHTML='<div class="empty">Selecione um projeto para ver a equipe.</div>'; return; }
+  addRow.style.display='flex';
+  const membros = await unialfaEquipe.listar(projetoId);
+  const usuarioSel=document.getElementById('equipeUsuarioSelect');
+  const jaNaEquipe = new Set(membros.map(m=>m.usuario_id));
+  const disponiveis = todosUsuarios.filter(u=>!jaNaEquipe.has(u.id));
+  usuarioSel.innerHTML = disponiveis.length
+    ? disponiveis.map(u=>`<option value="${u.id}" data-email="${esc(u.email)}">${esc(u.email)} — ${esc(unialfaAuth.papelLabel(u.papel))}</option>`).join('')
+    : '<option value="">Todos os usuários já estão na equipe</option>';
+  if(!membros.length){ body.innerHTML='<div class="empty">Nenhum membro nesta equipe ainda.</div>'; return; }
+  let html='<table><thead><tr><th>E-mail</th><th>Adicionado em</th><th></th></tr></thead><tbody>';
+  membros.forEach(m=>{
+    const d=new Date(m.criado_em);
+    html+=`<tr><td><b>${esc(m.usuario_email)}</b></td><td>${d.toLocaleDateString('pt-BR')}</td>
+      <td><button class="btn-remove" onclick="removerMembro('${projetoId}','${m.usuario_id}')">Remover</button></td></tr>`;
+  });
+  html+='</tbody></table>';
+  body.innerHTML=html;
+}
+
+async function adicionarMembro(){
+  const projetoId=document.getElementById('equipeProjetoSelect').value; if(!projetoId) return;
+  const sel=document.getElementById('equipeUsuarioSelect');
+  const opt=sel.options[sel.selectedIndex];
+  if(!opt || !opt.value){ toast('Nenhum usuário disponível para adicionar', false); return; }
+  const ok = await unialfaEquipe.adicionar(projetoId, opt.value, opt.dataset.email);
+  if(ok){ toast('Membro adicionado à equipe'); await carregarEquipe(); }
+  else toast('Não foi possível adicionar', false);
+}
+
+async function removerMembro(projetoId, usuarioId){
+  if(!confirm('Remover esta pessoa da equipe do projeto?')) return;
+  const ok = await unialfaEquipe.remover(projetoId, usuarioId);
+  if(ok){ toast('Membro removido'); await carregarEquipe(); }
+  else toast('Não foi possível remover', false);
+}
+
+(async()=>{
+  await ensureAuthenticated();
+  if(!window.currentProfile || window.currentProfile.papel!=='admin'){
+    document.getElementById('content-card').querySelector('.section-h p').textContent='';
+    document.getElementById('content-body').innerHTML=`<div class="denied">
+      <h2>Acesso restrito</h2>
+      <p>Esta página é exclusiva para usuários com papel <b>PMO / Admin</b>. Seu papel atual é "${esc(unialfaAuth.papelLabel(window.currentProfile?window.currentProfile.papel:'solicitante'))}". Solicite a um administrador para alterar seu acesso.</p>
+    </div>`;
+    return;
+  }
+  document.getElementById('vtabs').style.display='flex';
+  document.getElementById('novoPapel').innerHTML = PAPEIS.map(p=>`<option value="${p}">${unialfaAuth.papelLabel(p)}</option>`).join('');
+  await carregarUsuarios();
+  await carregarProjetosEquipe();
+})();
+</script>
