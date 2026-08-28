@@ -1,3 +1,20 @@
+# Documentos-fonte institucionais — não fazem parte do app web, ficam só locais
+*.docx
+*.doc
+*.DOC
 *.pdf
 *.pptx
 *.xlsx
+*.jpg
+*.jpeg
+*.png
+
+# Exceção: documento oficial e versionado de regras de acesso do sistema (ver CLAUDE.md)
+!Regras de Acesso e Permissoes - Sistema UNIALFA.docx
+
+# Exceção: manual de uso da ferramenta, versionado a pedido do usuário
+!Manual de Uso - Ferramenta de Gestao de Projetos.docx
+
+# Exceção: ícones do app (PWA/manifest, notificações push) — fazem parte do app web
+!icons/
+!icons/*.png
