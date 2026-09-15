@@ -93,6 +93,9 @@
           <a class="nav-item" href="16 - painel-executivo.html" target="_blank" rel="noopener">
             <span class="tag">▤</span><span class="lbl">Painel Executivo</span>
           </a>
+          <a class="nav-item" href="19 - painel-prazos.html" target="_blank" rel="noopener">
+            <span class="tag">⏱</span><span class="lbl">Painel de Prazos</span>
+          </a>
           <a class="nav-item" href="17 - relatorio-resultados.html" target="_blank" rel="noopener">
             <span class="tag">◆</span><span class="lbl">Relatório de Resultados</span>
           </a>
