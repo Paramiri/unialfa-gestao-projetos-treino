@@ -1810,8 +1810,11 @@ function renderEditor(){
 function buildGovRow(item,idx,removeFn){
   const row=document.createElement('div');
   row.style.cssText='display:flex;gap:8px;align-items:center;margin-bottom:6px;flex-wrap:wrap';
+  const emailsConta=(window.__todosUsuariosEmails||[]).slice();
+  if(item.respConta && !emailsConta.includes(item.respConta)) emailsConta.push(item.respConta);
   row.innerHTML=`<input style="flex:3;min-width:200px" placeholder="Descrição" value="${esc(item.desc||'')}">
     <input style="flex:1;min-width:130px" placeholder="Responsável" value="${esc(item.resp||'')}">
+    <select style="flex:1;min-width:150px" title="Responsável (conta)"><option value="">Responsável (conta) —</option>${emailsConta.map(e=>`<option ${item.respConta===e?'selected':''}>${esc(e)}</option>`).join('')}</select>
     <input style="flex:1;min-width:110px" placeholder="Prazo dd/mm/aaaa" value="${esc(item.prazo||'')}">
     <select style="flex:1;min-width:120px">${GOV_STATUS_OPTS.map(s=>`<option ${item.status===s?'selected':''}>${s}</option>`).join('')}</select>
     <input style="flex:2;min-width:180px" placeholder="Por quê? (causa)" value="${esc(item.porque||'')}">
@@ -1819,7 +1822,7 @@ function buildGovRow(item,idx,removeFn){
     <button class="btn btn-sm btn-ghost" style="color:var(--bad);flex:none" onclick="${removeFn}(${idx})">×</button>`;
   row.querySelectorAll('input,select').forEach((el,j)=>{
     el.addEventListener('input',()=>{
-      const keys=['desc','resp','prazo','status','porque','resultadoEsperado'];
+      const keys=['desc','resp','respConta','prazo','status','porque','resultadoEsperado'];
       item[keys[j]]=el.value;
     });
   });
@@ -1834,7 +1837,7 @@ function renderEntravesEditor(){
 }
 function addEntrave(){
   if(!data.entraves) data.entraves=[];
-  data.entraves.push({id:novoId(),desc:'',resp:'',prazo:'',status:'Aberto',porque:'',resultadoEsperado:''});
+  data.entraves.push({id:novoId(),desc:'',resp:'',respConta:'',prazo:'',status:'Aberto',porque:'',resultadoEsperado:''});
   renderEntravesEditor();
 }
 function removeEntrave(i){data.entraves.splice(i,1);renderEntravesEditor();}
@@ -1848,7 +1851,7 @@ function renderEncaminhamentosEditor(){
 }
 function addEncaminhamento(){
   if(!data.encaminhamentos) data.encaminhamentos=[];
-  data.encaminhamentos.push({id:novoId(),desc:'',resp:'',prazo:'',status:'Aberto',porque:'',resultadoEsperado:''});
+  data.encaminhamentos.push({id:novoId(),desc:'',resp:'',respConta:'',prazo:'',status:'Aberto',porque:'',resultadoEsperado:''});
   renderEncaminhamentosEditor();
 }
 function removeEncaminhamento(i){data.encaminhamentos.splice(i,1);renderEncaminhamentosEditor();}
@@ -2366,6 +2369,10 @@ async function papelPermitido(chave){
 
 (async()=>{
   await ensureAuthenticated();
+  try{
+    const rUsuarios = await fetch(unialfaAuth.REST_BASE+'/rpc/listar_emails_usuarios', { method:'POST', headers: unialfaAuth.authHeaders(), body: JSON.stringify({}) });
+    window.__todosUsuariosEmails = rUsuarios.ok ? (await rUsuarios.json()).map(u=>u.email).filter(Boolean) : [];
+  }catch(e){ window.__todosUsuariosEmails = []; }
   if(!(await papelPermitido('papeis_relatorio_situacao'))){
     document.getElementById('deniedMsg').textContent = 'Esta página não está liberada para o seu papel atual ("'+unialfaAuth.papelLabel(window.currentProfile?window.currentProfile.papel:'solicitante')+'"). Solicite a um administrador para ajustar quem pode ver esta página em Administração > Configurações.';
     document.getElementById('deniedBox').style.display = 'block';
