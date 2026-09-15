@@ -1511,7 +1511,7 @@ async function garantirIdsPersistidos(d, updatedAtAtual){
   try{
     const r=await window.storage.set(KEY,JSON.stringify(d),updatedAtAtual);
     return r&&r.updatedAt?r.updatedAt:updatedAtAtual;
-  }catch(e){ console.error('[DIAG] garantirIdsPersistidos falhou', e.kind, e.status, e.body, e.message); return updatedAtAtual; }
+  }catch(e){ return updatedAtAtual; }
 }
 async function loadData(){
   try{const r=await window.storage.get(KEY);if(r&&r.value){data=JSON.parse(r.value);}dataBaseUpdatedAt=r?r.updatedAt:null;}catch(e){console.warn(e);}
