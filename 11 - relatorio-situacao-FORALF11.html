@@ -1481,18 +1481,24 @@ async function showView(v){
 
 /* ── storage ── */
 function novoId(){ return 'g_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+// Identidade estável (id) para comparar o mesmo item entre versões salvas (Relatório de Resultados) e para mesclar
+// edições concorrentes por item (edição simultânea). Backfill: itens salvos antes dessas mudanças ainda não têm id.
+// Chamada tanto no carregamento inicial (loadData) quanto ao entrar em modo de edição (entrarModoEdicao, que faz seu
+// próprio fetch direto do servidor) — sem isso nos dois lugares, um item sem id vira `undefined` na chave de merge de
+// mesclarLista() e todos os itens de uma lista colapsam num só ao salvar (bug real encontrado e corrigido em 16/09/2026).
+function backfillIds(d){
+  if(!d.projetos) d.projetos=[];
+  if(!d.entraves) d.entraves=[];
+  if(!d.encaminhamentos) d.encaminhamentos=[];
+  if(!d.resultados) d.resultados=[];
+  d.projetos.forEach(function(it){ if(!it.id) it.id=novoId(); });
+  d.entraves.forEach(function(it){ if(!it.id) it.id=novoId(); });
+  d.encaminhamentos.forEach(function(it){ if(!it.id) it.id=novoId(); });
+  d.resultados.forEach(function(it){ if(!it.id) it.id=novoId(); });
+}
 async function loadData(){
   try{const r=await window.storage.get(KEY);if(r&&r.value){data=JSON.parse(r.value);}dataBaseUpdatedAt=r?r.updatedAt:null;}catch(e){console.warn(e);}
-  if(!data.projetos) data.projetos=[];
-  if(!data.entraves) data.entraves=[];
-  if(!data.encaminhamentos) data.encaminhamentos=[];
-  if(!data.resultados) data.resultados=[];
-  // Identidade estável (id) para comparar o mesmo item entre versões salvas (Relatório de Resultados) e para mesclar
-  // edições concorrentes por item (edição simultânea). Backfill: itens salvos antes desta mudança ainda não têm id.
-  data.projetos.forEach(function(it){ if(!it.id) it.id=novoId(); });
-  data.entraves.forEach(function(it){ if(!it.id) it.id=novoId(); });
-  data.encaminhamentos.forEach(function(it){ if(!it.id) it.id=novoId(); });
-  data.resultados.forEach(function(it){ if(!it.id) it.id=novoId(); });
+  backfillIds(data);
 }
 
 /* ---------- edição simultânea: mesclagem por item (em vez de bloquear o relatório inteiro) ---------- */
@@ -1532,10 +1538,7 @@ async function entrarModoEdicao(){
     const fresh=await window.storage.get(KEY);
     if(fresh&&fresh.value){
       const freshData=JSON.parse(fresh.value);
-      if(!freshData.projetos) freshData.projetos=[];
-      if(!freshData.entraves) freshData.entraves=[];
-      if(!freshData.encaminhamentos) freshData.encaminhamentos=[];
-      if(!freshData.resultados) freshData.resultados=[];
+      backfillIds(freshData);
       data=freshData;
       dataBaseUpdatedAt=fresh.updatedAt;
     }
@@ -1556,6 +1559,7 @@ async function saveData(){
     }
     const fresh=await window.storage.get(KEY);
     const freshData=(fresh&&fresh.value)?JSON.parse(fresh.value):{ref:'',resp:'',fin:'',entr:'',projetos:[],entraves:[],encaminhamentos:[],resultados:[]};
+    backfillIds(freshData);
     if(camposMudaram(dataBaseline,freshData,RELSIT_HEADER_FIELDS)){
       toast(mensagemErroSalvar({kind:'conflict'}));
       return false;
